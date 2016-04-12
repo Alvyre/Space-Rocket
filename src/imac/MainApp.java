@@ -1,6 +1,9 @@
 package imac;
 
+//Import lib Processing
 import processing.core.*;
+
+//Import lib MIDI
 import themidibus.*;
 
 public class MainApp extends PApplet {
