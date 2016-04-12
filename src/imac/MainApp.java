@@ -9,7 +9,7 @@ import themidibus.*;
 public class MainApp extends PApplet {
 
 	  public static void main(String[] args){
-	    String[] pArgs = {"MyPapplet "};
+	    String[] pArgs = {"Rocket Space "};
 	    MainApp mp = new MainApp ();
 	    PApplet.runSketch(pArgs, mp);
 	  }
