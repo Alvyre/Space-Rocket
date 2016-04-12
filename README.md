@@ -1,6 +1,6 @@
 # Space Rocket
 
-Java project realized in IMAC Engineering School, in April and May 2016. It works on Eclipse and Processing.
+Java project realized in IMAC Engineering School, in April and May 2016. It works on Eclipse with Processing.
 
 **Supported OS :**
 
@@ -13,21 +13,28 @@ Java project realized in IMAC Engineering School, in April and May 2016. It work
 
 	git clone https://github.com/Arctic76/Space-Rocket.git
 	
-#### Copy and paste Processing Core lib
+#### Download and copy / paste lib files
 
-- core.jar
-- gluegen-rt-natives-windows-amd64.jar
-- gluegen-rt-natives-windows-i586.jar
-- gluegen-rt.jar
-- jogl-all-natives-windows-amd64.jar
-- jogl-all-natives-windows-i586.jar
-- jogl-all.jar
+- Go to [Drive](https://www.eclipse.org/downloads/)
+- Go to your good OS folder
+- Download all files
+- Put them in the `lib` project folder 
 
-## Create a new Java Project
+#### Create a Eclipse project
+
+- Open Eclipse
+- **Create** a new Java Project
+- Do not use default location and **browse** the git project Space-Rocket
+- Click on Next and **verify** if all library files have been imported
+- Finish
+
+#### Play
+
+- **Connect** your MIDI controller and your Leap Motion
+- **Run** the project on Eclipse
+- **Have fun**
 	
 ## Prior installation
 
-- Download the last release of [Processing](https://processing.org/download/?processing)
-
-- Download [Eclipse](https://www.eclipse.org/downloads/)
+You have to download [Eclipse](https://www.eclipse.org/downloads/) and buy a [Leap Motion](https://www.leapmotion.com/).
 
