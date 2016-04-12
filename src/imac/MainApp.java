@@ -6,6 +6,8 @@ import processing.core.*;
 //Import lib MIDI
 import themidibus.*;
 
+import com.leapmotion.leap.*;
+
 public class MainApp extends PApplet {
 
 	  public static void main(String[] args){
