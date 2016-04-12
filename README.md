@@ -18,7 +18,7 @@ Java project realized in IMAC Engineering School, in April and May 2016. It work
 - Go to [Drive](https://www.eclipse.org/downloads/)
 - Go to your good OS folder
 - Download all files
-- Put them in the `lib` project folder 
+- Put them in the `processing` folder in `lib` project folder
 
 #### Create a Eclipse project
 
