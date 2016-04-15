@@ -13,9 +13,7 @@ public class Engine extends PApplet {
 	float cc[] = new float[256]; //Knob arrays
 	int tn[] = new int[256];	 //Pad array
 	
-	PShape spider;   //Object
-	float theta1;    //Rotation X
-	float theta2;    //Rotation Y
+	Object3D spider; //Object
 	
 	
 	@Override
@@ -26,25 +24,16 @@ public class Engine extends PApplet {
 		MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
 	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
 	    
-	    this.spider = loadShape("./assets/models/spider.obj");
-	    this.theta1 = 0;
-		this.theta2 = 0;
+	    this.spider = new Object3D("./assets/models/spider.obj");
+	    
 	}
 	
 	@Override
 	public void draw() {
 		background(220);
-		this.theta1 += cc[10]*tn[44];
-        this.theta2 += cc[114]*tn[36];
-        
-        this.spider.setFill(color(cc[18], cc[19], cc[16]));
-
-        pushMatrix();
-        translate(this.cc[74], this.cc[71], 0);
-        rotateY(this.theta1);
-        rotateX(this.theta2);
-        shape(this.spider, 10, 10);
-        popMatrix();
+		//this.theta1 += cc[10]*tn[44];
+        //this.theta2 += cc[114]*tn[36];
+		this.spider.draw();
     }
 	
 	public void controllerChange(int channel, int number, int value){
