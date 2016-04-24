@@ -19,21 +19,19 @@ public class Engine extends PApplet {
 	@Override
 	public void setup(){
 		
-		//fullScreen(P3D);
-		
 		MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
 	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
 	    
-	    this.spider = new Object3D("./assets/models/spider.obj");
+	    this.spider = new Object3D(this, "./assets/models/spider.obj");
 	    
 	}
 	
 	@Override
 	public void draw() {
 		background(220);
-		//this.theta1 += cc[10]*tn[44];
-        //this.theta2 += cc[114]*tn[36];
-		this.spider.draw();
+		this.spider.setRotation(cc[10]*tn[44], cc[114]*tn[36]);
+		this.spider.setPosition(cc[74], cc[71], 0);
+		this.spider.display();
     }
 	
 	public void controllerChange(int channel, int number, int value){
