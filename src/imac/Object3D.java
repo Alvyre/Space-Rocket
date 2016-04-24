@@ -112,7 +112,7 @@ public class Object3D{
 	
 	public void setRotation(float theta_x, float theta_y){
 		this.theta_x += theta_x;
-		this.theta_x += theta_y;
+		this.theta_y += theta_y;
 	}
 	
 	public void setRotationX(float theta){

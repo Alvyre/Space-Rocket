@@ -30,7 +30,7 @@ public class Engine extends PApplet {
 	public void draw() {
 		background(220);
 		this.spider.setRotation(cc[10]*tn[44], cc[114]*tn[36]);
-		this.spider.setPosition(cc[74], cc[71], 0);
+		//this.spider.setPosition(cc[74], cc[71], 0);
 		this.spider.display();
     }
 	
@@ -75,10 +75,10 @@ public class Engine extends PApplet {
 	public void keyPressed() {
 		if (key == CODED) {
 			if (keyCode == UP) {
-				//fillVal = 255;
+				this.spider.translateY(-1);
 			}
 			else if (keyCode == DOWN) {
-				//fillVal = 0;
+				this.spider.translateY(1);
 			} 
 		}
 		else {
