@@ -14,6 +14,7 @@ public class Engine extends PApplet {
 	int tn[] = new int[256];	 //Pad array
 	
 	Object3D spider; //Object
+	Meteor meteor_1; // 1st Meteor
 	
 	
 	@Override
@@ -24,6 +25,8 @@ public class Engine extends PApplet {
 	    
 	    this.spider = new Object3D(this, "./assets/models/spider.obj");
 	    
+	    this.meteor_1 = new Meteor(this);
+	    
 	}
 	
 	@Override
@@ -31,6 +34,7 @@ public class Engine extends PApplet {
 		background(220);
 		this.spider.setRotation(cc[10]*tn[44], cc[114]*tn[36]);
 		//this.spider.setPosition(cc[74], cc[71], 0);
+		this.meteor_1.display();
 		this.spider.display();
     }
 	
