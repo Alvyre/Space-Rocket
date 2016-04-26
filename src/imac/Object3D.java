@@ -1,7 +1,7 @@
 package imac;
 
 import processing.core.*;
-
+import com.leapmotion.leap.Vector;
 public class Object3D{
 	
 	private PApplet parent; //PApplet object
@@ -71,6 +71,10 @@ public class Object3D{
 	public float getPositionZ(){
 		return this.position_z;
 	}
+	public Vector getPositionVec(){
+		Vector vec = new Vector(this.position_x, this.position_y, this.position_z);
+		return vec;
+	}
 	
 	public float getScaleX(){
 		return this.scale_x;
@@ -131,6 +135,12 @@ public class Object3D{
 		this.position_x += x;
 		this.position_y += y;
 		this.position_z += z;
+	}
+	
+	public void translate(Vector vec){
+		this.position_x += vec.getX();
+		this.position_y += vec.getY();
+		this.position_z += vec.getZ();
 	}
 	
 	//Methods to translate object position on X axe

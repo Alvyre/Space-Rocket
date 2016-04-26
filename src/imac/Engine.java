@@ -4,6 +4,8 @@ import processing.core.*;
 import themidibus.*;
 import com.leapmotion.leap.*;
 
+import leap.*;
+
 public class Engine extends PApplet {
 	
 	static int WINDOW_WIDTH  = 800;
@@ -13,7 +15,10 @@ public class Engine extends PApplet {
 	float cc[] = new float[256]; //Knob arrays
 	int tn[] = new int[256];	 //Pad array
 	
-	Object3D spider; //Object
+	LeapmotionListener leapListener = new LeapmotionListener(); // Leapmotion listener
+	Controller leapController = new Controller();				// Leapmotion Conroller
+	
+	Rocket player;
 	
 	
 	@Override
@@ -21,17 +26,24 @@ public class Engine extends PApplet {
 		
 		MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
 	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
+	    leapController.addListener(leapListener);
+	    this.player = new Rocket(new Object3D(this, "assets/models/rocket.obj"), 0, 0.0, "Rocket name", 1);
 	    
-	    this.spider = new Object3D(this, "./assets/models/spider.obj");
 	    
 	}
 	
 	@Override
 	public void draw() {
 		background(220);
-		this.spider.setRotation(cc[10]*tn[44], cc[114]*tn[36]);
+		
+		//this.rocket.setRotation(cc[10]*tn[44], cc[114]*tn[36]);
 		//this.spider.setPosition(cc[74], cc[71], 0);
-		this.spider.display();
+		Vector movements = new Vector(Leapmotion.handMoves(leapController));
+		this.player.move(movements);
+		this.player.getModel().display();
+		//this.rocket.translate(moves);
+		//this.rocket.display();
+		
     }
 	
 	public void controllerChange(int channel, int number, int value){
@@ -75,10 +87,10 @@ public class Engine extends PApplet {
 	public void keyPressed() {
 		if (key == CODED) {
 			if (keyCode == UP) {
-				this.spider.translateY(-1);
+				//this.rocket.translateY(-1);
 			}
 			else if (keyCode == DOWN) {
-				this.spider.translateY(1);
+				//this.rocket.translateY(1);
 			} 
 		}
 		else {
