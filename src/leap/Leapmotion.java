@@ -2,16 +2,21 @@ package leap;
 import com.leapmotion.leap.*;
 
 /**
- * <b>Leapmotion is an helper to control the Leapmotion".</b>
+ * <b>Leapmotion is an helper tool to control the Leapmotion".</b>
  * @author Romain
  * @version 1.0
  */
 public class Leapmotion {
 	/**
-	 * VelocityCoeff is a coefficient used to multiply the movement of the hand, which is applied to the rocket.
-	 * It can't be modified and it is static. (called only via the class)
+	 * Listener for the leapmotion controller to capture every actions and states
+	 * can't be modified, static.
 	 */
-	private static final float velocityCoeff = 5.0f;
+	private static final LeapmotionListener LEAPLISTENER = new LeapmotionListener();
+	/**
+	 * The leapmotion controller, used to interact with the leapmotion (hardware).
+	 * can't be modified, static
+	 */
+	private static final Controller LEAPCONTROLLER = new Controller(LEAPLISTENER);
 	
 	/**
 	 * Detects the hand movements and tranforms hand coords into interactionBox normalized coords.
@@ -20,19 +25,27 @@ public class Leapmotion {
 	 * @return a normalized Vector (x,y,z) multiplied by the velocityCoeff
 	 * @since 1.0
 	 */
-	public static Vector handMoves(Controller leap){
-		Frame currentFrame = leap.frame();
-		Vector moves;
+	public static Vector handMoves(){
+		Frame currentFrame = LEAPCONTROLLER.frame();
+		Vector movement;
 		
 		if (currentFrame.interactionBox().isValid()) { // interaction is valid ?
-			Vector normMouv = currentFrame.interactionBox().normalizePoint(currentFrame.hands().frontmost().palmPosition()); // get the normalized position of the hand
+			Vector normMove = currentFrame.interactionBox().normalizePoint(currentFrame.hands().frontmost().palmPosition()); // get the normalized position of the hand
 			if(!currentFrame.hands().isEmpty()){
-				moves = new Vector( (normMouv.getX()-0.5f)*velocityCoeff, (-normMouv.getY()+0.5f)*velocityCoeff, 0.0f);
-				return moves;
+				movement = new Vector( (normMove.getX()-0.5f), (-normMove.getY()+0.5f), 0.0f);
+				return movement;
 			}
 		}
 		
-		moves = new Vector (0.0f, 0.0f, 0.0f);
-		return moves;
+		movement = new Vector (0.0f, 0.0f, 0.0f);
+		return movement;
+	}
+	
+	/**
+	 * isConnected returns a boolean if the leapmotion is connected and if the service is available @see Controller.isConnected()
+	 * @return a boolean
+	 */
+	public static boolean isConnected(){
+		return LEAPCONTROLLER.isConnected();
 	}
 }

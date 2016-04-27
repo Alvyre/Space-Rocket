@@ -18,7 +18,7 @@ public class Rocket {
 	/**
 	 * speed increases the rapidity of the player, can be modified with bonuses.
 	 */
-	private double				speed;
+	private float				speed;
 	/**
 	 * the name of the player, can't be modified
 	 */
@@ -43,7 +43,7 @@ public class Rocket {
 	 * 
 	 * @since 1.0
 	 */
-	public Rocket(Object3D model, int score, double speed, String name, int life) {
+	public Rocket(Object3D model, int score, float speed, String name, int life) {
 		this.model = model;
 		this.score = score;
 		this.speed = speed;
@@ -57,7 +57,7 @@ public class Rocket {
 	 * @since 1.0
 	 */
 	public void move(Vector vec){
-		this.model.translate(vec);
+		this.model.translate(vec.times(speed));
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class Rocket {
 	 * @param speed the speed to set
 	 * @since 1.0
 	 */
-	public void setSpeed(double speed) {
+	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
 
