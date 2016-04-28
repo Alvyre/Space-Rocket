@@ -60,13 +60,11 @@ public class Engine extends PApplet {
 	public void draw() {
 		background(220);
 		
-		//this.spider.setRotation(arturia.getRotationX(), arturia.getRotationY());
-		//this.spider.setPosition(arturia.getPositionX(), arturia.getPositionY(), arturia.getPositionZ());
-		
+		//this.player.getModel().setRotation(arturia.getRotationX(), arturia.getRotationY());
+		//this.player.getModel().setPosition(arturia.getPositionX(), arturia.getPositionY(), arturia.getPositionZ());
+				
 		//To use keyboard, comment the previous line and uncomment the next line
-		//this.spider.translate(keyboard.EventLeftRight(), keyboard.EventUpDown(), 0);
-		
-		//this.spider.display();
+		//this.player.getModel().translate(keyboard.EventLeftRight(), keyboard.EventUpDown(), 0);
 		
 		Vector movements = new Vector(Leapmotion.handMoves());
 		this.player.move(movements);
