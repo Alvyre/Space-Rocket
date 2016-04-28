@@ -4,6 +4,8 @@ import processing.core.*;
 import themidibus.*;
 import com.leapmotion.leap.*;
 
+import leap.*;
+
 public class Engine extends PApplet {
 	
 	static int WINDOW_WIDTH  = 800;
@@ -13,25 +15,29 @@ public class Engine extends PApplet {
 	float cc[] = new float[256]; //Knob arrays
 	int tn[] = new int[256];	 //Pad array
 	
-	Object3D spider; //Object
-	
+	Rocket player;
 	
 	@Override
 	public void setup(){
 		
 		MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
 	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
+	    //leapController.addListener(leapListener);
+	    this.player = new Rocket(new Object3D(this, "assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
 	    
-	    this.spider = new Object3D(this, "./assets/models/spider.obj");
 	    
 	}
 	
 	@Override
 	public void draw() {
 		background(220);
-		this.spider.setRotation(cc[10]*tn[44], cc[114]*tn[36]);
+		
+		//this.rocket.setRotation(cc[10]*tn[44], cc[114]*tn[36]);
 		//this.spider.setPosition(cc[74], cc[71], 0);
-		this.spider.display();
+		Vector movements = new Vector(Leapmotion.handMoves());
+		this.player.move(movements);
+		this.player.getModel().display();
+		
     }
 	
 	public void controllerChange(int channel, int number, int value){
@@ -73,17 +79,31 @@ public class Engine extends PApplet {
 	}
 
 	public void keyPressed() {
-		if (key == CODED) {
-			if (keyCode == UP) {
-				this.spider.translateY(-1);
-			}
-			else if (keyCode == DOWN) {
-				this.spider.translateY(1);
-			} 
+		
+		// disable the keyboard control if the leap is connected
+		if(!Leapmotion.isConnected()){
+				
+				if (key == CODED) {
+					switch(keyCode){
+					case UP:
+						this.player.move(new Vector(0,-1,0));
+						break;
+					case DOWN:
+						this.player.move(new Vector(0,1,0));
+						break;
+					case LEFT:
+						this.player.move(new Vector(-1,0,0));
+						break;
+					case RIGHT:
+						this.player.move(new Vector(1,0,0));
+						break;
+					default:
+						break;
+						
+					}
+				}
 		}
-		else {
-			//fillVal = 126;
-		}
+		
 	}
 	   
 	public void settings() {  size(WINDOW_WIDTH, WINDOW_HEIGHT, P3D); }
