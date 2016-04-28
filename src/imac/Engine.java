@@ -10,6 +10,8 @@ import com.leapmotion.leap.*;
  * @version 1.0
  */
 
+import leap.*;
+
 public class Engine extends PApplet {
 	
 	/**
@@ -31,8 +33,7 @@ public class Engine extends PApplet {
 	/**
 	 * Main character of the app
 	 */
-	Object3D spider;
-	
+	Rocket player;
 	
 	/**
 	 * Setup function to init Engine
@@ -45,7 +46,8 @@ public class Engine extends PApplet {
 	public void setup(){
 		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
-	    this.spider = new Object3D(this, "./assets/models/spider.obj");
+	    //leapController.addListener(leapListener);
+	    this.player = new Rocket(new Object3D(this, "assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
 	}
 	
 	/**
@@ -58,20 +60,18 @@ public class Engine extends PApplet {
 	public void draw() {
 		background(220);
 		
-		this.spider.setRotation(arturia.getRotationX(), arturia.getRotationY());
-		this.spider.setPosition(arturia.getPositionX(), arturia.getPositionY(), arturia.getPositionZ());
+		//this.spider.setRotation(arturia.getRotationX(), arturia.getRotationY());
+		//this.spider.setPosition(arturia.getPositionX(), arturia.getPositionY(), arturia.getPositionZ());
 		
 		//To use keyboard, comment the previous line and uncomment the next line
 		//this.spider.translate(keyboard.EventLeftRight(), keyboard.EventUpDown(), 0);
 		
-		this.spider.display();
+		//this.spider.display();
+		
+		Vector movements = new Vector(Leapmotion.handMoves());
+		this.player.move(movements);
+		this.player.getModel().display();
     }
 	
-	/**
-	 * Settings function to init
-	 * window's size
-	 * 
-	 * @since 1.0
-	 */
 	public void settings() {  size(WINDOW_WIDTH, WINDOW_HEIGHT, P3D); }
 }

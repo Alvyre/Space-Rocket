@@ -1,6 +1,7 @@
 package imac;
 
 import processing.core.*;
+import com.leapmotion.leap.Vector;
 
 /**
  * <b>Object3D class is an helper tool to control a PShape model</b>
@@ -135,6 +136,10 @@ public class Object3D{
 	public float getPositionZ(){
 		return this.position_z;
 	}
+	public Vector getPositionVec(){
+		Vector vec = new Vector(this.position_x, this.position_y, this.position_z);
+		return vec;
+	}
 	
 	/**
 	 * @return the X scale
@@ -260,6 +265,18 @@ public class Object3D{
 		this.position_x += x;
 		this.position_y += y;
 		this.position_z += z;
+	}
+	
+
+	/**
+	 * Translate the model on X, Y and Z
+	 * @param translate on X
+	 * @since 1.0
+	 */
+	public void translate(Vector vec){
+		this.position_x += vec.getX();
+		this.position_y += vec.getY();
+		this.position_z += vec.getZ();
 	}
 	
 	/**
