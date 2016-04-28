@@ -3,46 +3,97 @@ package imac;
 import processing.core.*;
 import themidibus.*;
 
+/**
+ * <b>MIDIController allows to interact with a physical controller</b>
+ * <p>Connect a physical controller</p>
+ * <p>Get and set some informations about it</p>
+ * <p>Class import @see themidibus library</>
+ * @author Pierre
+ * @version 1.0
+ */
+
 public class MIDIController {
 	
-	private PApplet parent; //PApplet object
+	/**
+	 * Reference parent PApplet of the app's sketch
+	 */
+	private PApplet parent;
 	
-	MidiBus arturia; 			 //MIDI Controller
-	float cc[] = new float[256]; //Knob arrays
-	int tn[] = new int[256];	 //Pad array
+	/**
+	 * Datatype for a MIDI Controller
+	 */
+	MidiBus arturia;
 	
-	/* CONSTRUCTOR */
+	/**
+	 * Arrays with knobs statements
+	 */
+	float cc[] = new float[256];
 	
+	/**
+	 * Arrays with pads statements
+	 */
+	int tn[] = new int[256];
+	
+	
+	/**
+	 * The constructor of MIDIController with PApplet parameter
+	 * @param PApplet
+	 * 
+	 * @since 1.0
+	 */
 	public MIDIController(PApplet p){
-		this.parent = p;     //PApplet parent
-		MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
+		this.parent = p;
+		MidiBus.list();
 	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
 	}
 	
-	/* GETTERS AND SETTERS */
-	
+	/**
+	 * @return the state of first knob
+	 * @since 1.0
+	 */
 	public float getPositionX(){
 		return cc[74];
 	}
 	
+	/**
+	 * @return the state of second knob
+	 * @since 1.0
+	 */
 	public float getPositionY(){
 		return cc[71];
 	}
 	
+	/**
+	 * @return the state of third knob
+	 * @since 1.0
+	 */
 	public float getPositionZ(){
 		return 0;
 	}
 	
+	/**
+	 * @return the states of first knob and of first pad
+	 * @since 1.0
+	 */
 	public float getRotationX(){
 		return cc[10]*tn[44];
 	}
 	
+	/**
+	 * @return the states of second knob and of first pad
+	 * @since 1.0
+	 */
 	public float getRotationY(){
 		return cc[114]*tn[36];
 	}
 	
-	/* OTHER METHODS */
-	
+	/**
+	 * MIDIController listener
+	 * @param channel
+	 * @param number
+	 * @param value
+	 * @since 1.0
+	 */
 	public void controllerChange(int channel, int number, int value){
 		System.out.println("Parameter button :");
 		System.out.println(channel);
@@ -59,6 +110,13 @@ public class MIDIController {
 		if(number == 114) this.cc[number] = PApplet.map(value, 0, 127, 0, 0.5f);
 	}
 	
+	/**
+	 * MIDIController noteOn
+	 * @param channel
+	 * @param pitch
+	 * @param velocity
+	 * @since 1.0
+	 */
 	public void noteOn(int channel, int pitch, int velocity) {
 		// Receive a noteOn
 		PApplet.println();
