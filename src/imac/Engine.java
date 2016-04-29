@@ -59,6 +59,7 @@ public class Engine extends PApplet {
 	public void draw() {
 		background(220);
 		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
+
 		this.player.getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
 		//this.player.getModel().setPosition(arturia.getStateKnobNumber2(), arturia.getStateKnobNumber3(), arturia.getStateKnobNumber4());
 				
