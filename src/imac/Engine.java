@@ -59,14 +59,16 @@ public class Engine extends PApplet {
 	@Override
 	public void draw() {
 		background(220);
-		
+		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
 		//this.player.getModel().setRotation(arturia.getRotationX(), arturia.getRotationY());
 		//this.player.getModel().setPosition(arturia.getPositionX(), arturia.getPositionY(), arturia.getPositionZ());
 				
 		//To use keyboard, comment the previous line and uncomment the next line
 		//this.player.getModel().translate(keyboard.EventLeftRight(), keyboard.EventUpDown(), 0);
-		
-		Vector movements = new Vector(Leapmotion.handMoves());
+		if(Leapmotion.isConnected())
+			movements = new Vector(Leapmotion.handMoves());
+		else
+			movements = new Vector(keyboard.EventLeftRight(), keyboard.EventUpDown(), 0.0f);
 		this.player.move(movements);
 		this.player.getModel().display();
     }
