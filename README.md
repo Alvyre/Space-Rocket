@@ -28,6 +28,19 @@ Java project realized in IMAC Engineering School, in April and May 2016. It work
 - Click on Next and **verify** if all library files have been imported
 - Finish
 
+#### Check Java Build Path to connect the LeapMotion lib
+
+- In Eclipse, go to *Project* > *Properties*
+- Go to the subcategory *Java Build Path*
+- Go to the tab *Libraries*
+- **Check** if there is no error. If there are errors:
+    - Check if the file `LeapJava.jar` is detected
+    - Check if the file `LeapJava.jar` is located to the good leapmotion lib OS folder
+    - Check if `Native location library` is configurated with the good leapmotion lib OS folder
+    
+- **Apply** and click OK
+
+
 #### Play
 
 - **Connect** your MIDI controller and your Leap Motion

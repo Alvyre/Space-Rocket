@@ -68,7 +68,7 @@ public class Engine extends PApplet {
 		if(Leapmotion.isConnected())
 			movements = new Vector(Leapmotion.handMoves());
 		else
-			movements = new Vector(keyboard.EventLeftRight(), keyboard.EventUpDown(), 0.0f);
+			movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
 		this.player.move(movements);
 		this.player.getModel().display();
     }
@@ -81,5 +81,28 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void settings() {  size(WINDOW_WIDTH, WINDOW_HEIGHT, P3D); }
+	
+	/**
+	 * Keyboard listener 
+	 * on key pressed 
+	 * 
+	 * @since 1.0
+	 */
+	@Override
+	public void keyPressed() {
+		keyboard.eventKeyPressed();
+	}
+	
+	/**
+	 * Keyboard listener 
+	 * on key released 
+	 * 
+	 * @since 1.0
+	 */
+	@Override
+	public void keyReleased() {
+		keyboard.eventKeyReleased();
+	}
+
 	
 }

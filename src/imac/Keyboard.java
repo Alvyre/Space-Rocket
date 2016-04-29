@@ -11,6 +11,22 @@ import processing.core.*;
 public class Keyboard {
 	
 	/**
+	 * Static variables storing the status of
+	 * the up, down, left and right keys
+	 */
+	private static boolean UP, DOWN, LEFT, RIGHT = false;
+	
+	/**
+	 * Static variable referring to graphic displacement
+	 */
+	private static float MOVE = 0.1f;
+	
+	/**
+	 * Static variable referring to graphic no displacement
+	 */
+	private static float DONT_MOVE = 0.0f;
+	
+	/**
 	 * Reference parent PApplet of the app's sketch
 	 */
 	private PApplet parent;
@@ -26,40 +42,50 @@ public class Keyboard {
 	}
 	
 	/**
-	 * Up and Down keys listener
-	 * @return -0.1 (if UP key is pressed) or 0.1  (if DOWN key is pressed)
+	 * Function called on Engine keyPressed function
+	 * Change values of variables UP, DOWN, LEFT and RIGHT
+	 * 
 	 * @since 1.0
 	 */
-	public float EventUpDown(){
-		if (parent.keyPressed == true) {
-			if (parent.key == PConstants.CODED) {
-				if (parent.keyCode == PConstants.UP) {
-					return -0.1f;
-				}
-				else if (parent.keyCode == PConstants.DOWN) {
-					return 0.1f;
-				}
-			}
-		}
-		return 0;
+	public void eventKeyPressed(){
+		if (parent.keyCode == PConstants.UP) Keyboard.UP = true;
+		if (parent.keyCode == PConstants.DOWN) Keyboard.DOWN = true;
+		if (parent.keyCode == PConstants.LEFT) Keyboard.LEFT = true;
+		if (parent.keyCode == PConstants.RIGHT) Keyboard.RIGHT = true;
 	}
 	
 	/**
-	 * Left and Right keys listener
-	 * @return -0.1 (if LEFT key is pressed) or 0.1  (if RIGHT key is pressed)
+	 * Function called on Engine keyReleased function
+	 * Change values of variables UP, DOWN, LEFT and RIGHT
+	 * 
 	 * @since 1.0
 	 */
-	public float EventLeftRight(){
-		if (parent.keyPressed == true) {
-			if (parent.key == PConstants.CODED) {
-				if (parent.keyCode == PConstants.LEFT) {
-					return -0.1f;
-				}
-				else if (parent.keyCode == PConstants.RIGHT) {
-					return 0.1f;
-				}
-			}
-		}
-		return 0;
+	public void eventKeyReleased(){
+		if (parent.keyCode == PConstants.UP) Keyboard.UP = false;
+		if (parent.keyCode == PConstants.DOWN) Keyboard.DOWN = false;
+		if (parent.keyCode == PConstants.LEFT) Keyboard.LEFT = false;
+		if (parent.keyCode == PConstants.RIGHT) Keyboard.RIGHT = false;
+	}
+	
+	/**
+	 * @return x MOVE
+	 * @since 1.0
+	 */
+	public float LeftRightEvent(){
+		if(Keyboard.LEFT && Keyboard.RIGHT) return   Keyboard.DONT_MOVE;
+		else if(Keyboard.LEFT)              return - Keyboard.MOVE;
+		else if(Keyboard.RIGHT)             return   Keyboard.MOVE;
+		return Keyboard.DONT_MOVE;
+	}
+	
+	/**
+	 * @return y MOVE
+	 * @since 1.0
+	 */
+	public float UpDownEvent(){
+		if(Keyboard.UP && Keyboard.DOWN) return   Keyboard.DONT_MOVE;
+		else if(Keyboard.UP)             return - Keyboard.MOVE;
+		else if(Keyboard.DOWN)           return   Keyboard.MOVE;
+		return Keyboard.DONT_MOVE;
 	}
 }
