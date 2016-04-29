@@ -2,6 +2,7 @@ package imac;
 
 import processing.core.*;
 import com.leapmotion.leap.*;
+import leap.*;
 
 /**
  * <b>Engine class controls the entire application.</b>
@@ -9,8 +10,6 @@ import com.leapmotion.leap.*;
  * @author Pierre
  * @version 1.0
  */
-
-import leap.*;
 
 public class Engine extends PApplet {
 	
@@ -47,7 +46,7 @@ public class Engine extends PApplet {
 		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
 	    //leapController.addListener(leapListener);
-	    this.player = new Rocket(new Object3D(this, "assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
+	    this.player = new Rocket(new Object3D(this, "./assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
 	}
 	
 	/**
@@ -59,17 +58,27 @@ public class Engine extends PApplet {
 	@Override
 	public void draw() {
 		background(220);
-		
-		//this.player.getModel().setRotation(arturia.getRotationX(), arturia.getRotationY());
-		//this.player.getModel().setPosition(arturia.getPositionX(), arturia.getPositionY(), arturia.getPositionZ());
+		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
+		this.player.getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
+		//this.player.getModel().setPosition(arturia.getStateKnobNumber2(), arturia.getStateKnobNumber3(), arturia.getStateKnobNumber4());
 				
 		//To use keyboard, comment the previous line and uncomment the next line
 		//this.player.getModel().translate(keyboard.EventLeftRight(), keyboard.EventUpDown(), 0);
-		
-		Vector movements = new Vector(Leapmotion.handMoves());
+		if(Leapmotion.isConnected())
+			movements = new Vector(Leapmotion.handMoves());
+		else
+			movements = new Vector(keyboard.EventLeftRight(), keyboard.EventUpDown(), 0.0f);
 		this.player.move(movements);
 		this.player.getModel().display();
     }
 	
+	/**
+	 * Settings function to init
+	 * the window's size
+	 * 
+	 * @since 1.0
+	 */
+	@Override
 	public void settings() {  size(WINDOW_WIDTH, WINDOW_HEIGHT, P3D); }
+	
 }

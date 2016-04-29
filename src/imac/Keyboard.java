@@ -27,17 +27,17 @@ public class Keyboard {
 	
 	/**
 	 * Up and Down keys listener
-	 * @return -1 (if UP key is pressed) or 1  (if DOWN key is pressed)
+	 * @return -0.1 (if UP key is pressed) or 0.1  (if DOWN key is pressed)
 	 * @since 1.0
 	 */
-	public int EventUpDown(){
+	public float EventUpDown(){
 		if (parent.keyPressed == true) {
 			if (parent.key == PConstants.CODED) {
 				if (parent.keyCode == PConstants.UP) {
-					return -1;
+					return -0.1f;
 				}
 				else if (parent.keyCode == PConstants.DOWN) {
-					return 1;
+					return 0.1f;
 				}
 			}
 		}
@@ -46,17 +46,17 @@ public class Keyboard {
 	
 	/**
 	 * Left and Right keys listener
-	 * @return -1 (if LEFT key is pressed) or 1  (if RIGHT key is pressed)
+	 * @return -0.1 (if LEFT key is pressed) or 0.1  (if RIGHT key is pressed)
 	 * @since 1.0
 	 */
-	public int EventLeftRight(){
+	public float EventLeftRight(){
 		if (parent.keyPressed == true) {
 			if (parent.key == PConstants.CODED) {
 				if (parent.keyCode == PConstants.LEFT) {
-					return -1;
+					return -0.1f;
 				}
 				else if (parent.keyCode == PConstants.RIGHT) {
-					return 1;
+					return 0.1f;
 				}
 			}
 		}
