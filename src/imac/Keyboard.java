@@ -19,7 +19,7 @@ public class Keyboard {
 	/**
 	 * Static variable referring to graphic displacement
 	 */
-	private static float MOVE = 0.1f;
+	private static float MOVE = 1.0f;
 	
 	/**
 	 * Static variable referring to graphic no displacement

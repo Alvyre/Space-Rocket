@@ -3,7 +3,7 @@ package imac;
 import processing.core.*;
 import com.leapmotion.leap.*;
 import leap.*;
-
+import osValidator.*;
 /**
  * <b>Engine class controls the entire application.</b>
  * <p>Extends the PApplet class @see PApplet </p>
@@ -46,7 +46,10 @@ public class Engine extends PApplet {
 		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
 	    //leapController.addListener(leapListener);
-	    this.player = new Rocket(new Object3D(this, "./assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
+		if(OSValidator.isWindows())
+			this.player = new Rocket(new Object3D(this, "../assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
+		else
+			this.player = new Rocket(new Object3D(this, "./assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
 	}
 	
 	/**
