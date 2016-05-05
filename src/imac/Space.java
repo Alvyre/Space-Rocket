@@ -35,7 +35,7 @@ public class Space {
 			
 			System.out.println("x:" + xoff + ", y:" + y + ", z:" + zoff);
 			
-			this.meteors.add(new Meteor(this.parent, xoff, y, zoff));
+			//this.meteors.add(new Meteor(this.parent, xoff, y, zoff));
 			
 			// Increment x dimension for noise
 		    xoff += 100;
