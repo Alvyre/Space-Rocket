@@ -46,7 +46,6 @@ public class Engine extends PApplet {
 
 		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
-	    //leapController.addListener(leapListener);
 		if(OSValidator.isWindows())
 			this.player = new Rocket(new Object3D(this, "../assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
 		else
