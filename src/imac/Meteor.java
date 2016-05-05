@@ -115,7 +115,7 @@ public class Meteor {
         parent.rotateX(this.theta_x);
         parent.rotateY(this.theta_y);
         parent.noStroke();
-        parent.box(100);
+        parent.box(10);
         parent.popMatrix();
 	}
 }

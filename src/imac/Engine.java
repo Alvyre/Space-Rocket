@@ -16,6 +16,8 @@ public class Engine extends PApplet {
 	Object3D spider; //Object
 	Meteor meteor_1; // 1st Meteor
 	
+	Space space;
+	
 	
 	@Override
 	public void setup(){
@@ -27,6 +29,8 @@ public class Engine extends PApplet {
 	    
 	    this.meteor_1 = new Meteor(this, 200, 200, -100);
 	    
+	    this.space = new Space(this, 10);
+	    
 	}
 	
 	@Override
@@ -36,6 +40,7 @@ public class Engine extends PApplet {
 		//this.spider.setPosition(cc[74], cc[71], 0);
 		this.meteor_1.display();
 		this.spider.display();
+		this.space.display();
     }
 	
 	public void controllerChange(int channel, int number, int value){
