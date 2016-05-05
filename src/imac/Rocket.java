@@ -1,5 +1,10 @@
 package imac;
+
+import java.util.HashMap;
+import java.util.Map;
 import com.leapmotion.leap.Vector;
+import imac.bonus.*;
+
 /**
  * <b>Rocket describes the playable character class".</b>
  * @author Romain
@@ -24,14 +29,21 @@ public class Rocket {
 	 */
 	private final String 		name;
 	/**
-	 * the bonus array of the character shows the different bonuses available for the player @see Bonus
+	 * The bonus map (associative) of the character shows the different bonuses available for the player @see Bonus
 	 */
-	//private Bonus 			bonus[];
+	private Map<String,Bonus> bonus = new HashMap<String,Bonus>();
 	/**
 	 * the life of the player
 	 */
 	private int					life;
-	
+	/**
+	 * boolean to know is the player is immortal or not
+	 */
+	private boolean 			immortal = false;
+	/**
+	 * the Point multiplier coefficient, can be modified with a bonus @see pointMultiplier
+	 */
+	static private float POINT_MULTIPLIER = 1.0f;
 	
 	/**
 	 * The constructor of Rocket
@@ -49,6 +61,11 @@ public class Rocket {
 		this.speed = speed;
 		this.name = name;
 		this.life = life;
+		this.bonus.put("SpeedUp", 			new SpeedUp(false, 		0.0f));
+		this.bonus.put("SlowTime", 			new SlowTime(false, 	0.0f));
+		this.bonus.put("Immortal", 			new Immortal(false, 	0.0f));
+		this.bonus.put("LessMeteors", 		new LessMeteors(false, 	0.0f));
+		this.bonus.put("PointMultiplier", 	new SpeedUp(false, 		0.0f));
 	}
 
 	/**
@@ -59,7 +76,12 @@ public class Rocket {
 	public void move(Vector vec){
 		this.model.translate(vec.times(speed));
 	}
-
+	public void applyBonus(Bonus bonus){
+		
+	}
+	public boolean isImmortal() {
+		return immortal;
+	}
 	/**
 	 * @return the model
 	 * @since 1.0
@@ -67,7 +89,6 @@ public class Rocket {
 	public Object3D getModel() {
 		return model;
 	}
-
 	/**
 	 * @return the position
 	 * @since 1.0
@@ -75,7 +96,6 @@ public class Rocket {
 	public Vector getPosition() {
 		return this.model.getPositionVec();
 	}
-
 	/**
 	 * @return the score
 	 * @since 1.0
@@ -83,15 +103,13 @@ public class Rocket {
 	public int getScore() {
 		return score;
 	}
-
 	/**
 	 * @return the speed
 	 * @since 1.0
 	 */
-	public double getSpeed() {
+	public float getSpeed() {
 		return speed;
 	}
-
 	/**
 	 * @return the name
 	 * @since 1.0
@@ -99,7 +117,6 @@ public class Rocket {
 	public String getName() {
 		return name;
 	}
-
 	/**
 	 * @return the life
 	 * @since 1.0
@@ -107,7 +124,20 @@ public class Rocket {
 	public int getLife() {
 		return life;
 	}
-	
+	/**
+	 * @return the point multiplier
+	 * @since 1.0
+	 */
+	public float getMultiplier() {
+		return Rocket.POINT_MULTIPLIER;
+	}
+	/**
+	 * @return the bonus by type
+	 * @since 1.0
+	 */
+	public Bonus getBonus(String type) {
+		return bonus.get(type);
+	}
 	/**
 	 * @param score the score to set
 	 * @since 1.0
@@ -130,5 +160,27 @@ public class Rocket {
 	 */
 	public void setLife(int life) {
 		this.life = life;
+	}
+	/**
+	 * @param immortal  set state immortal to true/false
+	 * @since 1.0
+	 */
+	public void setImmortal(boolean immortal) {
+		this.immortal = immortal;
+	}
+	/**
+	 * 
+	 * @param multiplier set the point multiplier
+	 * @since 1.0
+	 */
+	public void setMultiplier(float multiplier){
+		Rocket.POINT_MULTIPLIER = multiplier;
+	}
+	/**
+	 * @param bonus the bonus to set
+	 * @since 1.0
+	 */
+	public void setBonus(Bonus bonus) {
+		this.bonus.put(bonus.getType(), bonus);
 	}
 }
