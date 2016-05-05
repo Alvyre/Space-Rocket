@@ -43,6 +43,7 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void setup(){
+
 		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
 	    //leapController.addListener(leapListener);
@@ -50,6 +51,7 @@ public class Engine extends PApplet {
 			this.player = new Rocket(new Object3D(this, "../assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
 		else
 			this.player = new Rocket(new Object3D(this, "./assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
+
 	}
 	
 	/**
