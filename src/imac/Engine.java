@@ -25,7 +25,7 @@ public class Engine extends PApplet {
 	    
 	    this.spider = new Object3D(this, "./assets/models/spider.obj");
 	    
-	    this.meteor_1 = new Meteor(this);
+	    this.meteor_1 = new Meteor(this, 200, 200, -100);
 	    
 	}
 	

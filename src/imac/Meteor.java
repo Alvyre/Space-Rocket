@@ -6,14 +6,17 @@ public class Meteor {
 	
 	private PApplet parent; //PApplet object
 	
+	float speed = 10f;			//Facteur de vitesse
+	float rotate = 0.3f;
+	
 	float position_x;       //Position x
 	float position_y;       //Position y
 	float position_z;       //Position z
 	
 	float theta_x;          //Rotation x
 	float theta_y;          //Rotation y
-	
-/* CONSTRUCTORS */
+		
+	/* CONSTRUCTORS */
 	
 	//Constructor without argument
 	public Meteor(){}
@@ -23,6 +26,16 @@ public class Meteor {
 		this.parent = p;
 	}
 	
+	//Constructor with PApplet and position
+	public Meteor(PApplet p, float x, float y, float z){
+		this.parent = p;
+		this.position_x = x;
+		this.position_y = y;
+		this.position_z = z;
+		this.theta_x = 1.3f;
+		this.theta_y = 1.4f;		
+	}
+		
 	/* GETTERS AND SETTERS */
 	
 	public float getPositionX(){
@@ -96,9 +109,11 @@ public class Meteor {
 	public void display(){
 		parent.lights();
         parent.pushMatrix();
-        parent.translate(130, 600/2, 0);
-        parent.rotateY(1.25f);
-        parent.rotateX(-0.4f);
+        parent.translate(this.position_x, this.position_y, this.position_z);
+        setRotationX(0.01f);
+        translateZ(1.0f);
+        parent.rotateX(this.theta_x);
+        parent.rotateY(this.theta_y);
         parent.noStroke();
         parent.box(100);
         parent.popMatrix();
