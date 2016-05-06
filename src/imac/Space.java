@@ -8,7 +8,7 @@ import imac.obstacle.Meteor;
 
 /**
  * <b>Space class contains all meteor obstacle.</b>
- * <p>It generates random position for each metero</p>
+ * <p>It generates random position for each meteor</p>
  * <p>It use Perlin Noise<p>
  * @author Pierre
  * @author Charlie
