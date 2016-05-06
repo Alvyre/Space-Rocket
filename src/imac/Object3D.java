@@ -20,27 +20,27 @@ public class Object3D{
 	 * Datatype for storing shapes. Here, it is a 3D
 	 * model load with the function loadShape()
 	 */
-	PShape model;
+	private PShape model;
 	
 	/**
 	 * Path where the 3D model is located
 	 * The best way is to use "./" in the beginning of
 	 * your path to start from the root of the app
 	 */
-	String path;
+	private String path;
 	
 	/**
 	 * Variables used to define the object position
 	 */
-	float position_x;
-	float position_y;
-	float position_z;
+	private float position_x;
+	private float position_y;
+	private float position_z;
 	
 	/**
 	 * Variables used to define the object scale
 	 */
-	float scale_x;
-	float scale_y;
+	private float scale_x;
+	private float scale_y;
 	
 	/**
 	 * Variables used to define the object rotation

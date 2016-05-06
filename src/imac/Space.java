@@ -20,12 +20,12 @@ public class Space {
 	/**
 	 * Reference parent PApplet of the app's sketch
 	 */
-	PApplet parent;
+	private PApplet parent;
 	
 	/**
 	 * Collection with all meteors
 	 */
-	ArrayList<Meteor> meteors;
+	private ArrayList<Meteor> meteors;
 	
 	/**
 	 * Number of meteors

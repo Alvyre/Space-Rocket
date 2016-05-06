@@ -22,22 +22,17 @@ public class Engine extends PApplet {
 	/**
 	 * Midi Controller retrieves the states of each button and knob
 	 */
-	MIDIController arturia;
+	private MIDIController arturia;
 	
 	/**
 	 * Keyboard retrieves the states of some key pressed or not
 	 */
-	Keyboard keyboard;
+	private Keyboard keyboard;
 
 	/**
 	 * Current level of the app (with main character and space level)
 	 */
-	Level level;
-	
-	/**
-	 * Space environment
-	 */
-	Space space;
+	private Level level;
 	
 	/**
 	 * Setup function to init Engine
@@ -51,7 +46,6 @@ public class Engine extends PApplet {
 
 		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
-
 		this.level = new Level(this, 1);
 
 	}

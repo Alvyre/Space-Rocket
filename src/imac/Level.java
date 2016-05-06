@@ -86,6 +86,15 @@ public class Level {
 	}
 	
 	/**
+	 * @return level number
+	 * 
+	 * @since 1.0
+	 */
+	public int getLevelNumber(){
+		return this.levelNumber;
+	}
+	
+	/**
 	 * @return rocket player
 	 * 
 	 * @since 1.0
