@@ -36,10 +36,11 @@ public class PointMultiplier extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(Rocket player){
-		this.timer = new Timer();
 		if(this.isActive()){
+			this.timer = new Timer();
 			player.setMultiplier(PointMultiplier.MULTIPLIER);
 			//System.out.println("x" + pointMultiplier.MULTIPLIER + " points bonus activated !");
+			PointMultiplier.this.setState(false);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {

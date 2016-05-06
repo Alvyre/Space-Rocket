@@ -37,10 +37,12 @@ public class SlowTime extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(/*  */){
-		this.timer = new Timer();
+		
 		if(this.isActive()){
+			this.timer = new Timer();
 			// TODO SET SPEED DOWN OF METEOR
 			//System.out.println("Slow Time bonus Started !");
+			SlowTime.this.setState(false);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {

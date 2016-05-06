@@ -38,10 +38,11 @@ public class SpeedUp extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(Rocket player){
-		this.timer = new Timer();
 		if(this.isActive()){
+			this.timer = new Timer();
 			player.setSpeed(player.getSpeed() + VALUE);
 			//System.out.println("Speed UP bonus Started !");
+			SpeedUp.this.setState(false);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {

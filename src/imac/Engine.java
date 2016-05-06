@@ -94,7 +94,7 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void keyPressed() {
-		keyboard.eventKeyPressed();
+		keyboard.eventKeyPressed(player);
 	}
 	
 	/**

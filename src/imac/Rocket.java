@@ -61,9 +61,9 @@ public class Rocket {
 		this.speed = speed;
 		this.name = name;
 		this.life = life;
-		this.bonus.put("SpeedUp", 			new SpeedUp(false, 		0.0f));
+		this.bonus.put("SpeedUp", 			new SpeedUp(true, 		10.0f));
 		this.bonus.put("SlowTime", 			new SlowTime(false, 	0.0f));
-		this.bonus.put("Immortal", 			new Immortal(false, 	0.0f));
+		this.bonus.put("Immortal", 			new Immortal(true, 	5.0f));
 		this.bonus.put("LessMeteors", 		new LessMeteors(false, 	0.0f));
 		this.bonus.put("PointMultiplier", 	new SpeedUp(false, 		0.0f));
 	}
@@ -76,8 +76,12 @@ public class Rocket {
 	public void move(Vector vec){
 		this.model.translate(vec.times(speed));
 	}
+	/**
+	 * Apply the bonus to the player
+	 * @param bonus
+	 */
 	public void applyBonus(Bonus bonus){
-		
+		if(bonus.isActive()) bonus.apply(this);
 	}
 	public boolean isImmortal() {
 		return immortal;

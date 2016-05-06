@@ -47,11 +47,13 @@ public class Keyboard {
 	 * 
 	 * @since 1.0
 	 */
-	public void eventKeyPressed(){
+	public void eventKeyPressed(Rocket player){
+		
 		if (parent.keyCode == PConstants.UP) Keyboard.UP = true;
 		if (parent.keyCode == PConstants.DOWN) Keyboard.DOWN = true;
 		if (parent.keyCode == PConstants.LEFT) Keyboard.LEFT = true;
 		if (parent.keyCode == PConstants.RIGHT) Keyboard.RIGHT = true;
+		if (parent.keyCode == 49) player.applyBonus(player.getBonus("SpeedUp"));
 	}
 	
 	/**
