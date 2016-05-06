@@ -53,8 +53,8 @@ public class Box extends Meteor {
 		parent.lights();
 		parent.fill(255);
 		parent.pushMatrix();
-		parent.translate(this.position_x, this.position_y, this.position_z);
-		parent.box(this.size);
+		parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
+		parent.box(this.getSize());
 		parent.popMatrix();
 	}
 }

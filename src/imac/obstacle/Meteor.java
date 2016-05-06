@@ -20,26 +20,26 @@ public class Meteor {
 	/**
 	 * Variables used to define the speed of translation and rotation of the obstacle
 	 */
-	float speed;
-	float rotate;
+	private float speed;
+	private float rotate;
 	
 	/**
 	 * Variables used to define the obstacle position
 	 */
-	float position_x;
-	float position_y;
-	float position_z;
+	private float position_x;
+	private float position_y;
+	private float position_z;
 	
 	/**
 	 * Variables used to define the obstacle rotation
 	 */
-	float theta_x;
-	float theta_y;
+	private float theta_x;
+	private float theta_y;
 	
 	/**
 	 * Variables used to define the size of the obstacle
 	 */
-	float size;
+	private float size;
 		
 	/* CONSTRUCTORS */
 	
@@ -121,6 +121,14 @@ public class Meteor {
 	}
 	
 	/**
+	 * @return the size
+	 * @since 1.0
+	 */
+	public float getSize() {
+		return size;
+	}
+	
+	/**
 	 * @param the x position to set
 	 * @param the y position to set
 	 * @param the z position to set
@@ -182,6 +190,14 @@ public class Meteor {
 		this.theta_y += theta;
 	}
 	
+	/**
+	 * @param the size to set
+	 * @since 1.0
+	 */
+	public void setSize(float size) {
+		this.size = size;
+	}
+	
 	/* OTHER METHODS */
 	
 	/**
@@ -241,4 +257,5 @@ public class Meteor {
         parent.box(10);
         parent.popMatrix();
 	}
+
 }

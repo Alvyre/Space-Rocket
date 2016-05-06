@@ -59,25 +59,25 @@ public class Pyramid extends Meteor {
 	        parent.rotateZ(-0.1f);
 	        
 
-	        parent.translate(this.position_x, this.position_y, this.position_z);
+	        parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
 	        parent.stroke(0);
 	        parent.fill(255);
 	        parent.beginShape(PConstants.TRIANGLES);
-	        parent.vertex(-this.size, -this.size, -this.size);
-	        parent.vertex( this.size, -this.size, -this.size);
-	        parent.vertex(   0,    0,  this.size);
+	        parent.vertex(-this.getSize(), -this.getSize(), -this.getSize());
+	        parent.vertex( this.getSize(), -this.getSize(), -this.getSize());
+	        parent.vertex(   0,    0,  this.getSize());
 
-	        parent.vertex( this.size, -this.size, -this.size);
-	        parent.vertex( this.size,  this.size, -this.size);
-	        parent.vertex(   0,    0,  this.size);
+	        parent.vertex( this.getSize(), -this.getSize(), -this.getSize());
+	        parent.vertex( this.getSize(),  this.getSize(), -this.getSize());
+	        parent.vertex(   0,    0,  this.getSize());
 
-	        parent.vertex( this.size, this.size, -this.size);
-	        parent.vertex(-this.size, this.size, -this.size);
-	        parent.vertex(   0,   0,  this.size);
+	        parent.vertex( this.getSize(), this.getSize(), -this.getSize());
+	        parent.vertex(-this.getSize(), this.getSize(), -this.getSize());
+	        parent.vertex(   0,   0,  this.getSize());
 
-	        parent.vertex(-this.size,  this.size, -this.size);
-	        parent.vertex(-this.size, -this.size, -this.size);
-	        parent.vertex(   0,    0,  this.size);
+	        parent.vertex(-this.getSize(),  this.getSize(), -this.getSize());
+	        parent.vertex(-this.getSize(), -this.getSize(), -this.getSize());
+	        parent.vertex(   0,    0,  this.getSize());
 	        parent.endShape();
 	        
 	        parent.popMatrix();
