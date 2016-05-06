@@ -138,9 +138,9 @@ public class Level {
 	 * @since 1.0
 	 */
 	public String loadLevelFromJSONFile(int level) throws IOException{
-		File f = new File("./assets/conf/levelNumber" + level + ".json");
+		File f = new File("./assets/conf/level" + level + ".json");
         if (f.exists()){
-            InputStream is = new FileInputStream("./assets/conf/levelNumber" + level + ".json");
+            InputStream is = new FileInputStream("./assets/conf/level" + level + ".json");
             String jsonTxt = IOUtils.toString(is);
             return jsonTxt;
         }
