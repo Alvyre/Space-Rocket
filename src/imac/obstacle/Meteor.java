@@ -233,7 +233,8 @@ public class Meteor {
         parent.pushMatrix();
         parent.translate(this.position_x, this.position_y, this.position_z);
         setRotationX(0.01f);
-        translateZ(1.0f);
+        translateZ(3.0f);
+        //translateX(0.5f);
         parent.rotateX(this.theta_x);
         parent.rotateY(this.theta_y);
         parent.noStroke();

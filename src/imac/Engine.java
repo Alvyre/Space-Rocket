@@ -35,6 +35,11 @@ public class Engine extends PApplet {
 	Rocket player;
 	
 	/**
+	 * Space environment
+	 */
+	Space space;
+	
+	/**
 	 * Setup function to init Engine
 	 * The setup function corresponds
 	 * to the constructor in Processing
@@ -50,6 +55,8 @@ public class Engine extends PApplet {
 			this.player = new Rocket(new Object3D(this, "../assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
 		else
 			this.player = new Rocket(new Object3D(this, "./assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
+		
+		this.space = new Space(this, 20);
 
 	}
 	
@@ -75,6 +82,8 @@ public class Engine extends PApplet {
 			movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
 		this.player.move(movements);
 		this.player.getModel().display();
+		
+		this.space.display();
     }
 	
 	/**

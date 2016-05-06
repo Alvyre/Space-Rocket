@@ -28,8 +28,8 @@ public class Space {
 		this.nbMeteors = nbMeteors;
 		
 		float yoff = 0.0f; // 2nd dimension of perlin noise
-		float xoff = 0.0f;
-		float zoff = 0.0f;
+		float xoff = Engine.WINDOW_HEIGHT / 2;
+		float zoff = 300.0f;
 		
 		for(int i=0; i< this.nbMeteors; i++){
 			
@@ -37,17 +37,22 @@ public class Space {
 			
 			System.out.println("x:" + xoff + ", y:" + y + ", z:" + zoff);
 			
-			//this.meteors.add(new Meteor(this.parent, xoff, y, zoff));
+			this.meteors.add(new Meteor(this.parent, xoff, y, zoff, 2, 2, 2, 2, 10));
 			
 			// Increment x dimension for noise
-		    xoff += 100;
+		    xoff += 10;
+		    yoff += 4;
 		}
 	}
 	
 	public void display(){
 		for(int i = 0; i < this.meteors.size(); i++)
 	    {
-	      meteors.get(i).display();
+			parent.pushMatrix();
+			parent.camera();
+			meteors.get(i).display();
+			parent.popMatrix();
+			System.out.println("x:" + meteors.get(0).getPositionX() + ", y:" + meteors.get(0).getPositionY() + ", z:" + meteors.get(0).getPositionZ());
 	    }
 	}
 	

@@ -86,9 +86,9 @@ public class Object3D{
 		this.path = path;
 		this.model = new PShape();
 		this.model = parent.loadShape(this.path);
-		this.position_x = 0;
-		this.position_y = 0;
-		this.position_z = 0;
+		this.position_x = 400;
+		this.position_y = 600;
+		this.position_z = 400;
 		this.theta_x = 0;
 		this.theta_y = 0;
 	}
