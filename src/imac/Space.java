@@ -8,20 +8,39 @@ import imac.obstacle.Meteor;
 
 /**
  * <b>Space class contains all meteor obstacle.</b>
- * <p>She generates random position for each metero</p>
- * <p>She use Perlin Noise<p>
+ * <p>It generates random position for each metero</p>
+ * <p>It use Perlin Noise<p>
  * @author Pierre
+ * @author Charlie
  * @version 1.0
  */
 
 public class Space {
 	
+	/**
+	 * Reference parent PApplet of the app's sketch
+	 */
 	PApplet parent;
 	
+	/**
+	 * Collection with all meteors
+	 */
 	ArrayList<Meteor> meteors;
 	
+	/**
+	 * Number of meteors
+	 */
 	int nbMeteors;
 	
+	/**
+	 * Space constructor
+	 * It initialize the meteors ArrayList with Perlin Noise
+	 * 
+	 * @param PApplet
+	 * @param meteors number
+	 * 
+	 * @since 1.0
+	 */
 	Space(PApplet p, int nbMeteors){
 		this.parent = p;
 		this.meteors = new ArrayList<Meteor>();
@@ -45,6 +64,11 @@ public class Space {
 		}
 	}
 	
+	/**
+	 * Display the space constructor
+	 * 
+	 * @since 1.0
+	 */
 	public void display(){
 		for(int i = 0; i < this.meteors.size(); i++)
 	    {
