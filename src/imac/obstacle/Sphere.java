@@ -1,4 +1,4 @@
-package imac;
+package imac.obstacle;
 
 import processing.core.PApplet;
 

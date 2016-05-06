@@ -4,6 +4,8 @@ import processing.core.*;
 
 import java.util.ArrayList;
 
+import imac.obstacle.Meteor;
+
 /**
  * <b>Space class contains all meteor obstacle.</b>
  * <p>She generates random position for each metero</p>
