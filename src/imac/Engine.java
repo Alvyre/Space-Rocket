@@ -2,6 +2,9 @@ package imac;
 
 import processing.core.*;
 import com.leapmotion.leap.*;
+
+import imac.collide.AABB;
+import imac.obstacle.*;
 import leap.*;
 import osValidator.*;
 /**
@@ -23,7 +26,7 @@ public class Engine extends PApplet {
 	 * Midi Controller retrieves the states of each button and knob
 	 */
 	MIDIController arturia;
-	
+	Meteor test = new Box(this, 100.0f, 100.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 10.0f);
 	/**
 	 * Keyboard retrieves the states of some key pressed or not
 	 */
@@ -63,7 +66,7 @@ public class Engine extends PApplet {
 	public void draw() {
 		background(220);
 		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
-
+		test.display();
 		this.player.getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
 		//this.player.getModel().setPosition(arturia.getStateKnobNumber2(), arturia.getStateKnobNumber3(), arturia.getStateKnobNumber4());
 				
@@ -75,6 +78,9 @@ public class Engine extends PApplet {
 			movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
 		this.player.move(movements);
 		this.player.getModel().display();
+		
+		if(AABB.collides(this.player.getAABB(), this.test.getAABB()))
+			System.out.println("COLLISION");;
     }
 	
 	/**

@@ -2,6 +2,7 @@ package imac.obstacle;
 
 import com.leapmotion.leap.Vector;
 
+import imac.collide.AABB;
 import processing.core.*;
 
 /**
@@ -26,9 +27,10 @@ public class Meteor {
 	/**
 	 * Variables used to define the obstacle position
 	 */
-	float position_x;
-	float position_y;
-	float position_z;
+	AABB aabb;
+	//float position_x;
+	//float position_y;
+	//float position_z;
 	
 	/**
 	 * Variables used to define the obstacle rotation
@@ -75,9 +77,10 @@ public class Meteor {
 	  */
 	 public Meteor(PApplet p, float x, float y, float z, float speed, float rotate, float tx, float ty, float s){
 		this.parent = p;
-		this.position_x = x;
-		this.position_y = y;
-		this.position_z = z;
+		aabb = new AABB(new Vector(x,y,z), new Vector(size/2.0f, size/2.0f, 0.0f));
+		//this.position_x = x;
+		//this.position_y = y;
+		//this.position_z = z;
 		this.speed = speed;
 		this.rotate= rotate;
 		this.theta_x = tx;
@@ -92,7 +95,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public float getPositionX(){
-		return this.position_x;
+		return this.aabb.getCenter().getX();
 	}
 	
 	/**
@@ -100,7 +103,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public float getPositionY(){
-		return this.position_y;
+		return this.aabb.getCenter().getY();
 	}
 	
 	/**
@@ -108,7 +111,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public float getPositionZ(){
-		return this.position_z;
+		return this.aabb.getCenter().getZ();
 	}
 	
 	/**
@@ -116,10 +119,17 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public Vector getPositionVec(){
-		Vector vec = new Vector(this.position_x, this.position_y, this.position_z);
+		Vector vec = aabb.getCenter();
 		return vec;
 	}
 	
+	/**
+	 * @return the aabb
+	 */
+	public AABB getAABB() {
+		return aabb;
+	}
+
 	/**
 	 * @param the x position to set
 	 * @param the y position to set
@@ -127,9 +137,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void setPosition(float x, float y, float z){
-		this.position_x = x;
-		this.position_y = y;
-		this.position_z = z;
+		this.aabb.setCenter(new Vector(x,y,z));
 	}
 	
 	/**
@@ -137,7 +145,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void setPositionX(float x){
-		this.position_x = x;
+		this.aabb.setCenter(new Vector(x, this.aabb.getCenter().getY(), this.aabb.getCenter().getZ() ));
 	}
 	
 	/**
@@ -145,7 +153,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void setPositionY(float y){
-		this.position_y = y;
+		this.aabb.setCenter(new Vector(this.aabb.getCenter().getX(), y, this.aabb.getCenter().getZ() ));
 	}
 	
 	/**
@@ -153,7 +161,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void setPositionZ(float z){
-		this.position_z = z;
+		this.aabb.setCenter(new Vector(this.aabb.getCenter().getX(), this.aabb.getCenter().getY(), z ));
 	}
 		
 	/**
@@ -192,9 +200,16 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translate(float x, float y, float z){
-		this.position_x += x;
-		this.position_y += y;
-		this.position_z += z;
+		this.aabb.getCenter().plus(new Vector(x,y,z));
+	}
+	
+	/**
+	 * Translate the obstacle on X, Y and Z
+	 * @param translate on vector(x,y,z)
+	 * @since 1.0
+	 */
+	public void translate(Vector vec){
+		this.aabb.getCenter().plus(vec);
 	}
 	
 	/**
@@ -203,7 +218,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateX(float x){
-		this.position_x += x;
+		this.aabb.getCenter().plus(new Vector(x, 0.0f, 0.0f));
 	}
 	
 	/**
@@ -212,7 +227,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateY(float y){
-		this.position_y += y;
+		this.aabb.getCenter().plus(new Vector(0.0f, y, 0.0f));
 	}
 
 	/**
@@ -221,7 +236,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateZ(float z){
-		this.position_z += z;
+		this.aabb.getCenter().plus(new Vector(0.0f, 0.0f, z));
 	}
 	
 	/**
@@ -231,7 +246,7 @@ public class Meteor {
 	public void display(){
 		parent.lights();
         parent.pushMatrix();
-        parent.translate(this.position_x, this.position_y, this.position_z);
+        parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
         setRotationX(0.01f);
         translateZ(1.0f);
         parent.rotateX(this.theta_x);
