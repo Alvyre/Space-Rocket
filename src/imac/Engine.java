@@ -3,7 +3,7 @@ package imac;
 import processing.core.*;
 import com.leapmotion.leap.*;
 import leap.*;
-import osValidator.*;
+
 /**
  * <b>Engine class controls the entire application.</b>
  * <p>Extends the PApplet class @see PApplet </p>
@@ -28,11 +28,11 @@ public class Engine extends PApplet {
 	 * Keyboard retrieves the states of some key pressed or not
 	 */
 	Keyboard keyboard;
-	
+
 	/**
-	 * Main character of the app
+	 * Current level of the app (with main character and space level)
 	 */
-	Rocket player;
+	Level level;
 	
 	/**
 	 * Setup function to init Engine
@@ -46,10 +46,7 @@ public class Engine extends PApplet {
 
 		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
-		if(OSValidator.isWindows())
-			this.player = new Rocket(new Object3D(this, "../assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
-		else
-			this.player = new Rocket(new Object3D(this, "./assets/models/rocket.obj"), 0, 10.0f, "Rocket name", 1);
+		this.level = new Level(this, 1);
 
 	}
 	
@@ -64,17 +61,14 @@ public class Engine extends PApplet {
 		background(220);
 		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
 
-		this.player.getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
-		//this.player.getModel().setPosition(arturia.getStateKnobNumber2(), arturia.getStateKnobNumber3(), arturia.getStateKnobNumber4());
-				
-		//To use keyboard, comment the previous line and uncomment the next line
-		//this.player.getModel().translate(keyboard.EventLeftRight(), keyboard.EventUpDown(), 0);
+		this.level.getPlayer().getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
+		
 		if(Leapmotion.isConnected())
 			movements = new Vector(Leapmotion.handMoves());
 		else
 			movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
-		this.player.move(movements);
-		this.player.getModel().display();
+		this.level.getPlayer().move(movements);
+		this.level.display();
     }
 	
 	/**
