@@ -116,6 +116,7 @@ public class Level {
 	 * Function to load player configuration file
 	 * 
 	 * @return String (player JSON text)
+	 * @throws IOException 
 	 * 
 	 * @since 1.0
 	 */
@@ -134,6 +135,7 @@ public class Level {
 	 * 
 	 * @param levelNumber
 	 * @return String (level JSON text)
+	 * @throws IOException 
 	 * 
 	 * @since 1.0
 	 */
@@ -145,6 +147,62 @@ public class Level {
             return jsonTxt;
         }
         return null;
+	}
+	
+	/**
+	 * Allow to restart level
+	 * It reloads the level from the configuration file
+	 * 
+	 * @since 1.0
+	 */
+	public void restartLevel(){
+		try {
+			String jsonTextLevel  = loadLevelFromJSONFile(this.levelNumber);
+			JSONObject jsonLevel  = new JSONObject(jsonTextLevel);  
+			int playerScore       = (int)jsonLevel.getInt("Player_Score");
+	        float playerSpeed     = (float)jsonLevel.getDouble("Player_Speed");
+	        int playerLife        = (int)jsonLevel.getInt("Player_Life");
+	        int levelNumber       = (int)jsonLevel.getInt("Level_Number");
+	        int levelNbMeteors    = (int)jsonLevel.getInt("Level_NbMeteors");
+	        
+	        this.levelNumber = levelNumber;
+	        this.space = new Space(this.parent, levelNbMeteors);
+	        this.player.setLife(playerLife);
+	        this.player.setScore(playerScore);
+	        this.player.setSpeed(playerSpeed);
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Allow to change level
+	 * It loads a level from the configuration file
+	 * 
+	 * @return String (level JSON text)
+	 * 
+	 * @since 1.0
+	 */
+	public void loadLevel(int level){
+		try {
+			String jsonTextLevel  = loadLevelFromJSONFile(level);
+			JSONObject jsonLevel  = new JSONObject(jsonTextLevel);  
+			int playerScore       = (int)jsonLevel.getInt("Player_Score");
+	        float playerSpeed     = (float)jsonLevel.getDouble("Player_Speed");
+	        int playerLife        = (int)jsonLevel.getInt("Player_Life");
+	        int levelNumber       = (int)jsonLevel.getInt("Level_Number");
+	        int levelNbMeteors    = (int)jsonLevel.getInt("Level_NbMeteors");
+	        
+	        this.levelNumber = levelNumber;
+	        this.space = new Space(this.parent, levelNbMeteors);
+	        this.player.setLife(playerLife);
+	        this.player.setScore(playerScore);
+	        this.player.setSpeed(playerSpeed);
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

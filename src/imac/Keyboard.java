@@ -27,6 +27,11 @@ public class Keyboard {
 	private static float DONT_MOVE = 0.0f;
 	
 	/**
+	 * Static variable referring to acceleration or velocity speed
+	 */
+	private static float VELOCITY = 0.0f;
+	
+	/**
 	 * Reference parent PApplet of the app's sketch
 	 */
 	private PApplet parent;
@@ -72,10 +77,11 @@ public class Keyboard {
 	 * @since 1.0
 	 */
 	public float LeftRightEvent(){
-		if(Keyboard.LEFT && Keyboard.RIGHT) return   Keyboard.DONT_MOVE;
-		else if(Keyboard.LEFT)              return - Keyboard.MOVE;
-		else if(Keyboard.RIGHT)             return   Keyboard.MOVE;
-		return Keyboard.DONT_MOVE;
+		updateVelocity();
+		if(Keyboard.LEFT && Keyboard.RIGHT) return   Keyboard.DONT_MOVE * Keyboard.VELOCITY;
+		else if(Keyboard.LEFT)              return - Keyboard.MOVE * Keyboard.VELOCITY;
+		else if(Keyboard.RIGHT)             return   Keyboard.MOVE * Keyboard.VELOCITY;
+		return Keyboard.DONT_MOVE * Keyboard.VELOCITY;
 	}
 	
 	/**
@@ -83,9 +89,27 @@ public class Keyboard {
 	 * @since 1.0
 	 */
 	public float UpDownEvent(){
-		if(Keyboard.UP && Keyboard.DOWN) return   Keyboard.DONT_MOVE;
-		else if(Keyboard.UP)             return - Keyboard.MOVE;
-		else if(Keyboard.DOWN)           return   Keyboard.MOVE;
-		return Keyboard.DONT_MOVE;
+		updateVelocity();
+		if(Keyboard.UP && Keyboard.DOWN) return   Keyboard.DONT_MOVE * Keyboard.VELOCITY;
+		else if(Keyboard.UP)             return - Keyboard.MOVE * Keyboard.VELOCITY;
+		else if(Keyboard.DOWN)           return   Keyboard.MOVE * Keyboard.VELOCITY;
+		return Keyboard.DONT_MOVE * Keyboard.VELOCITY;
+	}
+	
+	/**
+	 * Update velocity if UP, DOWN, LEFT or RIGHT keys are pressed
+	 * 
+	 * @since 1.0
+	 */
+	public void updateVelocity(){
+		if(Keyboard.UP || Keyboard.DOWN || Keyboard.LEFT || Keyboard.RIGHT){
+			if(Keyboard.VELOCITY < 1){
+				Keyboard.VELOCITY += 0.1f;
+			}
+		}
+		else{
+			Keyboard.VELOCITY = 0;
+		}
+		System.out.println(Keyboard.VELOCITY);
 	}
 }
