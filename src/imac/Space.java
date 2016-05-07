@@ -76,7 +76,7 @@ public class Space {
 			parent.camera();
 			meteors.get(i).display();
 			parent.popMatrix();
-			System.out.println("x:" + meteors.get(0).getPositionX() + ", y:" + meteors.get(0).getPositionY() + ", z:" + meteors.get(0).getPositionZ());
+			//System.out.println("x:" + meteors.get(0).getPositionX() + ", y:" + meteors.get(0).getPositionY() + ", z:" + meteors.get(0).getPositionZ());
 	    }
 	}
 	

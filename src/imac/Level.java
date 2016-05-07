@@ -177,8 +177,8 @@ public class Level {
 	}
 	
 	/**
-	 * Allow to change level
-	 * It loads a level from the configuration file
+	 * Allow to load from the configuration file
+	 * It can be useful to change levels
 	 * 
 	 * @return String (level JSON text)
 	 * 

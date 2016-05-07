@@ -29,7 +29,24 @@ public class Keyboard {
 	/**
 	 * Static variable referring to acceleration or velocity speed
 	 */
-	private static float VELOCITY = 0.0f;
+	private static float VELOCITY_UP_DOWN    = 0.0f;
+	private static float VELOCITY_LEFT_RIGHT = 0.0f;
+	
+	/**
+	 * Static variable referring to last UP or Down keys pressed
+	 * 0 : null
+	 * 1 : UP
+	 * 2 : DOWN
+	 */
+	private static int LAST_KEY_UP_DOWN = 0;
+	
+	/**
+	 * Static variable referring to last UP or Down keys pressed
+	 * 0 : null
+	 * 1 : LEFT
+	 * 2 : RIGHT
+	 */
+	private static int LAST_KEY_LEFT_RIGHT = 0;
 	
 	/**
 	 * Reference parent PApplet of the app's sketch
@@ -77,11 +94,22 @@ public class Keyboard {
 	 * @since 1.0
 	 */
 	public float LeftRightEvent(){
+		updateLastKeys();
 		updateVelocity();
-		if(Keyboard.LEFT && Keyboard.RIGHT) return   Keyboard.DONT_MOVE * Keyboard.VELOCITY;
-		else if(Keyboard.LEFT)              return - Keyboard.MOVE * Keyboard.VELOCITY;
-		else if(Keyboard.RIGHT)             return   Keyboard.MOVE * Keyboard.VELOCITY;
-		return Keyboard.DONT_MOVE * Keyboard.VELOCITY;
+		if(Keyboard.LEFT && Keyboard.RIGHT) return   Keyboard.DONT_MOVE;
+		else if(Keyboard.LEFT){
+			Keyboard.LAST_KEY_LEFT_RIGHT = 1;
+			return - Keyboard.MOVE * Keyboard.VELOCITY_LEFT_RIGHT;
+		}
+		else if(Keyboard.RIGHT){
+			Keyboard.LAST_KEY_LEFT_RIGHT = 2;
+			return   Keyboard.MOVE * Keyboard.VELOCITY_LEFT_RIGHT;
+		}
+		else{
+			if(Keyboard.LAST_KEY_LEFT_RIGHT == 1)      return - Keyboard.VELOCITY_LEFT_RIGHT;
+			else if(Keyboard.LAST_KEY_LEFT_RIGHT == 2) return   Keyboard.VELOCITY_LEFT_RIGHT;
+			return Keyboard.DONT_MOVE;
+		}
 	}
 	
 	/**
@@ -89,27 +117,90 @@ public class Keyboard {
 	 * @since 1.0
 	 */
 	public float UpDownEvent(){
+		updateLastKeys();
 		updateVelocity();
-		if(Keyboard.UP && Keyboard.DOWN) return   Keyboard.DONT_MOVE * Keyboard.VELOCITY;
-		else if(Keyboard.UP)             return - Keyboard.MOVE * Keyboard.VELOCITY;
-		else if(Keyboard.DOWN)           return   Keyboard.MOVE * Keyboard.VELOCITY;
-		return Keyboard.DONT_MOVE * Keyboard.VELOCITY;
+		if(Keyboard.UP && Keyboard.DOWN) return   Keyboard.DONT_MOVE;
+		else if(Keyboard.UP){
+			Keyboard.LAST_KEY_UP_DOWN = 1;
+			return - Keyboard.MOVE * Keyboard.VELOCITY_UP_DOWN;
+		}
+		else if(Keyboard.DOWN){
+			Keyboard.LAST_KEY_UP_DOWN = 2;
+			return   Keyboard.MOVE * Keyboard.VELOCITY_UP_DOWN;
+		}
+		else{
+			if(Keyboard.LAST_KEY_UP_DOWN == 1)      return - Keyboard.VELOCITY_UP_DOWN;
+			else if(Keyboard.LAST_KEY_UP_DOWN == 2) return   Keyboard.VELOCITY_UP_DOWN;
+			return Keyboard.DONT_MOVE;
+		}
 	}
 	
 	/**
 	 * Update velocity if UP, DOWN, LEFT or RIGHT keys are pressed
+	 * Calls updateVelocityUpDown() and updateVelocityLeftRight()
 	 * 
 	 * @since 1.0
 	 */
 	public void updateVelocity(){
-		if(Keyboard.UP || Keyboard.DOWN || Keyboard.LEFT || Keyboard.RIGHT){
-			if(Keyboard.VELOCITY < 1){
-				Keyboard.VELOCITY += 0.1f;
+		updateVelocityUpDown();
+		updateVelocityLeftRight();
+	}
+	
+	/**
+	 * Update velocity if UP or DOWN keys are pressed
+	 * 
+	 * @since 1.0
+	 */
+	public void updateVelocityUpDown(){
+		if(Keyboard.UP || Keyboard.DOWN){
+			if(Keyboard.VELOCITY_UP_DOWN < 1){
+				Keyboard.VELOCITY_UP_DOWN += 0.1f;
 			}
+			else Keyboard.VELOCITY_UP_DOWN = 1;
 		}
 		else{
-			Keyboard.VELOCITY = 0;
+			if(Keyboard.VELOCITY_UP_DOWN > 0){
+				Keyboard.VELOCITY_UP_DOWN -= 0.1f;
+			}
+			else {
+				Keyboard.VELOCITY_UP_DOWN = 0;
+			}
 		}
-		System.out.println(Keyboard.VELOCITY);
+	}
+	
+	/**
+	 * Update velocity if LEFT or RIGHT keys are pressed
+	 * 
+	 * @since 1.0
+	 */
+	public void updateVelocityLeftRight(){
+		if(Keyboard.LEFT || Keyboard.RIGHT){
+			if(Keyboard.VELOCITY_LEFT_RIGHT < 1){
+				Keyboard.VELOCITY_LEFT_RIGHT += 0.1f;
+			}
+			else Keyboard.VELOCITY_LEFT_RIGHT = 1;
+		}
+		else{
+			if(Keyboard.VELOCITY_LEFT_RIGHT > 0){
+				Keyboard.VELOCITY_LEFT_RIGHT -= 0.1f;
+			}
+			else {
+				Keyboard.VELOCITY_LEFT_RIGHT = 0;
+			}
+		}
+	}
+	
+	/**
+	 * Update last keys pressed
+	 * 
+	 * @since 1.0
+	 */
+	public void updateLastKeys(){
+		if(Keyboard.VELOCITY_UP_DOWN == 0.0f){
+			Keyboard.LAST_KEY_UP_DOWN    = 0;
+		}
+		if(Keyboard.VELOCITY_LEFT_RIGHT == 0.0f){
+			Keyboard.LAST_KEY_LEFT_RIGHT = 0;
+		}
 	}
 }
