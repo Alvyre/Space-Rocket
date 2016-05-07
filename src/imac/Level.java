@@ -78,7 +78,7 @@ public class Level {
 	        
 	        this.player = new Rocket(new Object3D(this.parent, playerModel), playerScore, playerSpeed, playerName, playerLife);
 	        
-	        System.out.print("Hello " + playerName + "! Let's start with level " + levelNumber  + "!\n");
+	        welcomeToSpaceRocket(playerName);
         
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -214,4 +214,48 @@ public class Level {
 		this.player.getModel().display();
 		this.space.display();
 	}
+	
+	/**
+	 * Function to display welcome output text in console
+	 * 
+	 * @param player name
+	 * 
+	 * @since 1.0
+	 */
+	public void welcomeToSpaceRocket(String name){
+		System.out.println("                                                                                                      ");
+		System.out.println("                                       WELCOME TO                                                     ");
+		System.out.println(" ____________________________________________________________________________________________________ ");
+		System.out.println("                                                                                                      ");
+		System.out.println(" _______  _______  _______  _______  _______    ______    _______  _______  ___   _  _______  _______ ");
+		System.out.println("|       ||       ||   _   ||       ||       |  |    _ |  |       ||       ||   | | ||       ||       |");
+		System.out.println("|  _____||    _  ||  |_|  ||       ||    ___|  |   | ||  |   _   ||       ||   |_| ||    ___||_     _|");
+		System.out.println("| |_____ |   |_| ||       ||       ||   |___   |   |_||_ |  | |  ||       ||      _||   |___   |   |  ");
+		System.out.println("|_____  ||    ___||       ||      _||    ___|  |    __  ||  |_|  ||      _||     |_ |    ___|  |   |  ");
+		System.out.println(" _____| ||   |    |   _   ||     |_ |   |___   |   |  | ||       ||     |_ |    _  ||   |___   |   |  ");
+		System.out.println("|_______||___|    |__| |__||_______||_______|  |___|  |_||_______||_______||___| |_||_______|  |___|  ");
+		System.out.println("                                                                                                      ");
+		System.out.println(" ____________________________________________________________________________________________________ ");
+		System.out.println("                                                                                                      ");
+		System.out.println("                                        LOADING...                                                    ");
+		System.out.println("                                                                                                      ");
+		System.out.println("                       Hello " + name + " ! Let's start with level 1 !                                 ");
+		System.out.println("                                                                                                      ");
+		System.out.println("                                                                                                      ");	
+	}
+	
+	/**
+	 * Function to display output text in console when level has changed
+	 * 
+	 * @param level number
+	 * 
+	 * @since 1.0
+	 */
+	public void levelHasChanged(int level){
+		System.out.println("                                                                                                      ");
+		System.out.println("                              Let's go to start level number " + level + " !                          ");
+		System.out.println("                                                                                                      ");
+	}
+		
+	
 }
