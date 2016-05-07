@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import org.apache.commons.io.IOUtils;
 import json.JSONObject;
 import osValidator.OSValidator;
@@ -52,18 +53,22 @@ public class Level {
 	Level(PApplet p, int level){
 		
 		try {
-			String jsonTextPlayer = loadPlayerFromJSONFile();
-	        JSONObject jsonPlayer = new JSONObject(jsonTextPlayer); 
-	        String playerName     = (String)jsonPlayer.getString("Player_Name");
-	        String playerModel    = (String)jsonPlayer.getString("Player_Model");
+			String jsonTextPlayer     = loadPlayerFromJSONFile();
+	        JSONObject jsonPlayer     = new JSONObject(jsonTextPlayer); 
+	        String playerName         = (String)jsonPlayer.getString("Player_Name");
+	        String playerModel        = (String)jsonPlayer.getString("Player_Model");
 	        
-	        String jsonTextLevel  = loadLevelFromJSONFile(level);
-			JSONObject jsonLevel  = new JSONObject(jsonTextLevel);  
-			int playerScore       = (int)jsonLevel.getInt("Player_Score");
-	        float playerSpeed     = (float)jsonLevel.getDouble("Player_Speed");
-	        int playerLife        = (int)jsonLevel.getInt("Player_Life");
-	        int levelNumber       = (int)jsonLevel.getInt("Level_Number");
-	        int levelNbMeteors    = (int)jsonLevel.getInt("Level_NbMeteors");
+	        String jsonTextLevel      = loadLevelFromJSONFile(level);
+			JSONObject jsonLevel      = new JSONObject(jsonTextLevel);  
+			JSONObject playerPosition = (JSONObject)jsonLevel.getJSONObject("Player_Position");
+			float playerPositionX     = (float)playerPosition.getDouble("x");
+			float playerPositionY     = (float)playerPosition.getDouble("y");
+			float playerPositionZ     = (float)playerPosition.getDouble("z");
+			int playerScore           = (int)jsonLevel.getInt("Player_Score");
+	        float playerSpeed         = (float)jsonLevel.getDouble("Player_Speed");
+	        int playerLife            = (int)jsonLevel.getInt("Player_Life");
+	        int levelNumber           = (int)jsonLevel.getInt("Level_Number");
+	        int levelNbMeteors        = (int)jsonLevel.getInt("Level_NbMeteors");
 	        
 	        this.parent = p;
 	        this.levelNumber = levelNumber;
@@ -76,7 +81,7 @@ public class Level {
 	        	playerModel = "./assets/models/" + playerModel;
 	        }
 	        
-	        this.player = new Rocket(new Object3D(this.parent, playerModel), playerScore, playerSpeed, playerName, playerLife);
+	        this.player = new Rocket(new Object3D(this.parent, playerModel, playerPositionX, playerPositionY, playerPositionZ), playerScore, playerSpeed, playerName, playerLife);
 	        
 	        welcomeToSpaceRocket(playerName);
         
@@ -159,6 +164,10 @@ public class Level {
 		try {
 			String jsonTextLevel  = loadLevelFromJSONFile(this.levelNumber);
 			JSONObject jsonLevel  = new JSONObject(jsonTextLevel);  
+			JSONObject playerPosition = (JSONObject)jsonLevel.getJSONObject("Player_Position");
+			float playerPositionX     = (float)playerPosition.getDouble("x");
+			float playerPositionY     = (float)playerPosition.getDouble("y");
+			float playerPositionZ     = (float)playerPosition.getDouble("z");
 			int playerScore       = (int)jsonLevel.getInt("Player_Score");
 	        float playerSpeed     = (float)jsonLevel.getDouble("Player_Speed");
 	        int playerLife        = (int)jsonLevel.getInt("Player_Life");
@@ -167,6 +176,7 @@ public class Level {
 	        
 	        this.levelNumber = levelNumber;
 	        this.space = new Space(this.parent, levelNbMeteors);
+	        this.player.getModel().setPosition(playerPositionX, playerPositionY, playerPositionZ);
 	        this.player.setLife(playerLife);
 	        this.player.setScore(playerScore);
 	        this.player.setSpeed(playerSpeed);
