@@ -51,8 +51,8 @@ public class Pyramid extends Meteor {
 	  * @since 1.0
 	  */
 		public void display(){
-			//parent.lights();
-			
+			parent.lights();
+			parent.noStroke();
 	        parent.pushMatrix();
 
 	        parent.rotateX(0.5f);
@@ -60,6 +60,8 @@ public class Pyramid extends Meteor {
 	        
 
 	        parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
+	        translateZ(this.getSpeed());
+	        
 	        parent.stroke(0);
 	        parent.fill(255);
 	        parent.beginShape(PConstants.TRIANGLES);

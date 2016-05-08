@@ -52,8 +52,10 @@ public class Box extends Meteor {
 	 public void display(){
 		parent.lights();
 		parent.fill(255);
+		parent.noStroke();
 		parent.pushMatrix();
 		parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
+		translateZ(this.getSpeed());
 		parent.box(this.getSize());
 		parent.popMatrix();
 	}

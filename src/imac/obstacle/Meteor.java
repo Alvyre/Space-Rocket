@@ -129,6 +129,14 @@ public class Meteor {
 	}
 	
 	/**
+	 * @return the speed
+	 * @since 1.0
+	 */
+	public float getSpeed() {
+		return speed;
+	}
+	
+	/**
 	 * @param the x position to set
 	 * @param the y position to set
 	 * @param the z position to set
@@ -198,6 +206,14 @@ public class Meteor {
 		this.size = size;
 	}
 	
+	/**
+	 * @param the speed to set
+	 * @since 1.0
+	 */
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+	
 	/* OTHER METHODS */
 	
 	/**
@@ -249,8 +265,7 @@ public class Meteor {
         parent.pushMatrix();
         parent.translate(this.position_x, this.position_y, this.position_z);
         setRotationX(0.01f);
-        translateZ(3.0f);
-        //translateX(0.5f);
+        translateZ(this.speed);
         parent.rotateX(this.theta_x);
         parent.rotateY(this.theta_y);
         parent.noStroke();

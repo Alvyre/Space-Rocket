@@ -69,10 +69,13 @@ public class Level {
 	        int playerLife            = (int)jsonLevel.getInt("Player_Life");
 	        int levelNumber           = (int)jsonLevel.getInt("Level_Number");
 	        int levelNbMeteors        = (int)jsonLevel.getInt("Level_NbMeteors");
+	        JSONObject levelSpeed = (JSONObject)jsonLevel.getJSONObject("Level_SpeedMeteor");
+	        float levelSpeedMin = (float)levelSpeed.getDouble("min");
+	        float levelSpeedMax = (float)levelSpeed.getDouble("max");
 	        
 	        this.parent = p;
 	        this.levelNumber = levelNumber;
-	        this.space = new Space(this.parent, levelNbMeteors);
+	        this.space = new Space(this.parent, levelNbMeteors, levelSpeedMin, levelSpeedMax);
 	        
 	        if(OSValidator.isWindows()){
 	        	playerModel = "../assets/models/" + playerModel;
@@ -173,9 +176,12 @@ public class Level {
 	        int playerLife        = (int)jsonLevel.getInt("Player_Life");
 	        int levelNumber       = (int)jsonLevel.getInt("Level_Number");
 	        int levelNbMeteors    = (int)jsonLevel.getInt("Level_NbMeteors");
+	        JSONObject levelSpeed = (JSONObject)jsonLevel.getJSONObject("Level_SpeedMeteor");
+	        float levelSpeedMin = (float)levelSpeed.getDouble("min");
+	        float levelSpeedMax = (float)levelSpeed.getDouble("max");
 	        
 	        this.levelNumber = levelNumber;
-	        this.space = new Space(this.parent, levelNbMeteors);
+	        this.space = new Space(this.parent, levelNbMeteors, levelSpeedMin, levelSpeedMax);
 	        this.player.getModel().setPosition(playerPositionX, playerPositionY, playerPositionZ);
 	        this.player.setLife(playerLife);
 	        this.player.setScore(playerScore);
@@ -203,9 +209,12 @@ public class Level {
 	        int playerLife        = (int)jsonLevel.getInt("Player_Life");
 	        int levelNumber       = (int)jsonLevel.getInt("Level_Number");
 	        int levelNbMeteors    = (int)jsonLevel.getInt("Level_NbMeteors");
+	        JSONObject levelSpeed = (JSONObject)jsonLevel.getJSONObject("Level_SpeedMeteor");
+	        float levelSpeedMin = (float)levelSpeed.getDouble("min");
+	        float levelSpeedMax = (float)levelSpeed.getDouble("max");
 	        
 	        this.levelNumber = levelNumber;
-	        this.space = new Space(this.parent, levelNbMeteors);
+	        this.space = new Space(this.parent, levelNbMeteors, levelSpeedMin, levelSpeedMax);
 	        this.player.setLife(playerLife);
 	        this.player.setScore(playerScore);
 	        this.player.setSpeed(playerSpeed);

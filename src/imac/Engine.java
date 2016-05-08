@@ -57,6 +57,13 @@ public class Engine extends PApplet {
 	@Override
 	public void draw() {
 		background(220);
+		camera(this.level.getPlayer().getPosition().getX(), 
+			   this.level.getPlayer().getPosition().getY(),
+			   Engine.WINDOW_HEIGHT / 2f,
+			   this.level.getPlayer().getPosition().getX(),
+			   this.level.getPlayer().getPosition().getY(),
+			   0.0f, 0.0f, 1.0f, 0.0f);
+		
 		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
 
 		this.level.getPlayer().getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
