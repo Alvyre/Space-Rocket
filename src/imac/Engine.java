@@ -79,10 +79,12 @@ public class Engine extends PApplet {
 		this.level.getPlayer().move(movements);
 		this.level.display();
 		
-		//textSize(32);
-		//fill(50);;
-		//text("word", this.level.getPlayer().getPosition().getX(), this.level.getPlayer().getPosition().getY(), -100);  // Specify a z-axis value
-		
+		textSize(20);
+		textAlign(RIGHT);
+		fill(0);
+		String info = new String (this.level.getPlayer().getName() + "\n" +
+								  "Score : " + this.level.getPlayer().getScore() );
+		text(info, camera.getEyeX() + Engine.WINDOW_WIDTH / 2, camera.getEyeY() - Engine.WINDOW_HEIGHT /2 - 20, -500);
 		
     }
 	

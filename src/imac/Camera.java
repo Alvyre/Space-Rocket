@@ -98,4 +98,28 @@ public class Camera {
 		this.centerY = player.getPosition().getY();
 	}
 	
+	/**
+	 * @return eyeX
+	 * @since 1.0
+	 */
+	public float getEyeX(){
+		return this.eyeX;
+	}
+	
+	/**
+	 * @return eyeY
+	 * @since 1.0
+	 */
+	public float getEyeY(){
+		return this.eyeY;
+	}
+	
+	/**
+	 * @return eyeZ
+	 * @since 1.0
+	 */
+	public float getEyeZ(){
+		return this.eyeZ;
+	}
+	
 }

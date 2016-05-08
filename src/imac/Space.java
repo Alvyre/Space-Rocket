@@ -86,9 +86,9 @@ public class Space {
 		int gridSize = 40;
 		int xoffset = Engine.WINDOW_WIDTH/2;
 		int yoffset = 250;
-		int zoffset = -600;
-	    for(int i = -Engine.WINDOW_WIDTH/2; i <Engine.WINDOW_WIDTH/2; i+=gridSize) {
-	    for(int j = -Engine.WINDOW_HEIGHT/2; j < Engine.WINDOW_HEIGHT/2; j+=gridSize) {
+		int zoffset = -300;
+	    for(int i = -Engine.WINDOW_WIDTH/2; i <Engine.WINDOW_WIDTH; i+=gridSize) {
+	    for(int j = -Engine.WINDOW_HEIGHT/2; j < Engine.WINDOW_HEIGHT; j+=gridSize) {
 	      int y = 200;
 	      parent.line(xoffset + i,          yoffset + y, zoffset + j,           xoffset + i+gridSize, yoffset + y, zoffset + j          );
 	      parent.line(xoffset + i+gridSize, yoffset + y, zoffset + j,           xoffset + i+gridSize, yoffset + y, zoffset + j+gridSize );
