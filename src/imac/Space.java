@@ -49,7 +49,7 @@ public class Space {
 		float yoff = 0.0f; // 2nd dimension of perlin noise
 		float xoff = 0.0f;
 		float zoff = -400.0f;
-		
+
 		for(int i=0; i< this.nbMeteors; i++){
 			
 			float y = PApplet.map(parent.noise(xoff, yoff), 0, 1, 0, Engine.WINDOW_HEIGHT); // Option #1: 2D Noise
@@ -70,6 +70,22 @@ public class Space {
 		}
 	}
 	
+	void drawGrid(){
+		int gridSize = 40;
+		int xoffset = 0;
+		int yoffset = 250; // drawn at y = 250 ("below" the red grid)
+		int zoffset = -600; // drawn at z = 100 ("father away from us" that the red grid)
+	    for(int i = -Engine.WINDOW_WIDTH/2; i <Engine.WINDOW_WIDTH/2; i+=gridSize) {
+	    for(int j = -Engine.WINDOW_HEIGHT/2; j < Engine.WINDOW_HEIGHT/2; j+=gridSize) {
+	      int y = 200;
+	      parent.line(xoffset + i,          yoffset + y, zoffset + j,           xoffset + i+gridSize, yoffset + y, zoffset + j          );
+	      parent.line(xoffset + i+gridSize, yoffset + y, zoffset + j,           xoffset + i+gridSize, yoffset + y, zoffset + j+gridSize );
+	      parent.line(xoffset + i+gridSize, yoffset + y, zoffset + j+gridSize,  xoffset + i,          yoffset + y, zoffset + j+gridSize );
+	      parent.line(xoffset + i,          yoffset + y, zoffset + j,           xoffset + i,          yoffset + y, zoffset + j+gridSize );
+	    }
+	  }
+	}
+	
 	/**
 	 * Display the space constructor
 	 * 
@@ -79,6 +95,7 @@ public class Space {
 		for(int i = 0; i < this.meteors.size(); i++)
 	    {
 			parent.pushMatrix();
+			drawGrid();
 			//parent.camera();
 			meteors.get(i).display();
 			parent.popMatrix();
