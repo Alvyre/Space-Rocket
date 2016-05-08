@@ -1,9 +1,7 @@
 package imac;
 
 import processing.core.*;
-
 import java.util.ArrayList;
-
 import imac.obstacle.*;
 
 /**
@@ -33,6 +31,16 @@ public class Space {
 	int nbMeteors;
 	
 	/**
+	 * When a meteor begins to be visible 
+	 */
+	public static float METEOR_START = -1200.0f;
+	
+	/**
+	 * When a meteor is not visible anymore
+	 */
+	public static float MARGIN_BEHIND_MODEL = 100.0f;
+	
+	/**
 	 * Space constructor
 	 * It initialize the meteors ArrayList with Perlin Noise
 	 * 
@@ -55,22 +63,30 @@ public class Space {
 			
 			float y = PApplet.map(parent.noise(xoff, yoff), 0, 1, 0, Engine.WINDOW_HEIGHT);
 			float speed = parent.random(minSpeed, maxSpeed);
-			int randShape = (int)parent.random(1, 4);
+			int randShape = (int)parent.random(1, 3);
 			
 			if(randShape == 1)       this.meteors.add(new Box(this.parent, xoff, y, zoff, speed, 2, 2, 2, 10));
 			else if( randShape == 2) this.meteors.add(new Sphere(this.parent, xoff, y, zoff, speed, 2, 2, 2, 10));
-			else                     this.meteors.add(new Pyramid(this.parent, xoff, y, zoff, speed, 2, 2, 2, 10));
 			
 			xoff += 10;
 		    yoff += 4;
 		}
 	}
 	
-	void drawGrid(){
+	/**
+	 * Space gird
+	 * 
+	 * @param PApplet
+	 * @param meteors number
+	 * 
+	 * @since 1.0
+	 */
+	private void drawGrid(){
+		parent.stroke(227);
 		int gridSize = 40;
-		int xoffset = 0;
-		int yoffset = 250; // drawn at y = 250 ("below" the red grid)
-		int zoffset = -600; // drawn at z = 100 ("father away from us" that the red grid)
+		int xoffset = Engine.WINDOW_WIDTH/2;
+		int yoffset = 250;
+		int zoffset = -600;
 	    for(int i = -Engine.WINDOW_WIDTH/2; i <Engine.WINDOW_WIDTH/2; i+=gridSize) {
 	    for(int j = -Engine.WINDOW_HEIGHT/2; j < Engine.WINDOW_HEIGHT/2; j+=gridSize) {
 	      int y = 200;
@@ -88,9 +104,9 @@ public class Space {
 	 * @since 1.0
 	 */
 	public void display(){
+		drawGrid();
 		for(int i = 0; i < this.meteors.size(); i++)
 	    {
-			drawGrid();
 			meteors.get(i).display();
 		}
 	}

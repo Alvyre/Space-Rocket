@@ -70,8 +70,8 @@ public class Object3D{
 		this.position_x = x;
 		this.position_y = y;
 		this.position_z = z;
-		this.theta_x = 0;
-		this.theta_y = 0;
+		this.theta_x = 0.0f;
+		this.theta_y = 0.0f;
 	}
 	
 	/**
@@ -86,11 +86,11 @@ public class Object3D{
 		this.path = path;
 		this.model = new PShape();
 		this.model = parent.loadShape(this.path);
-		this.position_x = 400;
-		this.position_y = 600;
-		this.position_z = 400;
-		this.theta_x = 0;
-		this.theta_y = 0;
+		this.position_x = Engine.WINDOW_WIDTH / 2;
+		this.position_y = Engine.WINDOW_HEIGHT / 2;
+		this.position_z = 0.0f;
+		this.theta_x = 0.0f;
+		this.theta_y = 0.0f;
 	}
 	
 	/**
@@ -253,29 +253,15 @@ public class Object3D{
 	public void load(String path){
 		this.model = parent.loadShape(this.path);
 	}
-	
-	/**
-	 * Translate the model on X, Y and Z
-	 * @param translate on X
-	 * @param translate on Y
-	 * @param translate on Z
-	 * @since 1.0
-	 */
-	public void translate(float x, float y, float z){
-		this.position_x += x;
-		this.position_y += y;
-		this.position_z += z;
-	}
-	
 
 	/**
 	 * Translate the model on X, Y and Z
-	 * @param translate on X
+	 * @param 3d vector
 	 * @since 1.0
 	 */
 	public void translate(Vector vec){
-		this.position_x += vec.getX();
-		this.position_y += vec.getY();
+		if(this.position_x + vec.getX() > 0.0f && this.position_x + vec.getX() < Engine.WINDOW_WIDTH) this.position_x += vec.getX();
+		if(this.position_y + vec.getY() > 0.0f && this.position_y + vec.getY() < Engine.WINDOW_HEIGHT) this.position_y += vec.getY();
 		this.position_z += vec.getZ();
 	}
 	

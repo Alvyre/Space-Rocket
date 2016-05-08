@@ -2,6 +2,7 @@ package imac.obstacle;
 
 import com.leapmotion.leap.Vector;
 
+import imac.Space;
 import processing.core.*;
 
 /**
@@ -269,7 +270,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateZ(float z){
-		if(this.position_z > 100.0f) this.position_z = -1200.0f;
+		if(this.position_z > Space.MARGIN_BEHIND_MODEL) this.position_z = Space.METEOR_START;
 		else this.position_z += z;
 	}
 	

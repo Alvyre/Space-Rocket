@@ -20,6 +20,11 @@ public class Engine extends PApplet {
 	static int WINDOW_HEIGHT = 600;
 	
 	/**
+	 * Background RGB color of the app (255 to 0)
+	 */
+	static int BACKGROUND_COLOR  = 255;
+	
+	/**
 	 * Midi Controller retrieves the states of each button and knob
 	 */
 	private MIDIController arturia;
@@ -35,6 +40,11 @@ public class Engine extends PApplet {
 	private Level level;
 	
 	/**
+	 * Camera of the app
+	 */
+	private Camera camera;
+	
+	/**
 	 * Setup function to init Engine
 	 * The setup function corresponds
 	 * to the constructor in Processing
@@ -46,6 +56,7 @@ public class Engine extends PApplet {
 		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
 		this.level = new Level(this, 1);
+		this.camera = new Camera(this, this.level.getPlayer());
 	}
 	
 	/**
@@ -56,27 +67,23 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void draw() {
-		background(0);
-		
-		camera(this.level.getPlayer().getPosition().getX(), 
-			   this.level.getPlayer().getPosition().getY(),
-			   Engine.WINDOW_HEIGHT / 2f,
-			   this.level.getPlayer().getPosition().getX(),
-			   this.level.getPlayer().getPosition().getY(),
-			   0.0f,
-			   0.0f, 1.0f, 0.0f);
+		background(Engine.BACKGROUND_COLOR);
+		this.camera.look();
 		
 		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
-
 		this.level.getPlayer().getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
 		
-		if(Leapmotion.isConnected())
-			movements = new Vector(Leapmotion.handMoves());
-		else
-			movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
+		if(Leapmotion.isConnected()) movements = new Vector(Leapmotion.handMoves());
+		else                         movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
 
 		this.level.getPlayer().move(movements);
 		this.level.display();
+		
+		//textSize(32);
+		//fill(50);;
+		//text("word", this.level.getPlayer().getPosition().getX(), this.level.getPlayer().getPosition().getY(), -100);  // Specify a z-axis value
+		
+		
     }
 	
 	/**
