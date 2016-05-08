@@ -137,6 +137,14 @@ public class Meteor {
 	}
 	
 	/**
+	 * @return the speed
+	 * @since 1.0
+	 */
+	public float getRotate() {
+		return rotate;
+	}
+	
+	/**
 	 * @param the x position to set
 	 * @param the y position to set
 	 * @param the z position to set
@@ -214,6 +222,14 @@ public class Meteor {
 		this.speed = speed;
 	}
 	
+	/**
+	 * @param the rotation to set
+	 * @since 1.0
+	 */
+	public void setRotate(float theta) {
+		this.rotate = theta;
+	}
+	
 	/* OTHER METHODS */
 	
 	/**
@@ -253,7 +269,8 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateZ(float z){
-		this.position_z += z;
+		if(this.position_z > 100.0f) this.position_z = -1200.0f;
+		else this.position_z += z;
 	}
 	
 	/**

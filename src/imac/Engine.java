@@ -17,7 +17,7 @@ public class Engine extends PApplet {
 	 * Variables used to define the window's size of the app
 	 */
 	static int WINDOW_WIDTH  = 800;
-	static int WINDOW_HEIGHT = 800;
+	static int WINDOW_HEIGHT = 600;
 	
 	/**
 	 * Midi Controller retrieves the states of each button and knob
@@ -56,13 +56,15 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void draw() {
-		background(220);
+		background(0);
+		
 		camera(this.level.getPlayer().getPosition().getX(), 
 			   this.level.getPlayer().getPosition().getY(),
 			   Engine.WINDOW_HEIGHT / 2f,
 			   this.level.getPlayer().getPosition().getX(),
 			   this.level.getPlayer().getPosition().getY(),
-			   0.0f, 0.0f, 1.0f, 0.0f);
+			   0.0f,
+			   0.0f, 1.0f, 0.0f);
 		
 		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
 

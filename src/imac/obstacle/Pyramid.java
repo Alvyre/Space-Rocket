@@ -62,7 +62,6 @@ public class Pyramid extends Meteor {
 	        parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
 	        translateZ(this.getSpeed());
 	        
-	        parent.stroke(0);
 	        parent.fill(255);
 	        parent.beginShape(PConstants.TRIANGLES);
 	        parent.vertex(-this.getSize(), -this.getSize(), -this.getSize());
