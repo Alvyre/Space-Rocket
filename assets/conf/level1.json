@@ -1,0 +1,8 @@
+{
+    "Player_Position": { "x" : 400.0, "y" : 300.0, "z"  : 400.0},
+    "Player_Score" : 0,
+    "Player_Speed" : 10.0,
+    "Player_Life"  : 1,
+	"Level_Number" : 1,
+    "Level_NbMeteors" : 10
+}
