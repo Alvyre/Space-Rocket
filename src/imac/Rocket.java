@@ -1,5 +1,5 @@
 package imac;
-
+import imac.collide.*;
 import java.util.HashMap;
 import java.util.Map;
 import com.leapmotion.leap.Vector;
@@ -19,6 +19,7 @@ public class Rocket {
 	/**
 	 * score shows the points gathered by the player (integer).
 	 */
+	private AABB3D aabb3d;
 	private int 				score;
 	/**
 	 * speed increases the rapidity of the player, can be modified with bonuses.
@@ -56,6 +57,7 @@ public class Rocket {
 	 * @since 1.0
 	 */
 	public Rocket(Object3D model, int score, float speed, String name, int life) {
+		aabb3d = new AABB3D(model.getPositionVec(), new Vector(model.model.getWidth(), model.model.getHeight(), model.model.getDepth()));
 		this.model = model;
 		this.score = score;
 		this.speed = speed;
@@ -75,6 +77,7 @@ public class Rocket {
 	 */
 	public void move(Vector vec){
 		this.model.translate(vec.times(speed));
+		this.aabb3d.setCenter(this.model.getPositionVec());
 	}
 	/**
 	 * Apply the bonus to the player
@@ -94,11 +97,18 @@ public class Rocket {
 		return model;
 	}
 	/**
+	 * @return the aabb3d
+	 */
+	public AABB3D getAABB3D() {
+		return aabb3d;
+	}
+
+	/**
 	 * @return the position
 	 * @since 1.0
 	 */
 	public Vector getPosition() {
-		return this.model.getPositionVec();
+		return this.aabb3d.getCenter();
 	}
 	/**
 	 * @return the score
