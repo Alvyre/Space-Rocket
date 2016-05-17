@@ -33,15 +33,19 @@ public class Immortal extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(Rocket player){
-		this.timer = new Timer();
-		player.setImmortal(true);
-		//System.out.println("Immortality bonus enabled !");
-		this.timer.schedule(new TimerTask() {
-			  @Override
-			  public void run() {
-				  player.setImmortal(false);
-				//System.out.println("Immortality bonus disabled !");
-			  }
-			}, (long)this.duration*1000);
+		if(this.isActive()){
+			this.timer = new Timer();
+			player.setImmortal(true);
+			System.out.println("Immortality bonus enabled !");
+			Immortal.this.setState(false);
+			this.timer.schedule(new TimerTask() {
+				  @Override
+				  public void run() {
+					player.setImmortal(false);
+					System.out.println("Immortality bonus disabled !");
+					
+				  }
+				}, (long)this.duration*1000);
+		}
 	}
 }

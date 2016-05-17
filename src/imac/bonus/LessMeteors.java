@@ -37,10 +37,11 @@ public class LessMeteors extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(/*  */){
-		this.timer = new Timer();
 		if(this.isActive()){
+			this.timer = new Timer();
 			// TODO SET NUMBER OF METEOR
 			//System.out.println("Less Meteors bonus Started !");
+			LessMeteors.this.setState(false);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {

@@ -106,7 +106,7 @@ public class Space {
 	public void display(){
 		drawGrid();
 		for(int i = 0; i < this.meteors.size(); i++)
-	    {
+	    {	
 			meteors.get(i).display();
 		}
 	}

@@ -2,6 +2,9 @@ package imac;
 
 import processing.core.*;
 import com.leapmotion.leap.*;
+
+import imac.collide.AABB3D;
+import imac.obstacle.*;
 import leap.*;
 
 /**
@@ -71,6 +74,7 @@ public class Engine extends PApplet {
 		this.camera.look();
 		
 		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
+		
 		this.level.getPlayer().getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
 		
 		if(Leapmotion.isConnected()) movements = new Vector(Leapmotion.handMoves());
@@ -85,7 +89,6 @@ public class Engine extends PApplet {
 		String info = new String (this.level.getPlayer().getName() + "\n" +
 								  "Score : " + this.level.getPlayer().getScore() );
 		text(info, camera.getEyeX() + Engine.WINDOW_WIDTH / 2, camera.getEyeY() - Engine.WINDOW_HEIGHT /2 - 20, -500);
-		
     }
 	
 	/**
@@ -105,7 +108,7 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void keyPressed() {
-		keyboard.eventKeyPressed();
+		keyboard.eventKeyPressed(level.getPlayer());
 	}
 	
 	/**

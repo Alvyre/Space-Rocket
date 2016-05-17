@@ -3,6 +3,7 @@ package imac.obstacle;
 import com.leapmotion.leap.Vector;
 
 import imac.Space;
+import imac.collide.AABB3D;
 import processing.core.*;
 
 /**
@@ -30,6 +31,7 @@ public class Meteor {
 	private float position_x;
 	private float position_y;
 	private float position_z;
+	AABB3D aabb3d;
 	
 	/**
 	 * Variables used to define the obstacle rotation
@@ -76,6 +78,7 @@ public class Meteor {
 	  */
 	 public Meteor(PApplet p, float x, float y, float z, float speed, float rotate, float tx, float ty, float s){
 		this.parent = p;
+		aabb3d = new AABB3D(new Vector(x,y,z), new Vector(s/2.0f, s/2.0f, s/2.0f));
 		this.position_x = x;
 		this.position_y = y;
 		this.position_z = z;
@@ -94,6 +97,7 @@ public class Meteor {
 	 */
 	public float getPositionX(){
 		return this.position_x;
+		//return this.aabb3d.getCenter().getX();
 	}
 	
 	/**
@@ -102,6 +106,7 @@ public class Meteor {
 	 */
 	public float getPositionY(){
 		return this.position_y;
+		//return this.aabb3d.getCenter().getY();
 	}
 	
 	/**
@@ -110,6 +115,7 @@ public class Meteor {
 	 */
 	public float getPositionZ(){
 		return this.position_z;
+		//return this.aabb3d.getCenter().getZ();
 	}
 	
 	/**
@@ -117,10 +123,17 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public Vector getPositionVec(){
-		Vector vec = new Vector(this.position_x, this.position_y, this.position_z);
+		Vector vec = aabb3d.getCenter();
 		return vec;
 	}
 	
+	/**
+	 * @return the aabb3d
+	 */
+	public AABB3D getAABB3D() {
+		return aabb3d;
+	}
+
 	/**
 	 * @return the size
 	 * @since 1.0
@@ -152,9 +165,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void setPosition(float x, float y, float z){
-		this.position_x = x;
-		this.position_y = y;
-		this.position_z = z;
+		this.aabb3d.setCenter(new Vector(x,y,z));
 	}
 	
 	/**
@@ -163,6 +174,7 @@ public class Meteor {
 	 */
 	public void setPositionX(float x){
 		this.position_x = x;
+		this.aabb3d.setCenter(new Vector(x, this.aabb3d.getCenter().getY(), this.aabb3d.getCenter().getZ() ));
 	}
 	
 	/**
@@ -171,6 +183,7 @@ public class Meteor {
 	 */
 	public void setPositionY(float y){
 		this.position_y = y;
+		this.aabb3d.setCenter(new Vector(this.aabb3d.getCenter().getX(), y, this.aabb3d.getCenter().getZ() ));
 	}
 	
 	/**
@@ -179,6 +192,7 @@ public class Meteor {
 	 */
 	public void setPositionZ(float z){
 		this.position_z = z;
+		this.aabb3d.setCenter(new Vector(this.aabb3d.getCenter().getX(), this.aabb3d.getCenter().getY(), z ));
 	}
 		
 	/**
@@ -241,9 +255,16 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translate(float x, float y, float z){
-		this.position_x += x;
-		this.position_y += y;
-		this.position_z += z;
+		this.aabb3d.getCenter().plus(new Vector(x,y,z));
+	}
+	
+	/**
+	 * Translate the obstacle on X, Y and Z
+	 * @param translate on vector(x,y,z)
+	 * @since 1.0
+	 */
+	public void translate(Vector vec){
+		this.aabb3d.getCenter().plus(vec);
 	}
 	
 	/**
@@ -252,7 +273,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateX(float x){
-		this.position_x += x;
+		this.aabb3d.getCenter().plus(new Vector(x, 0.0f, 0.0f));
 	}
 	
 	/**
@@ -261,7 +282,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateY(float y){
-		this.position_y += y;
+		this.aabb3d.getCenter().plus(new Vector(0.0f, y, 0.0f));
 	}
 
 	/**
@@ -272,6 +293,7 @@ public class Meteor {
 	public void translateZ(float z){
 		if(this.position_z > Space.MARGIN_BEHIND_MODEL) this.position_z = Space.METEOR_START;
 		else this.position_z += z;
+		//this.aabb3d.getCenter().plus(new Vector(0.0f, 0.0f, z));
 	}
 	
 	/**
@@ -281,7 +303,7 @@ public class Meteor {
 	public void display(){
 		parent.lights();
         parent.pushMatrix();
-        parent.translate(this.position_x, this.position_y, this.position_z);
+        parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
         setRotationX(0.01f);
         translateZ(this.speed);
         parent.rotateX(this.theta_x);
