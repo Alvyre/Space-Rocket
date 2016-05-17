@@ -23,7 +23,7 @@ public class MIDIController {
 	/**
 	 * Datatype for a MIDI Controller
 	 */
-	MidiBus arturia;
+	private MidiBus arturia;
 	
 	/**
 	 * Arrays with knobs statements
@@ -46,6 +46,14 @@ public class MIDIController {
 		this.parent = p;
 		MidiBus.list();
 	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
+	}
+	
+	/**
+	 * @return the Arturia MIDI Controller
+	 * @since 1.0
+	 */
+	public MidiBus getArturia(){
+		return this.arturia;
 	}
 	
 	/**

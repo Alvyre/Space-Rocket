@@ -54,9 +54,11 @@ public class Sphere extends Meteor {
 	 public void display(){
 		parent.lights();
 		parent.fill(255);
+		parent.noStroke();
 		parent.pushMatrix();
 		parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
-		parent.sphere(this.size);
+		translateZ(this.getSpeed());
+		parent.sphere(this.getSize());
 		parent.popMatrix();
 	}
 }

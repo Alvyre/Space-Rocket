@@ -57,7 +57,7 @@ public class Rocket {
 	 * @since 1.0
 	 */
 	public Rocket(Object3D model, int score, float speed, String name, int life) {
-		aabb3d = new AABB3D(model.getPositionVec(), new Vector(model.model.getWidth(), model.model.getHeight(), model.model.getDepth()));
+		aabb3d = new AABB3D(model.getPositionVec(), new Vector(100, 100, 1));
 		this.model = model;
 		this.score = score;
 		this.speed = speed;

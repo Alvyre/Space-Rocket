@@ -20,27 +20,27 @@ public class Object3D{
 	 * Datatype for storing shapes. Here, it is a 3D
 	 * model load with the function loadShape()
 	 */
-	PShape model;
+	private PShape model;
 	
 	/**
 	 * Path where the 3D model is located
 	 * The best way is to use "./" in the beginning of
 	 * your path to start from the root of the app
 	 */
-	String path;
+	private String path;
 	
 	/**
 	 * Variables used to define the object position
 	 */
-	float position_x;
-	float position_y;
-	float position_z;
+	private float position_x;
+	private float position_y;
+	private float position_z;
 	
 	/**
 	 * Variables used to define the object scale
 	 */
-	float scale_x;
-	float scale_y;
+	private float scale_x;
+	private float scale_y;
 	
 	/**
 	 * Variables used to define the object rotation
@@ -70,8 +70,8 @@ public class Object3D{
 		this.position_x = x;
 		this.position_y = y;
 		this.position_z = z;
-		this.theta_x = 0;
-		this.theta_y = 0;
+		this.theta_x = 0.0f;
+		this.theta_y = 0.0f;
 	}
 	
 	/**
@@ -86,11 +86,11 @@ public class Object3D{
 		this.path = path;
 		this.model = new PShape();
 		this.model = parent.loadShape(this.path);
-		this.position_x = 0;
-		this.position_y = 0;
-		this.position_z = 0;
-		this.theta_x = 0;
-		this.theta_y = 0;
+		this.position_x = Engine.WINDOW_WIDTH / 2;
+		this.position_y = Engine.WINDOW_HEIGHT / 2;
+		this.position_z = 0.0f;
+		this.theta_x = 0.0f;
+		this.theta_y = 0.0f;
 	}
 	
 	/**
@@ -253,29 +253,15 @@ public class Object3D{
 	public void load(String path){
 		this.model = parent.loadShape(this.path);
 	}
-	
-	/**
-	 * Translate the model on X, Y and Z
-	 * @param translate on X
-	 * @param translate on Y
-	 * @param translate on Z
-	 * @since 1.0
-	 */
-	public void translate(float x, float y, float z){
-		this.position_x += x;
-		this.position_y += y;
-		this.position_z += z;
-	}
-	
 
 	/**
 	 * Translate the model on X, Y and Z
-	 * @param translate on X
+	 * @param 3d vector
 	 * @since 1.0
 	 */
 	public void translate(Vector vec){
-		this.position_x += vec.getX();
-		this.position_y += vec.getY();
+		if(this.position_x + vec.getX() > 0.0f && this.position_x + vec.getX() < Engine.WINDOW_WIDTH) this.position_x += vec.getX();
+		if(this.position_y + vec.getY() > 0.0f && this.position_y + vec.getY() < Engine.WINDOW_HEIGHT) this.position_y += vec.getY();
 		this.position_z += vec.getZ();
 	}
 	
@@ -326,7 +312,8 @@ public class Object3D{
         parent.pushMatrix();
         parent.translate(this.position_x, this.position_y, this.position_z);
         parent.rotateY(this.theta_x);
-        parent.rotateX(this.theta_y);
+        parent.rotateX(3.14f);
+        parent.scale(0.5f, 0.5f);
         parent.shape(this.model, 0, 0);
         parent.popMatrix();
 	}

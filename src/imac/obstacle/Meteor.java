@@ -2,6 +2,7 @@ package imac.obstacle;
 
 import com.leapmotion.leap.Vector;
 
+import imac.Space;
 import imac.collide.AABB3D;
 import processing.core.*;
 
@@ -21,27 +22,27 @@ public class Meteor {
 	/**
 	 * Variables used to define the speed of translation and rotation of the obstacle
 	 */
-	float speed;
-	float rotate;
+	private float speed;
+	private float rotate;
 	
 	/**
 	 * Variables used to define the obstacle position
 	 */
+	private float position_x;
+	private float position_y;
+	private float position_z;
 	AABB3D aabb3d;
-	//float position_x;
-	//float position_y;
-	//float position_z;
 	
 	/**
 	 * Variables used to define the obstacle rotation
 	 */
-	float theta_x;
-	float theta_y;
+	private float theta_x;
+	private float theta_y;
 	
 	/**
 	 * Variables used to define the size of the obstacle
 	 */
-	float size;
+	private float size;
 		
 	/* CONSTRUCTORS */
 	
@@ -78,9 +79,9 @@ public class Meteor {
 	 public Meteor(PApplet p, float x, float y, float z, float speed, float rotate, float tx, float ty, float s){
 		this.parent = p;
 		aabb3d = new AABB3D(new Vector(x,y,z), new Vector(s/2.0f, s/2.0f, s/2.0f));
-		//this.position_x = x;
-		//this.position_y = y;
-		//this.position_z = z;
+		this.position_x = x;
+		this.position_y = y;
+		this.position_z = z;
 		this.speed = speed;
 		this.rotate= rotate;
 		this.theta_x = tx;
@@ -95,7 +96,8 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public float getPositionX(){
-		return this.aabb3d.getCenter().getX();
+		return this.position_x;
+		//return this.aabb3d.getCenter().getX();
 	}
 	
 	/**
@@ -103,7 +105,8 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public float getPositionY(){
-		return this.aabb3d.getCenter().getY();
+		return this.position_y;
+		//return this.aabb3d.getCenter().getY();
 	}
 	
 	/**
@@ -111,7 +114,8 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public float getPositionZ(){
-		return this.aabb3d.getCenter().getZ();
+		return this.position_z;
+		//return this.aabb3d.getCenter().getZ();
 	}
 	
 	/**
@@ -131,6 +135,30 @@ public class Meteor {
 	}
 
 	/**
+	 * @return the size
+	 * @since 1.0
+	 */
+	public float getSize() {
+		return size;
+	}
+	
+	/**
+	 * @return the speed
+	 * @since 1.0
+	 */
+	public float getSpeed() {
+		return speed;
+	}
+	
+	/**
+	 * @return the speed
+	 * @since 1.0
+	 */
+	public float getRotate() {
+		return rotate;
+	}
+	
+	/**
 	 * @param the x position to set
 	 * @param the y position to set
 	 * @param the z position to set
@@ -145,6 +173,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void setPositionX(float x){
+		this.position_x = x;
 		this.aabb3d.setCenter(new Vector(x, this.aabb3d.getCenter().getY(), this.aabb3d.getCenter().getZ() ));
 	}
 	
@@ -153,6 +182,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void setPositionY(float y){
+		this.position_y = y;
 		this.aabb3d.setCenter(new Vector(this.aabb3d.getCenter().getX(), y, this.aabb3d.getCenter().getZ() ));
 	}
 	
@@ -161,6 +191,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void setPositionZ(float z){
+		this.position_z = z;
 		this.aabb3d.setCenter(new Vector(this.aabb3d.getCenter().getX(), this.aabb3d.getCenter().getY(), z ));
 	}
 		
@@ -188,6 +219,30 @@ public class Meteor {
 	 */
 	public void setRotationY(float theta){
 		this.theta_y += theta;
+	}
+	
+	/**
+	 * @param the size to set
+	 * @since 1.0
+	 */
+	public void setSize(float size) {
+		this.size = size;
+	}
+	
+	/**
+	 * @param the speed to set
+	 * @since 1.0
+	 */
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+	
+	/**
+	 * @param the rotation to set
+	 * @since 1.0
+	 */
+	public void setRotate(float theta) {
+		this.rotate = theta;
 	}
 	
 	/* OTHER METHODS */
@@ -236,7 +291,9 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateZ(float z){
-		this.aabb3d.getCenter().plus(new Vector(0.0f, 0.0f, z));
+		if(this.position_z > Space.MARGIN_BEHIND_MODEL) this.position_z = Space.METEOR_START;
+		else this.position_z += z;
+		//this.aabb3d.getCenter().plus(new Vector(0.0f, 0.0f, z));
 	}
 	
 	/**
@@ -248,11 +305,12 @@ public class Meteor {
         parent.pushMatrix();
         parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
         setRotationX(0.01f);
-        translateZ(1.0f);
+        translateZ(this.speed);
         parent.rotateX(this.theta_x);
         parent.rotateY(this.theta_y);
         parent.noStroke();
         parent.box(10);
         parent.popMatrix();
 	}
+
 }
