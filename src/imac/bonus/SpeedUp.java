@@ -2,6 +2,7 @@ package imac.bonus;
 import java.util.Timer;
 import java.util.TimerTask;
 import imac.Rocket;
+import imac.Time;
 
 /**
  * <b>SpeedUP class, extends Bonus class</b>
@@ -46,6 +47,7 @@ public class SpeedUp extends Bonus {
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
+					  Time.startBonusTimer(SpeedUp.this.type);
 					  player.setSpeed(player.getSpeed() - VALUE);
 					  SpeedUp.this.setState(false);
 					  //System.out.println("Speed UP bonus Ended !");

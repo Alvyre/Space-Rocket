@@ -25,7 +25,7 @@ public class Engine extends PApplet {
 	/**
 	 * Background RGB color of the app (255 to 0)
 	 */
-	private static int BACKGROUND_COLOR  = 0;
+	private static int BACKGROUND_COLOR  = 220;
 	
 	/**
 	 * Midi Controller retrieves the states of each button and knob
@@ -85,7 +85,8 @@ public class Engine extends PApplet {
 		
 		for(Meteor m : this.level.getSpace().getMeteors()){
 			//System.out.println(m.getAABB3D().getCenter());
-			if(AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D()))
+			if( this.level.getPlayer().isImmortal() == false 
+						&& AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D()))
 				System.out.println("COLLISION PEDRO");
 		}
 		//System.out.println(level.getPlayer().getAABB3D().getSize());
@@ -97,6 +98,11 @@ public class Engine extends PApplet {
 		String info = new String (this.level.getPlayer().getName() + "\n" +
 								  "Score : " + this.level.getPlayer().getScore() );
 		text(info, camera.getEyeX() + Engine.WINDOW_WIDTH / 2, camera.getEyeY() - Engine.WINDOW_HEIGHT /2 - 20, -500);
+		
+		textSize(20);
+		textAlign(LEFT);
+		fill(0);
+		
     }
 	
 	/**
