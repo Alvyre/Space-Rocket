@@ -42,8 +42,8 @@ public class Pyramid extends Meteor {
 	  * 
 	  * @since 1.0
 	  */
-	 public Pyramid(PApplet p, float x, float y, float z, float speed, float rotate, float tx, float ty, float s){
-		super(p, x, y, z, speed, rotate, tx, ty, s);		
+	 public Pyramid(PApplet p, float x, float y, float z, float speed, float s){
+		super(p, x, y, z, speed, s);		
 	}
 	 
 	 /**

@@ -23,7 +23,6 @@ public class Meteor {
 	 * Variables used to define the speed of translation and rotation of the obstacle
 	 */
 	private float speed;
-	private float rotate;
 	
 	/**
 	 * Variables used to define the obstacle position
@@ -33,17 +32,21 @@ public class Meteor {
 	private float position_z;
 	AABB3D aabb3d;
 	
+	
 	/**
-	 * Variables used to define the obstacle rotation
+	 * Meteor RGB color of the app (255 to 0)
 	 */
-	private float theta_x;
-	private float theta_y;
+	private static int FILL_COLOR  = 227;
 	
 	/**
 	 * Variables used to define the size of the obstacle
 	 */
 	private float size;
-		
+	/**
+	 * boolean to know if the meteor is visible or not, used in space @see Space
+	 */
+	private boolean isVisible = true;
+	
 	/* CONSTRUCTORS */
 	
 	/**
@@ -76,16 +79,13 @@ public class Meteor {
 	  * 
 	  * @since 1.0
 	  */
-	 public Meteor(PApplet p, float x, float y, float z, float speed, float rotate, float tx, float ty, float s){
+	 public Meteor(PApplet p, float x, float y, float z, float speed, float s){
 		this.parent = p;
-		aabb3d = new AABB3D(new Vector(x,y,z), new Vector(s/2.0f, s/2.0f, s/2.0f));
+		aabb3d = new AABB3D(new Vector(x,y,z), new Vector(s, s, s));
 		this.position_x = x;
 		this.position_y = y;
 		this.position_z = z;
 		this.speed = speed;
-		this.rotate= rotate;
-		this.theta_x = tx;
-		this.theta_y = ty;
 		this.size = s;
 	}
 		
@@ -97,7 +97,7 @@ public class Meteor {
 	 */
 	public float getPositionX(){
 		return this.position_x;
-		//return this.aabb3d.getCenter().getX();
+
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class Meteor {
 	 */
 	public float getPositionY(){
 		return this.position_y;
-		//return this.aabb3d.getCenter().getY();
+
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public class Meteor {
 	 */
 	public float getPositionZ(){
 		return this.position_z;
-		//return this.aabb3d.getCenter().getZ();
+
 	}
 	
 	/**
@@ -151,13 +151,12 @@ public class Meteor {
 	}
 	
 	/**
-	 * @return the speed
-	 * @since 1.0
+	 * @return the isVisible
 	 */
-	public float getRotate() {
-		return rotate;
+	public boolean isVisible() {
+		return isVisible;
 	}
-	
+
 	/**
 	 * @param the x position to set
 	 * @param the y position to set
@@ -165,6 +164,9 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void setPosition(float x, float y, float z){
+		this.position_x = x;
+		this.position_y = y;
+		this.position_z = z;
 		this.aabb3d.setCenter(new Vector(x,y,z));
 	}
 	
@@ -194,32 +196,6 @@ public class Meteor {
 		this.position_z = z;
 		this.aabb3d.setCenter(new Vector(this.aabb3d.getCenter().getX(), this.aabb3d.getCenter().getY(), z ));
 	}
-		
-	/**
-	 * @param the x theta to set
-	 * @param the y theta to set
-	 * @since 1.0
-	 */
-	public void setRotation(float theta_x, float theta_y){
-		this.theta_x += theta_x;
-		this.theta_y += theta_y;
-	}
-	
-	/**
-	 * @param the x theta to set
-	 * @since 1.0
-	 */
-	public void setRotationX(float theta){
-		this.theta_x += theta;
-	}
-	
-	/**
-	 * @param the y theta to set
-	 * @since 1.0
-	 */
-	public void setRotationY(float theta){
-		this.theta_y += theta;
-	}
 	
 	/**
 	 * @param the size to set
@@ -230,19 +206,18 @@ public class Meteor {
 	}
 	
 	/**
+	 * @param isVisible the isVisible to set
+	 */
+	public void setVisible(boolean isVisible) {
+		this.isVisible = isVisible;
+	}
+
+	/**
 	 * @param the speed to set
 	 * @since 1.0
 	 */
 	public void setSpeed(float speed) {
 		this.speed = speed;
-	}
-	
-	/**
-	 * @param the rotation to set
-	 * @since 1.0
-	 */
-	public void setRotate(float theta) {
-		this.rotate = theta;
 	}
 	
 	/* OTHER METHODS */
@@ -291,7 +266,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateZ(float z){
-		if(this.position_z > Space.MARGIN_BEHIND_MODEL) this.position_z = Space.METEOR_START;
+		if(this.position_z > Space.getMarginBehindModel() ) this.position_z = Space.getMeteorStart();
 		else this.position_z += z;
 		//this.aabb3d.getCenter().plus(new Vector(0.0f, 0.0f, z));
 	}
@@ -302,15 +277,8 @@ public class Meteor {
 	 */
 	public void display(){
 		parent.lights();
-        parent.pushMatrix();
-        parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
-        setRotationX(0.01f);
-        translateZ(this.speed);
-        parent.rotateX(this.theta_x);
-        parent.rotateY(this.theta_y);
-        parent.noStroke();
-        parent.box(10);
-        parent.popMatrix();
+		parent.fill(Meteor.FILL_COLOR);
+		parent.noStroke();
 	}
 
 }

@@ -41,6 +41,7 @@ public class Object3D{
 	 */
 	private float scale_x;
 	private float scale_y;
+	private float scale_z;
 	
 	/**
 	 * Variables used to define the object rotation
@@ -111,6 +112,26 @@ public class Object3D{
 		this.position_x = x;
 		this.position_y = y;
 		this.position_z = z;
+	}
+	
+	/**
+	 * The constructor of Object3D with position, scale and path parameters
+	 * @param PApplet
+	 * @param path
+	 * @param x_position
+	 * @param y_position
+	 * @param z_position
+	 * @param x_scale
+	 * @param y_scale
+	 * @param z_scale
+	 * 
+	 * @since 1.0
+	 */
+	public Object3D(PApplet p, String path, float x, float y, float z, float scaleX, float scaleY, float scaleZ){
+		this(p, path, x, y, z);
+		this.scale_x = scaleX;
+		this.scale_y = scaleY;
+		this.scale_z = scaleZ;
 	}
 	
 	/**
@@ -260,8 +281,10 @@ public class Object3D{
 	 * @since 1.0
 	 */
 	public void translate(Vector vec){
-		if(this.position_x + vec.getX() > 0.0f && this.position_x + vec.getX() < Engine.WINDOW_WIDTH) this.position_x += vec.getX();
-		if(this.position_y + vec.getY() > 0.0f && this.position_y + vec.getY() < Engine.WINDOW_HEIGHT) this.position_y += vec.getY();
+		//if(this.position_x + vec.getX() > 0.0f && this.position_x + vec.getX() < Engine.WINDOW_WIDTH) this.position_x += vec.getX();
+		//if(this.position_y + vec.getY() > 0.0f && this.position_y + vec.getY() < Engine.WINDOW_HEIGHT) this.position_y += vec.getY();
+		this.position_x += vec.getX();
+		this.position_y += vec.getY();
 		this.position_z += vec.getZ();
 	}
 	
@@ -308,12 +331,10 @@ public class Object3D{
 	 * @since 1.0
 	 */
 	public void display(){
-		this.setColor(12, 12, 12);
-        parent.pushMatrix();
+		parent.pushMatrix();
         parent.translate(this.position_x, this.position_y, this.position_z);
-        parent.rotateY(this.theta_x);
-        parent.rotateX(3.14f);
-        parent.scale(0.02f, 0.02f,0.02f);
+        parent.rotateX(30);
+        parent.scale(this.scale_x, this.scale_y, this.scale_z);
         parent.shape(this.model, 0, 0);
         parent.popMatrix();
 	}

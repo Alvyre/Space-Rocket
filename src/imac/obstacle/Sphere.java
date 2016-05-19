@@ -41,8 +41,8 @@ public class Sphere extends Meteor {
 	  * 
 	  * @since 1.0
 	  */
-	 public Sphere(PApplet p, float x, float y, float z, float speed, float rotate, float tx, float ty, float s){
-		super(p, x, y, z, speed, rotate, tx, ty, s);		
+	 public Sphere(PApplet p, float x, float y, float z, float speed,float s){
+		super(p, x, y, z, speed, s);		
 	}
 	 
 	 
@@ -52,9 +52,7 @@ public class Sphere extends Meteor {
 	  * @since 1.0
 	  */
 	 public void display(){
-		parent.lights();
-		parent.fill(255);
-		parent.noStroke();
+		super.display();
 		parent.pushMatrix();
 		parent.translate(this.getPositionX(), this.getPositionY(), this.getPositionZ());
 		translateZ(this.getSpeed());

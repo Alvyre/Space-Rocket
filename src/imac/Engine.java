@@ -4,7 +4,7 @@ import processing.core.*;
 import com.leapmotion.leap.*;
 
 import imac.collide.AABB3D;
-import imac.obstacle.*;
+
 import leap.*;
 
 /**
@@ -25,7 +25,7 @@ public class Engine extends PApplet {
 	/**
 	 * Background RGB color of the app (255 to 0)
 	 */
-	static int BACKGROUND_COLOR  = 255;
+	private static int BACKGROUND_COLOR  = 255;
 	
 	/**
 	 * Midi Controller retrieves the states of each button and knob
@@ -108,7 +108,7 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void keyPressed() {
-		keyboard.eventKeyPressed(level.getPlayer());
+		keyboard.eventKeyPressed(level.getPlayer(), level);
 	}
 	
 	/**
