@@ -3,6 +3,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import imac.Rocket;
+import imac.Time;
 /**
  * <b>Immortal turns the player immortal for a duration, extends Bonus</b>
  * @see Bonus
@@ -38,9 +39,11 @@ public class Immortal extends Bonus {
 			player.setImmortal(true);
 			System.out.println("Immortality bonus enabled !");
 			Immortal.this.setState(false);
+			
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
+					Time.startBonusTimer(Immortal.this.type);
 					player.setImmortal(false);
 					System.out.println("Immortality bonus disabled !");
 					

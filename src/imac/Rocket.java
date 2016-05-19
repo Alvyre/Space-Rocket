@@ -19,8 +19,11 @@ public class Rocket {
 	/**
 	 * score shows the points gathered by the player (integer).
 	 */
-	private AABB3D aabb3d;
 	private int 				score;
+	/**
+	 * This is the collision box, using a AABB collision (Axe collision) @see imac.collide
+	 */
+	private AABB3D aabb3d;
 	/**
 	 * speed increases the rapidity of the player, can be modified with bonuses.
 	 */
