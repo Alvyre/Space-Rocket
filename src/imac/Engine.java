@@ -1,6 +1,7 @@
 package imac;
 
 import processing.core.*;
+import ddf.minim.*;
 import com.leapmotion.leap.*;
 
 import imac.collide.AABB3D;
@@ -56,6 +57,16 @@ public class Engine extends PApplet {
 	private PImage board;
 	
 	/**
+	 * Sound of this amazing game
+	 */
+	private AudioPlayer music;
+	
+	/**
+	 * Instance of music player
+	 */
+	private Minim minim;
+	
+	/**
 	 * Setup function to init Engine
 	 * The setup function corresponds
 	 * to the constructor in Processing
@@ -69,7 +80,11 @@ public class Engine extends PApplet {
 		this.camera = new Camera(this, this.level.getPlayer());
 		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level);
         board = loadImage("./assets/textures/board.png");
-
+        minim = new Minim(this);
+        
+        // this loads mysong.wav from the data folder
+        music = minim.loadFile("./assets/sounds/zik.mp3");
+        music.play();
 		glitchP5 = new GlitchP5(this);
 
 	}
