@@ -4,7 +4,7 @@ import processing.core.*;
 import com.leapmotion.leap.*;
 
 import imac.collide.AABB3D;
-
+import imac.obstacle.Meteor;
 import leap.*;
 
 /**
@@ -79,9 +79,17 @@ public class Engine extends PApplet {
 		
 		if(Leapmotion.isConnected()) movements = new Vector(Leapmotion.handMoves());
 		else                         movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
-
+		
 		this.level.getPlayer().move(movements);
 		this.level.display();
+		
+		for(Meteor m : this.level.getSpace().getMeteors()){
+			//System.out.println(m.getAABB3D().getCenter());
+			if(AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D()))
+				System.out.println("COLLISION PEDRO");
+		}
+		//System.out.println(level.getPlayer().getAABB3D().getSize());
+		
 		
 		textSize(20);
 		textAlign(RIGHT);
