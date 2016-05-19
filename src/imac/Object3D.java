@@ -295,7 +295,7 @@ public class Object3D{
 	 * @since 1.0
 	 */
 	public void translate(Vector vec){
-		//if(this.position_x + vec.getX() > 0.0f && this.position_x + vec.getX() < Engine.WINDOW_WIDTH) this.position_x += vec.getX();
+		//if( (this.position_x - vec.getX() - 50.f < 0.0f) && (this.position_x + vec.getX()) < Engine.WINDOW_WIDTH) this.position_x += vec.getX();
 		//if(this.position_y + vec.getY() > 0.0f && this.position_y + vec.getY() < Engine.WINDOW_HEIGHT) this.position_y += vec.getY();
 		this.position_x += vec.getX();
 		this.position_y += vec.getY();

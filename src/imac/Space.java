@@ -46,6 +46,12 @@ public class Space {
 	private static float FILL_GRID = 227;
 	
 	/**
+	 * Minimum and maximum meteor size
+	 */
+	private static int MIN_METEOR_SIZE = 5;
+	private static int MAX_METEOR_SIZE = 15;
+	
+	/**
 	 * Space constructor
 	 * It initialize the meteors ArrayList with Perlin Noise
 	 * 
@@ -67,13 +73,14 @@ public class Space {
 		for(int i=0; i< this.nbMeteors; i++){
 			
 			float y = PApplet.map(parent.noise(xoff, yoff), 0, 1, 0, Engine.WINDOW_HEIGHT);
+			float x = PApplet.map(parent.noise(yoff, xoff), 0, 1, 0, Engine.WINDOW_WIDTH);
 			float speed = parent.random(minSpeed, maxSpeed);
 			int randShape = (int)parent.random(1, 3);
 			
-			if(randShape == 1)       this.meteors.add(new Box(this.parent, xoff, y, zoff, speed, parent.random(10, 15)));
-			else if( randShape == 2) this.meteors.add(new Sphere(this.parent, xoff, y, zoff, speed, parent.random(10, 15)));
+			if(randShape == 1)       this.meteors.add(new Box(this.parent, x, y, zoff, speed, parent.random(Space.MIN_METEOR_SIZE, Space.MAX_METEOR_SIZE)));
+			else if( randShape == 2) this.meteors.add(new Sphere(this.parent, x, y, zoff, speed, parent.random(Space.MIN_METEOR_SIZE, Space.MAX_METEOR_SIZE)));
 			
-			xoff += 10;
+			xoff += 3;
 		    yoff += 4;
 		}
 	}

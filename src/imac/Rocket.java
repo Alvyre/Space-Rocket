@@ -76,7 +76,34 @@ public class Rocket {
 	 * @since 1.0
 	 */
 	public void move(Vector vec){
-		this.model.translate(vec.times(speed));
+		Vector mappedVec = new Vector(vec.getX(), vec.getY(), vec.getZ());
+		
+		//MARGIN_X_LEFT
+		if( (this.model.getPositionX() - Camera.getXMargin() + 50.0f < 0.0f)){
+			mappedVec.setX(0.0f);
+			this.model.setPositionX(this.model.getPositionX() + 1.0f);
+		}
+		
+		//MARGIN_X_RIGHT
+		if((this.model.getPositionX() + Camera.getXMargin() - 50 > Engine.WINDOW_WIDTH)){
+			mappedVec.setX(0.0f);
+			this.model.setPositionX(this.model.getPositionX() - 1.0f);
+		}
+		
+		//MARGIN_Y_UP
+		if( (this.model.getPositionY() - Camera.getYMargin() + 50.0f < 0.0f)){
+			mappedVec.setY(0.0f);
+			this.model.setPositionY(this.model.getPositionY() + 1.0f);
+		}
+		
+		//MARGIN_Y_DOWN
+		if( (this.model.getPositionY() + Camera.getYMargin() + 20.0f > Engine.WINDOW_HEIGHT)){
+			mappedVec.setY(0.0f);
+			this.model.setPositionY(this.model.getPositionY() - 1.0f);
+		}
+		
+		
+		this.model.translate(mappedVec.times(speed));
 		this.aabb3d.setCenter(this.model.getPositionVec());
 	}
 	/**
