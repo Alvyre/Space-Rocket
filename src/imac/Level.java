@@ -64,6 +64,10 @@ public class Level {
 			float playerPositionX     = (float)playerPosition.getDouble("x");
 			float playerPositionY     = (float)playerPosition.getDouble("y");
 			float playerPositionZ     = (float)playerPosition.getDouble("z");
+			JSONObject playerScale    = (JSONObject)jsonLevel.getJSONObject("Player_Scale");
+			float playerScaleX        = (float)playerScale.getDouble("x");
+			float playerScaleY        = (float)playerScale.getDouble("y");
+			float playerScaleZ        = (float)playerScale.getDouble("z");
 			int playerScore           = (int)jsonLevel.getInt("Player_Score");
 	        float playerSpeed         = (float)jsonLevel.getDouble("Player_Speed");
 	        int playerLife            = (int)jsonLevel.getInt("Player_Life");
@@ -84,7 +88,7 @@ public class Level {
 	        	playerModel = "./assets/models/" + playerModel;
 	        }
 	        
-	        this.player = new Rocket(new Object3D(this.parent, playerModel, playerPositionX, playerPositionY, playerPositionZ), playerScore, playerSpeed, playerName, playerLife);
+	        this.player = new Rocket(new Object3D(this.parent, playerModel, playerPositionX, playerPositionY, playerPositionZ, playerScaleX, playerScaleY, playerScaleZ), playerScore, playerSpeed, playerName, playerLife);
 	        
 	        welcomeToSpaceRocket(playerName);
         

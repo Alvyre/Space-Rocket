@@ -25,7 +25,7 @@ public class Engine extends PApplet {
 	/**
 	 * Background RGB color of the app (255 to 0)
 	 */
-	static int BACKGROUND_COLOR  = 255;
+	protected static int BACKGROUND_COLOR  = 255;
 	
 	/**
 	 * Midi Controller retrieves the states of each button and knob
