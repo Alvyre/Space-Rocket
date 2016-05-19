@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import imac.Level;
 import imac.Space;
+import imac.Time;
 
 /**
  * <b>LessMeteors Decreased the numbers of meteors for a duration, extends Bonus </b>
@@ -57,6 +58,7 @@ public class LessMeteors extends Bonus {
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
+					  Time.startBonusTimer(LessMeteors.this.type);
 					  for(int i=0 ; i< level.getSpace().getMeteors().size() ; i++){
 						  level.getSpace().getMeteors().get(i).setVisible(true);
 						}

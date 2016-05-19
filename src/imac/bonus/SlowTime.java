@@ -4,6 +4,7 @@ import java.util.TimerTask;
 //Import meteor
 
 import imac.Level;
+import imac.Time;
 import imac.obstacle.Meteor;
 
 /**
@@ -51,6 +52,7 @@ public class SlowTime extends Bonus {
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
+					  Time.startBonusTimer(SlowTime.this.type);
 					  for( Meteor m :  level.getSpace().getMeteors()){
 							m.setSpeed((float)(m.getSpeed() * SlowTime.VALUE));
 						}

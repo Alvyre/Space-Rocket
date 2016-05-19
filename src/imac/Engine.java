@@ -112,7 +112,8 @@ public class Engine extends PApplet {
 		
 		for(Meteor m : this.level.getSpace().getMeteors()){
 			//System.out.println(m.getAABB3D().getCenter());
-			if(AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
+			if( this.level.getPlayer().isImmortal() == false
+					&& AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
 				/*glitchP5.run();
 				glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
 								(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen
