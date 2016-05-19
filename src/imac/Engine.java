@@ -6,6 +6,7 @@ import com.leapmotion.leap.*;
 import imac.collide.AABB3D;
 import imac.obstacle.Meteor;
 import leap.*;
+import glitchP5.*;
 
 /**
  * <b>Engine class controls the entire application.</b>
@@ -47,6 +48,8 @@ public class Engine extends PApplet {
 	 */
 	private Camera camera;
 	
+	GlitchP5 glitchP5;
+	
 	/**
 	 * Setup function to init Engine
 	 * The setup function corresponds
@@ -60,6 +63,7 @@ public class Engine extends PApplet {
 		this.keyboard = new Keyboard(this);
 		this.level = new Level(this, 1);
 		this.camera = new Camera(this, this.level.getPlayer());
+		glitchP5 = new GlitchP5(this);
 	}
 	
 	/**
@@ -85,11 +89,24 @@ public class Engine extends PApplet {
 		
 		for(Meteor m : this.level.getSpace().getMeteors()){
 			//System.out.println(m.getAABB3D().getCenter());
-			if(AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D()))
+			if(AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
+				/*glitchP5.run();
+				glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
+								(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen
+				  		  800,    				// max. position offset (posJitterX)
+				  		  800,    				// max. position offset (posJitterY)
+				  		  Engine.WINDOW_WIDTH,  // sizeX
+				  		  Engine.WINDOW_HEIGHT, // sizeY
+				  		  3,					// numberOfGlitches, number of individual glitches (int)
+				  		  1.0f,					// randomness, this is a jitter for size (float)
+				  		  10,					// attack, max time (in frames) until indiv. glitch appears (int)
+				  		  40);	
 				System.out.println("COLLISION PEDRO");
+				
+				filter(GRAY);*/
+			}
 		}
 		//System.out.println(level.getPlayer().getAABB3D().getSize());
-		
 		
 		textSize(20);
 		textAlign(RIGHT);

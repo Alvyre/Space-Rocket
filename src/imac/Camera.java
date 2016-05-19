@@ -45,8 +45,8 @@ public class Camera {
 	/**
 	 * Margin between camera and window app
 	 */
-	private static float X_MARGIN = 50.0f;
-	private static float Y_MARGIN = 20.0f;
+	private static float X_MARGIN = 250.0f;
+	private static float Y_MARGIN = 150.0f;
 	
 	/**
 	 * The constructor of Camera with player position
@@ -79,7 +79,7 @@ public class Camera {
 	 */
 	public void look(){
 		if( (player.getPosition().getX() - Camera.X_MARGIN > 0.0f) && (player.getPosition().getX() + Camera.X_MARGIN < Engine.WINDOW_WIDTH))   this.updatePositionX();
-		if( (player.getPosition().getY() - Camera.Y_MARGIN > 0.0f) && (player.getPosition().getY() + Camera.Y_MARGIN < Engine.WINDOW_HEIGHT))  this.updatePositionY();
+		if( (player.getPosition().getY() - Camera.Y_MARGIN > 0.0f) && (player.getPosition().getY() + Camera.Y_MARGIN + Camera.Y_INTERVAL < Engine.WINDOW_HEIGHT))  this.updatePositionY();
 		parent.camera(this.eyeX, this.eyeY - Y_INTERVAL, this.eyeZ + Z_INTERVAL,  this.centerX, this.centerY - Y_INTERVAL, this.centerZ, this.upX, this.upY, this.upZ);
 	}
 	
@@ -127,5 +127,22 @@ public class Camera {
 	public float getEyeZ(){
 		return this.eyeZ;
 	}
+	
+	/**
+	 * @return X_MARGIN
+	 * @since 1.0
+	 */
+	public static float getXMargin(){
+		return Camera.X_MARGIN;
+	}
+	
+	/**
+	 * @return Y_MARGIN
+	 * @since 1.0
+	 */
+	public static float getYMargin(){
+		return Camera.Y_MARGIN;
+	}
+	
 	
 }
