@@ -249,4 +249,7 @@ public class Rocket {
 	public void setBonus(Bonus bonus) {
 		this.bonus.put(bonus.getType(), bonus);
 	}
+	public void addToScore(int points){
+		this.score += points;
+	}
 }

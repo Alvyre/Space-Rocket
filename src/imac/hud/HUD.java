@@ -1,4 +1,5 @@
 package imac.hud;
+import imac.Rocket;
 import imac.Time;
 import imac.bonus.Bonus;
 
@@ -17,18 +18,25 @@ public class HUD {
 		//TODO
 		
 	}
-	
-	public void displayCD(Bonus bonus){
+	/**
+	 * get the cooldown of the specified bonus
+	 * @param bonus
+	 * @return
+	 */
+	public int getBonusCD(Bonus bonus){
 
 		 if(Time.getBonusCoolDown(bonus) != 0 && bonus.isAvailable() == false){
-		 
-			 //TODO display le bonus   :   Time.getBonusCoolDown(bonus)
-		 
+			 return Time.getBonusCoolDown(bonus);
 		 }
+		 return 0;
 	}
-	public void display(){
+	/**
+	 * display the HUD
+	 */
+	public void display(Rocket player){
 		
 		//TODO
+		//player.getScore();
 		
 	}
 }

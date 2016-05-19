@@ -22,7 +22,7 @@ public class Engine extends PApplet {
 	 */
 	static int WINDOW_WIDTH  = 800;
 	static int WINDOW_HEIGHT = 600;
-	
+	private static final int DAMAGE_COLLISION = -200;
 	/**
 	 * Background RGB color of the app (255 to 0)
 	 */
@@ -99,6 +99,7 @@ public class Engine extends PApplet {
 			//System.out.println(m.getAABB3D().getCenter());
 			if( this.level.getPlayer().isImmortal() == false
 					&& AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
+				this.level.getPlayer().addToScore(DAMAGE_COLLISION);
 				/*glitchP5.run();
 				glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
 								(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen

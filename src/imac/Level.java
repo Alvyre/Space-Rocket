@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+
+import imac.hud.HUD;
 import json.JSONObject;
 import osValidator.OSValidator;
 import processing.core.*;
@@ -38,6 +40,8 @@ public class Level {
 	 * Main character of the app
 	 */
 	private Rocket player;
+	
+	private HUD hud;
 	
 	/**
 	 * The constructor of Level
@@ -89,6 +93,7 @@ public class Level {
 	        
 	        this.player = new Rocket(new Object3D(this.parent, playerModel, playerPositionX, playerPositionY, playerPositionZ, playerScaleX, playerScaleY, playerScaleZ), playerScore, playerSpeed, playerName, playerLife);
 	        welcomeToSpaceRocket(playerName);
+	        hud = new HUD();
         
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -233,7 +238,9 @@ public class Level {
 	 */
 	public void display(){
 		this.player.getModel().display();
+		this.player.addToScore((int)Time.getElapsedTimeSec());
 		this.space.display();
+		this.hud.display(this.player);
 	}
 	
 	/**
