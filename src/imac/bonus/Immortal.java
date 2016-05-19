@@ -17,7 +17,7 @@ public class Immortal extends Bonus {
 	 * @since 1.0
 	 */
 	public Immortal(boolean state, float duration) {
-		super(state, duration, "immortal");
+		super(state, duration, "Immortal");
 	}
 	/**
 	 * Constructor of the class with a bonus

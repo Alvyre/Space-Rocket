@@ -48,7 +48,7 @@ public class Rocket {
 	
 	/**
 	 * The constructor of Rocket
-	 * @param model
+	 * @param m
 	 * @param score
 	 * @param speed
 	 * @param name
@@ -56,9 +56,9 @@ public class Rocket {
 	 * 
 	 * @since 1.0
 	 */
-	public Rocket(Object3D model, int score, float speed, String name, int life) {
-		aabb3d = new AABB3D(model.getPositionVec(), new Vector(100, 100, 1));
-		this.model = model;
+	public Rocket(Object3D m, int score, float speed, String name, int life) {
+		aabb3d = new AABB3D(m.getPositionVec(), new Vector(m.getModel().getWidth() * m.getScaleX(), m.getModel().getHeight() * m.getScaleY(), m.getModel().getDepth() * m.getScaleZ() ) );
+		this.model = m;
 		this.score = score;
 		this.speed = speed;
 		this.name = name;

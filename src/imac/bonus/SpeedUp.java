@@ -22,7 +22,7 @@ public class SpeedUp extends Bonus {
 	 * @since 1.0
 	 */
 	public SpeedUp(boolean state, float duration) {
-		super(state, duration, "speedUp");
+		super(state, duration, "SpeedUp");
 	}
 	/**
 	 * Costructor of the class with a SpeedUp bonus
