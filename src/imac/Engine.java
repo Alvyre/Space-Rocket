@@ -56,10 +56,11 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void setup(){
-		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
 		this.level = new Level(this, 1);
 		this.camera = new Camera(this, this.level.getPlayer());
+		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level);
+
 	}
 	
 	/**

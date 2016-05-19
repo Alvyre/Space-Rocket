@@ -63,11 +63,11 @@ public class Rocket {
 		this.speed = speed;
 		this.name = name;
 		this.life = life;
-		this.bonus.put("SpeedUp", 			new SpeedUp(			false, 	10.0f));
+		this.bonus.put("SpeedUp", 			new SpeedUp(			true, 	10.0f));
 		this.bonus.put("SlowTime", 			new SlowTime(			true, 	10.0f));
-		this.bonus.put("Immortal", 			new Immortal(			false, 	5.0f));
-		this.bonus.put("LessMeteors", 		new LessMeteors(		false, 	10.0f));
-		this.bonus.put("PointMultiplier", 	new PointMultiplier(	false, 	0.0f));
+		this.bonus.put("Immortal", 			new Immortal(			true, 	5.0f));
+		this.bonus.put("LessMeteors", 		new LessMeteors(		true, 	10.0f));
+		this.bonus.put("PointMultiplier", 	new PointMultiplier(	true, 	0.0f));
 	}
 
 	/**
