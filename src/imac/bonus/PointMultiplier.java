@@ -20,7 +20,7 @@ public class PointMultiplier extends Bonus {
 	 * @since 1.0
 	 */
 	public PointMultiplier(boolean state, float duration) {
-		super(state, duration, "pointMultiplier");
+		super(state, duration, "PointMultiplier");
 	}
 	/**
 	 * The constructor of the class using a Bonus
