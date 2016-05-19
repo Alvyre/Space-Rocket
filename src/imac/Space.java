@@ -93,19 +93,23 @@ public class Space {
 	 * 
 	 * @since 1.0
 	 */
-	private void drawGrid(){
+
+	private void drawGrid(int positionY, float angle){
 		parent.stroke(Space.FILL_GRID);
 		int gridSize = 40;
 		int xoffset = Engine.WINDOW_WIDTH/2;
-		int yoffset = 250;
+		int yoffset = positionY;
 		int zoffset = -300;
-	    for(int i = -Engine.WINDOW_WIDTH/2; i <Engine.WINDOW_WIDTH; i+=gridSize) {
-	    for(int j = -Engine.WINDOW_HEIGHT/2; j < Engine.WINDOW_HEIGHT; j+=gridSize) {
+	    for(int i = -Engine.WINDOW_WIDTH; i <Engine.WINDOW_WIDTH; i+=gridSize) {
+	    for(int j = -Engine.WINDOW_HEIGHT*3; j < Engine.WINDOW_HEIGHT/2; j+=gridSize) {
 	      int y = 200;
+	      parent.pushMatrix();
+	      parent.rotateZ(angle);
 	      parent.line(xoffset + i,          yoffset + y, zoffset + j,           xoffset + i+gridSize, yoffset + y, zoffset + j          );
 	      parent.line(xoffset + i+gridSize, yoffset + y, zoffset + j,           xoffset + i+gridSize, yoffset + y, zoffset + j+gridSize );
 	      parent.line(xoffset + i+gridSize, yoffset + y, zoffset + j+gridSize,  xoffset + i,          yoffset + y, zoffset + j+gridSize );
 	      parent.line(xoffset + i,          yoffset + y, zoffset + j,           xoffset + i,          yoffset + y, zoffset + j+gridSize );
+	      parent.popMatrix();
 	    }
 	  }
 	}
@@ -131,7 +135,8 @@ public class Space {
 	 * @since 1.0
 	 */
 	public void display(){
-		drawGrid();
+		drawGrid(-150, 0);
+		drawGrid(250, 0);
 		for(int i = 0; i < this.meteors.size(); i++)
 	    {	
 			if(meteors.get(i).isVisible())
