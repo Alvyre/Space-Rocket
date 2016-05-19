@@ -42,7 +42,7 @@ public class LessMeteors extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(Level level){
-		if(this.isActive()){
+		if(this.isAvailable()){
 			this.timer = new Timer();
 			Random rand = new Random();
 			for(int i=0 ; i< (int)level.getSpace().getMeteors().size()*LessMeteors.VALUE ; i++){

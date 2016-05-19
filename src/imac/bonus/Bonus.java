@@ -44,7 +44,7 @@ public class Bonus {
 	 * @since 1.0
 	 */
 	public Bonus(Bonus bonus){
-		this.state = bonus.isActive();
+		this.state = bonus.isAvailable();
 		this.duration = bonus.getDuration();
 		this.type = bonus.getType();
 	}
@@ -52,7 +52,7 @@ public class Bonus {
 	 * Getter to know if the bonus is active
 	 * @return boolean
 	 */
-	public boolean isActive(){
+	public boolean isAvailable(){
 		return state;
 	}
 	

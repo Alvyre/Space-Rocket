@@ -42,7 +42,7 @@ public class SlowTime extends Bonus {
 	 */
 	public void apply(Level level){
 		
-		if(this.isActive()){
+		if(this.isAvailable()){
 			this.timer = new Timer();
 			for( Meteor m :  level.getSpace().getMeteors()){
 				m.setSpeed((float)(m.getSpeed() / SlowTime.VALUE));

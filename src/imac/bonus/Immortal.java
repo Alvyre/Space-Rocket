@@ -34,7 +34,7 @@ public class Immortal extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(Rocket player){
-		if(this.isActive()){
+		if(this.isAvailable()){
 			this.timer = new Timer();
 			player.setImmortal(true);
 			System.out.println("Immortality bonus enabled !");

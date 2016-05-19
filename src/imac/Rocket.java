@@ -114,7 +114,7 @@ public class Rocket {
 	 * @param bonus
 	 */
 	public void applyBonus(Bonus bonus, Level level){
-		if(bonus.isActive()){
+		if(bonus.isAvailable()){
 			switch(bonus.getType()){
 			case "SpeedUp":
 				bonus.apply(this);
