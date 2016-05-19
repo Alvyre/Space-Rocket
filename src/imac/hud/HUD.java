@@ -26,4 +26,9 @@ public class HUD {
 		 
 		 }
 	}
+	public void display(){
+		
+		//TODO
+		
+	}
 }
