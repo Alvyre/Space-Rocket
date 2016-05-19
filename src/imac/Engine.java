@@ -48,6 +48,11 @@ public class Engine extends PApplet {
 	private Camera camera;
 	
 	/**
+	 * Image of the information board
+	 */
+	private PImage board;
+	
+	/**
 	 * Setup function to init Engine
 	 * The setup function corresponds
 	 * to the constructor in Processing
@@ -60,6 +65,8 @@ public class Engine extends PApplet {
 		this.level = new Level(this, 1);
 		this.camera = new Camera(this, this.level.getPlayer());
 		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level);
+        board = loadImage("./assets/textures/board.png");
+
 
 	}
 	
@@ -94,10 +101,14 @@ public class Engine extends PApplet {
 		
 		textSize(20);
 		textAlign(RIGHT);
-		fill(0);
+		fill(255);
 		String info = new String (this.level.getPlayer().getName() + "\n" +
 								  "Score : " + this.level.getPlayer().getScore() );
 		text(info, camera.getEyeX() + Engine.WINDOW_WIDTH / 2, camera.getEyeY() - Engine.WINDOW_HEIGHT /2 - 20, -500);
+		camera();
+		hint(DISABLE_DEPTH_TEST);
+		image(board, 0, 0, Engine.WINDOW_WIDTH, Engine.WINDOW_HEIGHT);
+		hint(ENABLE_DEPTH_TEST);
     }
 	
 	/**

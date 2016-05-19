@@ -46,7 +46,7 @@ public class SlowTime extends Bonus {
 			for( Meteor m :  level.getSpace().getMeteors()){
 				m.setSpeed((float)(m.getSpeed() / SlowTime.VALUE));
 			}
-			//System.out.println("Slow Time bonus Started !");
+			System.out.println("Slow Time bonus Started !");
 			SlowTime.this.setState(false);
 			this.timer.schedule(new TimerTask() {
 				  @Override
@@ -55,7 +55,7 @@ public class SlowTime extends Bonus {
 							m.setSpeed((float)(m.getSpeed() * SlowTime.VALUE));
 						}
 					  SlowTime.this.setState(false);
-					  //System.out.println("Slow Time bonus Ended !");
+					  System.out.println("Slow Time bonus Ended !");
 				  }
 				}, (long)this.duration*1000);
 		}

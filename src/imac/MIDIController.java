@@ -390,7 +390,7 @@ public class MIDIController {
 	    	this.player.applyBonus(this.player.getBonus("LessMeteors"), this.level);
 	    }
 	    
-	    if(pitch == 47){
+	    if(pitch == 37){
 	    	if(pads[pitch] == 1) pads[pitch] = -1;
 	    	else pads[pitch] = 1;
 	    	System.out.print(", value: " + pads[pitch]);

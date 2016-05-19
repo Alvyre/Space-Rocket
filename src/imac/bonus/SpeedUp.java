@@ -41,14 +41,14 @@ public class SpeedUp extends Bonus {
 		if(this.isActive()){
 			this.timer = new Timer();
 			player.setSpeed(player.getSpeed() + VALUE);
-			//System.out.println("Speed UP bonus Started !");
+			System.out.println("Speed UP bonus Started !");
 			SpeedUp.this.setState(false);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
 					  player.setSpeed(player.getSpeed() - VALUE);
 					  SpeedUp.this.setState(false);
-					  //System.out.println("Speed UP bonus Ended !");
+					  System.out.println("Speed UP bonus Ended !");
 				  }
 				}, (long)this.duration*1000);
 		}
