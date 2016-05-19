@@ -177,7 +177,21 @@ public class Object3D{
 	public float getScaleY(){
 		return this.scale_y;
 	}
+	/**
+	 * @return the Y scale
+	 * @since 1.0
+	 */
+	public float getScaleZ(){
+		return this.scale_z;
+	}
 	
+	/**
+	 * @return the model
+	 */
+	public PShape getModel() {
+		return model;
+	}
+
 	/**
 	 * @param the x position to set
 	 * @param the y position to set

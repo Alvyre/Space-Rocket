@@ -123,7 +123,7 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public Vector getPositionVec(){
-		Vector vec = aabb3d.getCenter();
+		Vector vec = new Vector(this.position_x, this.position_y, this.position_z);
 		return vec;
 	}
 	
@@ -176,7 +176,7 @@ public class Meteor {
 	 */
 	public void setPositionX(float x){
 		this.position_x = x;
-		this.aabb3d.setCenter(new Vector(x, this.aabb3d.getCenter().getY(), this.aabb3d.getCenter().getZ() ));
+		this.aabb3d.setCenter(new Vector(x, this.position_y, this.position_z ));
 	}
 	
 	/**
@@ -185,7 +185,7 @@ public class Meteor {
 	 */
 	public void setPositionY(float y){
 		this.position_y = y;
-		this.aabb3d.setCenter(new Vector(this.aabb3d.getCenter().getX(), y, this.aabb3d.getCenter().getZ() ));
+		this.aabb3d.setCenter(new Vector(this.position_x, y, this.position_z ));
 	}
 	
 	/**
@@ -194,7 +194,7 @@ public class Meteor {
 	 */
 	public void setPositionZ(float z){
 		this.position_z = z;
-		this.aabb3d.setCenter(new Vector(this.aabb3d.getCenter().getX(), this.aabb3d.getCenter().getY(), z ));
+		this.aabb3d.setCenter(new Vector(this.position_x, this.position_y, z ));
 	}
 	
 	/**
@@ -230,7 +230,10 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translate(float x, float y, float z){
-		this.aabb3d.getCenter().plus(new Vector(x,y,z));
+		this.position_x += x;
+		this.position_y += y;
+		this.position_z += z;
+		this.aabb3d.setCenter(this.aabb3d.getCenter().plus(new Vector(x, y, z)));
 	}
 	
 	/**
@@ -239,7 +242,10 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translate(Vector vec){
-		this.aabb3d.getCenter().plus(vec);
+		this.position_x += vec.getX();
+		this.position_y += vec.getY();
+		this.position_z += vec.getZ();
+		this.aabb3d.setCenter(this.aabb3d.getCenter().plus(vec));
 	}
 	
 	/**
@@ -248,7 +254,8 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateX(float x){
-		this.aabb3d.getCenter().plus(new Vector(x, 0.0f, 0.0f));
+		this.position_x += x;
+		this.aabb3d.setCenter(this.aabb3d.getCenter().plus(new Vector(x, 0.0f, 0.0f)));
 	}
 	
 	/**
@@ -257,7 +264,8 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateY(float y){
-		this.aabb3d.getCenter().plus(new Vector(0.0f, y, 0.0f));
+		this.position_y += y;
+		this.aabb3d.setCenter(this.aabb3d.getCenter().plus(new Vector(0.0f, y, 0.0f)));
 	}
 
 	/**
@@ -266,9 +274,15 @@ public class Meteor {
 	 * @since 1.0
 	 */
 	public void translateZ(float z){
-		if(this.position_z > Space.getMarginBehindModel() ) this.position_z = Space.getMeteorStart();
-		else this.position_z += z;
-		//this.aabb3d.getCenter().plus(new Vector(0.0f, 0.0f, z));
+		if(this.position_z > Space.getMarginBehindModel() ){
+			this.position_z = Space.getMeteorStart();
+			this.aabb3d.setCenter(new Vector(this.position_x, this.position_y, Space.getMeteorStart()) );
+		}
+		else {
+			this.position_z += z;
+			this.aabb3d.setCenter(this.aabb3d.getCenter().plus(new Vector(0.0f, 0.0f, z)));
+		}
+		
 	}
 	
 	/**

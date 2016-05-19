@@ -25,7 +25,7 @@ public class LessMeteors extends Bonus {
 	 * @since 1.0
 	 */
 	public LessMeteors(boolean state, float duration) {
-		super(state, duration, "lessMeteors");
+		super(state, duration, "LessMeteors");
 	}
 	/**
 	 * Constructor of the class with Bonus
