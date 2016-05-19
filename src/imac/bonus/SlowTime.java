@@ -3,6 +3,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 //Import meteor
 
+import imac.Level;
+import imac.obstacle.Meteor;
+
 /**
  *<b> SlowTime is a bonus which slow the enemies, extends Bonus </b>
  *@see Bonus
@@ -13,7 +16,7 @@ public class SlowTime extends Bonus {
 	/**
 	 * (constant) value of the decreased speed
 	 */
-	static private final float VALUE = 5.0f;
+	static private final float VALUE = 2.0f;
 	
 	/**
 	 * Constructor of the class with parameters
@@ -22,7 +25,7 @@ public class SlowTime extends Bonus {
 	 * @since 1.0
 	 */
 	public SlowTime(boolean state, float duration) {
-		super(state, duration, "slowTime");
+		super(state, duration, "SlowTime");
 	}
 	/**
 	 * Constructor of the class with Bonus
@@ -36,17 +39,21 @@ public class SlowTime extends Bonus {
 	 * Apply the bonus to the environment (enemies)
 	 * @since 1.0
 	 */
-	public void apply(/*  */){
+	public void apply(Level level){
 		
 		if(this.isActive()){
 			this.timer = new Timer();
-			// TODO SET SPEED DOWN OF METEOR
+			for( Meteor m :  level.getSpace().getMeteors()){
+				m.setSpeed((float)(m.getSpeed() / SlowTime.VALUE));
+			}
 			//System.out.println("Slow Time bonus Started !");
 			SlowTime.this.setState(false);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
-					  // TODO RESET SPEED OF METEOR
+					  for( Meteor m :  level.getSpace().getMeteors()){
+							m.setSpeed((float)(m.getSpeed() * SlowTime.VALUE));
+						}
 					  SlowTime.this.setState(false);
 					  //System.out.println("Slow Time bonus Ended !");
 				  }

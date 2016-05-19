@@ -42,7 +42,11 @@ public class Meteor {
 	 * Variables used to define the size of the obstacle
 	 */
 	private float size;
-		
+	/**
+	 * boolean to know if the meteor is visible or not, used in space @see Space
+	 */
+	private boolean isVisible = true;
+	
 	/* CONSTRUCTORS */
 	
 	/**
@@ -77,7 +81,7 @@ public class Meteor {
 	  */
 	 public Meteor(PApplet p, float x, float y, float z, float speed, float s){
 		this.parent = p;
-		aabb3d = new AABB3D(new Vector(x,y,z), new Vector(s/2.0f, s/2.0f, s/2.0f));
+		aabb3d = new AABB3D(new Vector(x,y,z), new Vector(s, s, s));
 		this.position_x = x;
 		this.position_y = y;
 		this.position_z = z;
@@ -93,7 +97,7 @@ public class Meteor {
 	 */
 	public float getPositionX(){
 		return this.position_x;
-		//return this.aabb3d.getCenter().getX();
+
 	}
 	
 	/**
@@ -102,7 +106,7 @@ public class Meteor {
 	 */
 	public float getPositionY(){
 		return this.position_y;
-		//return this.aabb3d.getCenter().getY();
+
 	}
 	
 	/**
@@ -111,7 +115,7 @@ public class Meteor {
 	 */
 	public float getPositionZ(){
 		return this.position_z;
-		//return this.aabb3d.getCenter().getZ();
+
 	}
 	
 	/**
@@ -147,12 +151,22 @@ public class Meteor {
 	}
 	
 	/**
+	 * @return the isVisible
+	 */
+	public boolean isVisible() {
+		return isVisible;
+	}
+
+	/**
 	 * @param the x position to set
 	 * @param the y position to set
 	 * @param the z position to set
 	 * @since 1.0
 	 */
 	public void setPosition(float x, float y, float z){
+		this.position_x = x;
+		this.position_y = y;
+		this.position_z = z;
 		this.aabb3d.setCenter(new Vector(x,y,z));
 	}
 	
@@ -191,6 +205,13 @@ public class Meteor {
 		this.size = size;
 	}
 	
+	/**
+	 * @param isVisible the isVisible to set
+	 */
+	public void setVisible(boolean isVisible) {
+		this.isVisible = isVisible;
+	}
+
 	/**
 	 * @param the speed to set
 	 * @since 1.0

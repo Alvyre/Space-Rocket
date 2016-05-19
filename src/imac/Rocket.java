@@ -63,11 +63,11 @@ public class Rocket {
 		this.speed = speed;
 		this.name = name;
 		this.life = life;
-		this.bonus.put("SpeedUp", 			new SpeedUp(true, 		10.0f));
-		this.bonus.put("SlowTime", 			new SlowTime(false, 	0.0f));
-		this.bonus.put("Immortal", 			new Immortal(true, 	5.0f));
-		this.bonus.put("LessMeteors", 		new LessMeteors(false, 	0.0f));
-		this.bonus.put("PointMultiplier", 	new SpeedUp(false, 		0.0f));
+		this.bonus.put("SpeedUp", 			new SpeedUp(			false, 	10.0f));
+		this.bonus.put("SlowTime", 			new SlowTime(			true, 	10.0f));
+		this.bonus.put("Immortal", 			new Immortal(			false, 	5.0f));
+		this.bonus.put("LessMeteors", 		new LessMeteors(		false, 	10.0f));
+		this.bonus.put("PointMultiplier", 	new PointMultiplier(	false, 	0.0f));
 	}
 
 	/**
@@ -83,8 +83,30 @@ public class Rocket {
 	 * Apply the bonus to the player
 	 * @param bonus
 	 */
-	public void applyBonus(Bonus bonus){
-		if(bonus.isActive()) bonus.apply(this);
+	public void applyBonus(Bonus bonus, Level level){
+		if(bonus.isActive()){
+			switch(bonus.getType()){
+			case "SpeedUp":
+				bonus.apply(this);
+				break;
+			case "SlowTime":
+				bonus.apply(level);
+				break;
+			case "Immortal":
+				bonus.apply(this);
+				break;
+			case "LessMeteors":
+				bonus.apply(level);
+				break;
+			case "PointMultiplier":
+				bonus.apply(this);
+				break;
+			default:
+				System.out.println(bonus.getType());
+				break;
+			
+			}
+		}
 	}
 	public boolean isImmortal() {
 		return immortal;
