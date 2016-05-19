@@ -313,7 +313,7 @@ public class Object3D{
         parent.translate(this.position_x, this.position_y, this.position_z);
         parent.rotateY(this.theta_x);
         parent.rotateX(3.14f);
-        parent.scale(0.5f, 0.5f);
+        parent.scale(0.02f, 0.02f,0.02f);
         parent.shape(this.model, 0, 0);
         parent.popMatrix();
 	}
