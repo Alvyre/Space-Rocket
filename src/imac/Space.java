@@ -74,7 +74,14 @@ public class Space {
 	}
 	
 	/**
-	 * Space gird
+	 * @return the meteors
+	 */
+	public ArrayList<Meteor> getMeteors() {
+		return meteors;
+	}
+
+	/**
+	 * Space grid
 	 * 
 	 * @param PApplet
 	 * @param meteors number
@@ -107,7 +114,8 @@ public class Space {
 		drawGrid();
 		for(int i = 0; i < this.meteors.size(); i++)
 	    {	
-			meteors.get(i).display();
+			if(meteors.get(i).isVisible())
+				meteors.get(i).display();
 		}
 	}
 	

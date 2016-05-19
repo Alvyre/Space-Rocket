@@ -1,7 +1,11 @@
 package imac.bonus;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import imac.Level;
+import imac.Space;
 
 /**
  * <b>LessMeteors Decreased the numbers of meteors for a duration, extends Bonus </b>
@@ -13,7 +17,7 @@ public class LessMeteors extends Bonus {
 	/**
 	 * (constant) the value of the enemies reduced
 	 */
-	static private final int VALUE = 5;
+	static private final float VALUE = 0.45f;
 	/**
 	 * Constructor of the class with parameters
 	 * @param state
@@ -36,18 +40,28 @@ public class LessMeteors extends Bonus {
 	 * @param Level
 	 * @since 1.0
 	 */
-	public void apply(/*  */){
+	public void apply(Level level){
 		if(this.isActive()){
 			this.timer = new Timer();
-			// TODO SET NUMBER OF METEOR
-			//System.out.println("Less Meteors bonus Started !");
+			Random rand = new Random();
+			for(int i=0 ; i< (int)level.getSpace().getMeteors().size()*LessMeteors.VALUE ; i++){
+				int index = rand.nextInt(level.getSpace().getMeteors().size());
+				System.out.println(index);
+				while(level.getSpace().getMeteors().get(index).isVisible() == false)
+					index = rand.nextInt(level.getSpace().getMeteors().size() + 1);
+				level.getSpace().getMeteors().get(index).setVisible(false);
+				level.getSpace().getMeteors().get(index).setPositionZ(Space.METEOR_START);
+			}
+			System.out.println("Less Meteors bonus Started !");
 			LessMeteors.this.setState(false);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
-					  // TODO RESET NUMBER OF METEORS
+					  for(int i=0 ; i< level.getSpace().getMeteors().size() ; i++){
+						  level.getSpace().getMeteors().get(i).setVisible(true);
+						}
 					  LessMeteors.this.setState(false);
-					  //System.out.println("Less Meteors bonus Ended !");
+					  System.out.println("Less Meteors bonus Ended !");
 				  }
 				}, (long)this.duration*1000);
 		}

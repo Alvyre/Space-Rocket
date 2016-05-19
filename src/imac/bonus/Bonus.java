@@ -1,5 +1,7 @@
 package imac.bonus;
 import java.util.Timer;
+
+import imac.Level;
 import imac.Rocket;
 /**
  * <b>Bonus describes bonuses applied to the player or the environment".</b>
@@ -77,7 +79,7 @@ public class Bonus {
 	public void setState(boolean state) {
 		this.state = state;
 	}
-	public void apply(){}
+	public void apply(Level level){}
 	public void apply(Rocket player){}
 	
 }

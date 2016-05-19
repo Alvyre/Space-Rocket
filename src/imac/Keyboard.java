@@ -69,13 +69,19 @@ public class Keyboard {
 	 * 
 	 * @since 1.0
 	 */
-	public void eventKeyPressed(Rocket player){
+	public void eventKeyPressed(Rocket player, Level level){
 		
 		if (parent.keyCode == PConstants.UP) Keyboard.UP = true;
 		if (parent.keyCode == PConstants.DOWN) Keyboard.DOWN = true;
 		if (parent.keyCode == PConstants.LEFT) Keyboard.LEFT = true;
 		if (parent.keyCode == PConstants.RIGHT) Keyboard.RIGHT = true;
-		if (parent.keyCode == 49) player.applyBonus(player.getBonus("SpeedUp"));
+		if (parent.keyCode == 49) player.applyBonus(player.getBonus("SpeedUp"), level);
+		if (parent.keyCode == 50) player.applyBonus(player.getBonus("SlowTime"), level);
+		if (parent.keyCode == 51) player.applyBonus(player.getBonus("Immortal"), level);
+		if (parent.keyCode == 52) player.applyBonus(player.getBonus("LessMeteors"), level);
+		if (parent.keyCode == 53) player.applyBonus(player.getBonus("PointMultiplier"), level);
+		
+		
 	}
 	
 	/**
