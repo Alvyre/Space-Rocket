@@ -3,12 +3,7 @@
 
 # Space Rocket 🚀
 
-Java project realized in IMAC Engineering School, in April and May 2016. It works on Eclipse with Processing.
-
-**Supported OS :**
-
-- Mac OSX
-- Windows
+Java project realized in IMAC Engineering School, in April and May 2016. It works on Eclipse with Processing. Control your rocket to avoid the maximum of meteros. Have fun !
 
 ## Set up Space-Rocket
 
