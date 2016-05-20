@@ -235,6 +235,7 @@ public class Level {
 	        this.player.setLife(playerLife);
 	        this.player.setScore(playerScore);
 	        this.player.setSpeed(playerSpeed);
+	        this.player.resetAllBonuses();
 			
 		}catch (IOException e) {
 			e.printStackTrace();

@@ -2,8 +2,16 @@ package imac;
 
 import processing.core.*;
 import ddf.minim.*;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.leapmotion.leap.*;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import imac.bonus.LessMeteors;
 import imac.collide.AABB3D;
 import imac.obstacle.Meteor;
 import leap.*;
@@ -124,21 +132,37 @@ public class Engine extends PApplet {
 
 			this.level.display();
 			if(this.level.getPlayer().getLife() < 0){
+				level.saveScore();
+
+				Timer timer = new Timer();
+				float duration = 4;
+				if(glitchP5 != null){
 				glitchP5.run();
-				glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
-								(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen
+				glitchP5.glitch((int) level.getPlayer().getPosition().getX(), 				// position X on screen
+								(int) level.getPlayer().getPosition().getY(), 				// position Y on screen
 				  		  800,    				// max. position offset (posJitterX)
 				  		  800,    				// max. position offset (posJitterY)
 				  		  Engine.WINDOW_WIDTH,  // sizeX
 				  		  Engine.WINDOW_HEIGHT, // sizeY
 				  		  3,					// numberOfGlitches, number of individual glitches (int)
 				  		  1.0f,					// randomness, this is a jitter for size (float)
-				  		  10,					// attack, max time (in frames) until indiv. glitch appears (int)
-				  		  40);	
+				  		  1,					// attack, max time (in frames) until indiv. glitch appears (int)
+				  		  10);	
+				
 				//System.out.println("COLLISION PEDRO");
 				
 				filter(GRAY);
-				this.level.saveScore();
+				timer.schedule(new TimerTask() {
+					  @Override
+					  public void run() {
+						level.getPlayer().setScore(0);
+						menu.active();
+						level.loadLevel(menu.getCurrentLevel());
+					  }
+					}, (long)duration*1000);
+			
+					
+				}	
 			}
 		}
 		//if(this.arturia.getStatePadNumber11() = )

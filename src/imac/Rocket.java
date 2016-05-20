@@ -1,6 +1,7 @@
 package imac;
 import imac.collide.*;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import com.leapmotion.leap.Vector;
 import imac.bonus.*;
@@ -254,5 +255,12 @@ public class Rocket {
 	}
 	public void addToLife(int points){
 		this.life += points;
+	}
+	
+	public void resetAllBonuses(){
+		Iterator<String> it = bonus.keySet().iterator();
+		while (it.hasNext()){
+			   bonus.get(it.next()).setState(true);
+		}
 	}
 }
