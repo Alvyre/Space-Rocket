@@ -68,7 +68,7 @@ public class Engine extends PApplet {
 		this.keyboard = new Keyboard(this);
 		this.level = new Level(this, 1);
 		this.camera = new Camera(this, this.level.getPlayer());
-		this.menu = new Menu(this);
+		this.menu = new Menu(this, this.level);
 		glitchP5 = new GlitchP5(this);
 	}
 	
@@ -148,6 +148,7 @@ public class Engine extends PApplet {
 	@Override
 	public void keyPressed() {
 		keyboard.eventKeyPressed(level.getPlayer(), level);
+		menu.eventKeyPressed();
 	}
 	
 	/**
@@ -159,5 +160,6 @@ public class Engine extends PApplet {
 	@Override
 	public void keyReleased() {
 		keyboard.eventKeyReleased();
+		menu.eventKeyReleased();
 	}
 }

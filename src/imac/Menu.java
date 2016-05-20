@@ -1,6 +1,12 @@
 package imac;
 
 import processing.core.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import org.apache.commons.io.IOUtils;
+import json.JSONObject;
 
 /**
  * <b>Menu class displays the menu of the application</b>
@@ -24,23 +30,47 @@ public class Menu extends PApplet {
 	/**
 	 * Variable to know the current level
 	 */
-	private int currentLevel;
+	private int numberOfLevel;
+	
+	/**
+	 * Current Level active
+	 */
+	private Level level;
+	
+	/**
+	 * Variable to know the current level
+	 */
+	private int currentLevelNumber;
 	
 	/**
 	 * Variable to know the selected level
 	 */
-	private int selectedLevel;
+	private int selectedLevelNumber;
 	
 	/**
 	 * Menu texture
 	 */
 	PImage menuTexture;
 	
-	public Menu(PApplet p){
+	public Menu(PApplet p, Level l){
 		this.parent = p;
-		this.currentLevel  = 1;
-		this.selectedLevel = 1;
-		menuTexture = parent.loadImage("./assets/models/rocket_map.png");
+		this.level = l;
+		this.currentLevelNumber  = 1;
+		this.selectedLevelNumber = 1;
+		
+        try{
+        	File f = new File("./assets/conf/init.json");
+        	if (f.exists()){
+        		InputStream is = new FileInputStream("./assets/conf/init.json");
+            	String jsonTxt = IOUtils.toString(is);
+            	JSONObject initJSON     = new JSONObject(jsonTxt); 
+	        	this.numberOfLevel      = (int)initJSON.getInt("numberOfLevel");
+        	}
+        }catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		menuTexture = parent.loadImage("./assets/textures/menu-background.png");
 	}
 	
 	/**
@@ -48,7 +78,7 @@ public class Menu extends PApplet {
 	 * @since 1.0
 	 */
 	public int getCurrentLevel(){
-		return this.currentLevel;
+		return this.currentLevelNumber;
 	}
 	
 	/**
@@ -57,7 +87,7 @@ public class Menu extends PApplet {
 	 * @since 1.0
 	 */
 	public void setSelectedLevel(int level){
-		this.selectedLevel = level;
+		this.selectedLevelNumber = level;
 	}
 	
 	/**
@@ -65,7 +95,7 @@ public class Menu extends PApplet {
 	 * @since 1.0
 	 */
 	public int getSelectedLevel(){
-		return this.selectedLevel;
+		return this.selectedLevelNumber;
 	}
 	
 	/**
@@ -74,7 +104,7 @@ public class Menu extends PApplet {
 	 * @since 1.0
 	 */
 	public void setCurrentLevel(int level){
-		this.currentLevel = level;
+		this.currentLevelNumber = level;
 	}
 	
 	/**
@@ -106,7 +136,70 @@ public class Menu extends PApplet {
 		parent.camera();
 		parent.hint(DISABLE_DEPTH_TEST);
 		parent.image(this.menuTexture, 0, 0, Engine.WINDOW_WIDTH, Engine.WINDOW_HEIGHT);
+		
+		parent.textSize(20);
+		parent.textAlign(CENTER);
+		parent.fill(255);
+		
+		for(int i = 1; i <= this.numberOfLevel; i++){
+			String info = new String ("Level " + i);
+			parent.text(info, Engine.WINDOW_WIDTH / 2, Engine.WINDOW_HEIGHT /2 + (i * 40) + 40);
+		}
+		
+		for(int i = 1; i<= this.numberOfLevel; i++){
+			if(i == this.selectedLevelNumber){
+				parent.noStroke();
+				parent.rect(Engine.WINDOW_WIDTH / 2 - 70, Engine.WINDOW_HEIGHT /2 + (i * 40) + 40 - 16, 15, 15);
+			}
+		}
+		
 		parent.hint(ENABLE_DEPTH_TEST);
+	}
+	
+	/**
+	 * Function called on Engine keyPressed function
+	 * Change values of variables UP and DOWN
+	 * 
+	 * @since 1.0
+	 */
+	public void eventKeyPressed(){
+		if (parent.keyCode == PConstants.DOWN){
+			if(this.selectedLevelNumber != this.numberOfLevel) this.selectedLevelNumber++;
+			else this.selectedLevelNumber = 1;
+		}
+		if (parent.keyCode == PConstants.UP){
+			if(this.selectedLevelNumber != 1) this.selectedLevelNumber--;
+			else this.selectedLevelNumber = this.numberOfLevel;
+		}
+		if (parent.keyCode == PConstants.ENTER){
+			this.loadLevel();
+		}
+		if (parent.key == 'A' || parent.key == 'a'){
+			if(Menu.isActive){
+				this.desactive();
+			}
+			else{
+				this.active();
+			}
+		}
+	}
+	
+	/**
+	 * Function called on Engine keyReleased function
+	 * Change values of variables UP, DOWN, LEFT and RIGHT
+	 * 
+	 * @since 1.0
+	 */
+	public void eventKeyReleased(){
+		
+	}
+	
+	public void loadLevel(){
+		if(this.selectedLevelNumber != this.currentLevelNumber){
+			this.currentLevelNumber = this.selectedLevelNumber;
+			this.level.loadLevel(2);
+		}
+		this.desactive();
 	}
 	
 }
