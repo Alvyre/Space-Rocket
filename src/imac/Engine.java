@@ -92,13 +92,12 @@ public class Engine extends PApplet {
 		this.keyboard = new Keyboard(this);
 		this.level = new Level(this, 1);
 		this.camera = new Camera(this, this.level.getPlayer());
-		this.menu = new Menu(this, this.level);
 		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level, this.menu);
-        minim = new Minim(this);
-        music = minim.loadFile("./assets/sounds/zik.mp3");
-        music.play();
-		glitchP5 = new GlitchP5(this);
-
+		this.menu = new Menu(this, this.level, this.arturia);
+        this.minim = new Minim(this);
+        this.music = minim.loadFile("./assets/sounds/zik.mp3");
+        this.music.play();
+        this.glitchP5 = new GlitchP5(this);
 	}
 	
 	/**
@@ -139,36 +138,26 @@ public class Engine extends PApplet {
 				level.saveScore();
 
 				Timer timer = new Timer();
-				float duration = 4;
+				float duration = 6;
 				if(glitchP5 != null){
-				glitchP5.run();
-				glitchP5.glitch((int) level.getPlayer().getPosition().getX(), 				// position X on screen
-								(int) level.getPlayer().getPosition().getY(), 				// position Y on screen
-				  		  800,    				// max. position offset (posJitterX)
-				  		  800,    				// max. position offset (posJitterY)
-				  		  Engine.WINDOW_WIDTH,  // sizeX
-				  		  Engine.WINDOW_HEIGHT, // sizeY
-				  		  3,					// numberOfGlitches, number of individual glitches (int)
-				  		  1.0f,					// randomness, this is a jitter for size (float)
-				  		  1,					// attack, max time (in frames) until indiv. glitch appears (int)
-				  		  10);	
-
-				
-				filter(GRAY);
-				timer.schedule(new TimerTask() {
-					  @Override
-					  public void run() {
-						level.getPlayer().setScore(0);
-						menu.active();
-						level.loadLevel(menu.getCurrentLevel());
-					  }
+					glitchP5.run();
+					glitchP5.glitch((int) level.getPlayer().getPosition().getX(),
+									(int) level.getPlayer().getPosition().getY(),
+									800, 800, Engine.WINDOW_WIDTH, Engine.WINDOW_HEIGHT,
+									3, 1.0f, 1,	8);	
+					filter(GRAY);
+					timer.schedule(new TimerTask() {
+						  @Override
+						  public void run() {
+							level.getPlayer().setScore(0);
+							menu.active();
+							arturia.getPads()[38] = 1;
+							level.loadLevel(menu.getCurrentLevel());
+						  }
 					}, (long)duration*1000);
-			
-					
-				}	
+				}
 			}
 		}
-		
     }
 	
 	/**
@@ -201,6 +190,5 @@ public class Engine extends PApplet {
 	@Override
 	public void keyReleased() {
 		keyboard.eventKeyReleased();
-		menu.eventKeyReleased();
 	}
 }

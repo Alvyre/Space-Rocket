@@ -8,8 +8,13 @@ import processing.core.*;
  * @version 1.0
  */
 
-public class Main extends PApplet {
+public class MainApp extends PApplet {
 	
+	/**
+	 * Main method of the app
+	 * @param String
+	 * @since 1.0
+	 */
 	public static void main(String[] args){
 		PApplet.main(new String[] { Engine.class.getName() } );
 	}

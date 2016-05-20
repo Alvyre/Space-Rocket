@@ -1,19 +1,15 @@
 package imac.level;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import org.apache.commons.io.IOUtils;
 
 import imac.Object3D;
 import imac.Rocket;
 import imac.hud.HUD;
-import imac.json.JSONObject;
+import imac.json.*;
 import imac.tools.Time;
 import osValidator.OSValidator;
-import processing.core.*;;
+import processing.core.*;
 
 /**
  * <b>Level class allow to load a level game from a JSON file.</b>
@@ -162,9 +158,9 @@ public class Level {
 	 * @since 1.0
 	 */
 	public String loadLevelFromJSONFile(int level) throws IOException{
-		File f = new File("./assets/conf/level" + level + ".imac.json");
+		File f = new File("./assets/conf/level" + level + ".json");
         if (f.exists()){
-            InputStream is = new FileInputStream("./assets/conf/level" + level + ".imac.json");
+            InputStream is = new FileInputStream("./assets/conf/level" + level + ".json");
             String jsonTxt = IOUtils.toString(is);
             return jsonTxt;
         }
@@ -310,18 +306,12 @@ public class Level {
 		scoreTab.put("Name", this.getPlayer().getName());
 		scoreTab.put("Score", this.getPlayer().getScore());
 		
-		
-
 		try {
 
 			// Writing to a file
 			File file=new File("./assets/conf/score.JSON");
 			file.createNewFile();
 			FileWriter fileWriter = new FileWriter(file);
-			System.out.println("Writing JSON object to file");
-			System.out.println("-----------------------");
-			System.out.print(scoreTab);
-
 			fileWriter.write(scoreTab.toString());
 			fileWriter.flush();
 			fileWriter.close();

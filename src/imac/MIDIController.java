@@ -44,12 +44,12 @@ public class MIDIController {
 	/**
 	 * Arrays with knobs statements
 	 */
-	float knobs[] = new float[256];
+	private float knobs[] = new float[256];
 	
 	/**
 	 * Arrays with pads statements
 	 */
-	int pads[] = new int[256];
+	private int pads[] = new int[256];
 	
 	
 	/**
@@ -65,6 +65,7 @@ public class MIDIController {
 		this.level = l;
 	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
 	    this.menu = menu;
+	    this.pads[38] = 1;
 	}
 	
 	/**
@@ -73,6 +74,22 @@ public class MIDIController {
 	 */
 	public MidiBus getArturia(){
 		return this.arturia;
+	}
+	
+	/**
+	 * @return pads array
+	 * @since 1.0
+	 */
+	public int[] getPads(){
+		return this.pads;
+	}
+	
+	/**
+	 * @return knobs array
+	 * @since 1.0
+	 */
+	public float[] getKnobs(){
+		return this.knobs;
 	}
 	
 	/**
@@ -374,57 +391,55 @@ public class MIDIController {
 	 * @since 1.0
 	 */
 	public void noteOn(int channel, int pitch, int velocity) {
-		System.out.print("Pad : [channel: " + channel + ", pitch: " + pitch + ", velocity: " + velocity);
+		//System.out.print("Pad : [channel: " + channel + ", pitch: " + pitch + ", velocity: " + velocity);
 	   
 	    if(pitch == 44){
 	    	if(pads[pitch] == 1) pads[pitch] = -1;
 	    	else pads[pitch] = 1;
-	    	System.out.print(", value: " + pads[pitch]);
+	    	//System.out.print(", value: " + pads[pitch]);
 	    	this.player.applyBonus(this.player.getBonus("SpeedUp"), this.level);
 	    }
 	    
 	    if(pitch == 45){
 	    	if(pads[pitch] == 1) pads[pitch] = -1;
 	    	else pads[pitch] = 1;
-	    	System.out.print(", value: " + pads[pitch]);
+	    	//System.out.print(", value: " + pads[pitch]);
 	    	this.player.applyBonus(this.player.getBonus("SlowTime"), this.level);
 	    }
 	    
 	    if(pitch == 46){
 	    	if(pads[pitch] == 1) pads[pitch] = -1;
 	    	else pads[pitch] = 1;
-	    	System.out.print(", value: " + pads[pitch]);
+	    	//System.out.print(", value: " + pads[pitch]);
 	    	this.player.applyBonus(this.player.getBonus("LessMeteors"), this.level);
 	    }
 	    
 	    if(pitch == 37){
 	    	if(pads[pitch] == 1) pads[pitch] = -1;
 	    	else pads[pitch] = 1;
-	    	System.out.print(", value: " + pads[pitch]);
+	    	//System.out.print(", value: " + pads[pitch]);
 	    	this.player.applyBonus(this.player.getBonus("PointMultiplier"), this.level);
 	    }
 	    	  
 	    if(pitch == 36){
 	    	if(pads[pitch] == 1) pads[pitch] = -1;
 	    	else pads[pitch] = 1;
-	    	System.out.print(", value: " + pads[pitch]);
+	    	//System.out.print(", value: " + pads[pitch]);
 	    	this.player.applyBonus(this.player.getBonus("Immortal"), this.level);
 
 	    }
 	    
 	    if(pitch == 38){
-	    	if(pads[pitch] == 1) pads[pitch] = -1;
-	    	else pads[pitch] = 1;
-	    	System.out.print(", value: " + pads[pitch]);
 	    	if(this.menu.isActive()){
 	    		this.menu.desactive();
+	    		pads[38] = -1;
 	    	}
 	    	else{
 	    		this.menu.active();
+	    		pads[38] = 1;
 	    	}
 	    }
 	    
 	    System.out.println("]");
-	}
-		
+	}	
 }

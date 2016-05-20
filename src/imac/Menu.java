@@ -55,16 +55,22 @@ public class Menu extends PApplet {
 	PImage menuTexture;
 	
 	/**
+	 * Arturia Beatstep MIDI Controller
+	 */
+	MIDIController arturia;
+	
+	/**
 	 * The constructor of the class Menu
 	 * @param p the PApplet
 	 * @param l the level
 	 * @since 1.0
 	 */
-	public Menu(PApplet p, Level l){
+	public Menu(PApplet p, Level l, MIDIController midiController){
 		this.parent = p;
 		this.level = l;
 		this.currentLevelNumber  = 1;
 		this.selectedLevelNumber = 1;
+		this.arturia = midiController;
 		
         try{
         	File f = new File("./assets/conf/init.json");
@@ -130,6 +136,7 @@ public class Menu extends PApplet {
 	 */
 	public void desactive(){
 		Menu.isActive = false;
+		this.arturia.getPads()[38] = -1;
 	}
 	
 	/**
@@ -138,6 +145,7 @@ public class Menu extends PApplet {
 	 */
 	public void active(){
 		Menu.isActive = true;
+		this.arturia.getPads()[38] = 1;
 	}
 	
 	/**
@@ -186,6 +194,7 @@ public class Menu extends PApplet {
 			else this.selectedLevelNumber = this.numberOfLevel;
 		}
 		if (parent.keyCode == PConstants.ENTER){
+			this.desactive();
 			this.loadLevel();
 		}
 		if (parent.key == 'A' || parent.key == 'a'){
@@ -199,22 +208,12 @@ public class Menu extends PApplet {
 	}
 	
 	/**
-	 * Function called on Engine keyReleased function
-	 * Change values of variables UP, DOWN, LEFT and RIGHT
-	 * 
-	 * @since 1.0
-	 */
-	public void eventKeyReleased(){
-		
-	}
-	
-	/**
 	 * loadLevel describes the change of a level ingame
 	 */
 	public void loadLevel(){
 		if(this.selectedLevelNumber != this.currentLevelNumber){
 			this.currentLevelNumber = this.selectedLevelNumber;
-			this.level.loadLevel(2);
+			this.level.loadLevel(this.currentLevelNumber);
 		}
 		this.desactive();
 	}
