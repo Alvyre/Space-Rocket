@@ -51,13 +51,13 @@ public class LessMeteors extends Bonus {
 			Random rand = new Random();
 			for(int i=0 ; i< (int)(level.getSpace().getMeteors().size()*LessMeteors.VALUE)-1 ; i++){
 				int index = rand.nextInt(level.getSpace().getMeteors().size());
-				System.out.println(index);
+				//System.out.println(index);
 				while(level.getSpace().getMeteors().get(index).isVisible() == false)
 					index = rand.nextInt(level.getSpace().getMeteors().size() + 1);
 				level.getSpace().getMeteors().get(index).setVisible(false);
 				level.getSpace().getMeteors().get(index).setPositionZ(Space.getMeteorStart());
 			}
-			System.out.println("Less Meteors bonus Started !");
+			//System.out.println("Less Meteors bonus Started !");
 			LessMeteors.this.setState(false);
 			Time.startBonusTimer(LessMeteors.this.type);
 			this.timer.schedule(new TimerTask() {
@@ -67,7 +67,7 @@ public class LessMeteors extends Bonus {
 						  level.getSpace().getMeteors().get(i).setVisible(true);
 						}
 					  LessMeteors.this.setState(false);
-					  System.out.println("Less Meteors bonus Ended !");
+					  //System.out.println("Less Meteors bonus Ended !");
 				  }
 				}, (long)this.duration*1000);
 		}

@@ -41,14 +41,14 @@ public class Immortal extends Bonus {
 		if(this.isAvailable()){
 			this.timer = new Timer();
 			player.setImmortal(true);
-			System.out.println("Immortality bonus enabled !");
+			//System.out.println("Immortality bonus enabled !");
 			Immortal.this.setState(false);
 			Time.startBonusTimer(Immortal.this.type);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
 					player.setImmortal(false);
-					System.out.println("Immortality bonus disabled !");
+					//System.out.println("Immortality bonus disabled !");
 					
 				  }
 				}, (long)this.duration*1000);

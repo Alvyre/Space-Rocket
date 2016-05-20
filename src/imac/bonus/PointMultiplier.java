@@ -44,14 +44,14 @@ public class PointMultiplier extends Bonus {
 		if(this.isAvailable()){
 			this.timer = new Timer();
 			player.setMultiplier(PointMultiplier.MULTIPLIER);
-			System.out.println("x" + PointMultiplier.MULTIPLIER + " points bonus activated !");
+			//System.out.println("x" + PointMultiplier.MULTIPLIER + " points bonus activated !");
 			PointMultiplier.this.setState(false);
 			Time.startBonusTimer(PointMultiplier.this.type);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
 					  player.setMultiplier(1.0f);
-					System.out.println("x" + PointMultiplier.MULTIPLIER + " points bonus ended !");
+					//System.out.println("x" + PointMultiplier.MULTIPLIER + " points bonus ended !");
 				  }
 				}, (long)this.duration*1000);
 		}

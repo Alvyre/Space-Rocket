@@ -46,7 +46,7 @@ public class SpeedUp extends Bonus {
 		if(this.isAvailable()){
 			this.timer = new Timer();
 			player.setSpeed(player.getSpeed() + VALUE);
-			System.out.println("Speed UP bonus Started !");
+			//System.out.println("Speed UP bonus Started !");
 			SpeedUp.this.setState(false);
 			Time.startBonusTimer(SpeedUp.this.type);
 			this.timer.schedule(new TimerTask() {
@@ -54,7 +54,7 @@ public class SpeedUp extends Bonus {
 				  public void run() {
 					  player.setSpeed(player.getSpeed() - VALUE);
 					  SpeedUp.this.setState(false);
-					  System.out.println("Speed UP bonus Ended !");
+					  //System.out.println("Speed UP bonus Ended !");
 				  }
 				}, (long)this.duration*1000);
 		}
