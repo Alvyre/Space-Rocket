@@ -19,8 +19,11 @@ public class Rocket {
 	/**
 	 * score shows the points gathered by the player (integer).
 	 */
-	private AABB3D aabb3d;
 	private int 				score;
+	/**
+	 * This is the collision box, using a AABB collision (Axe collision) @see imac.collide
+	 */
+	private AABB3D aabb3d;
 	/**
 	 * speed increases the rapidity of the player, can be modified with bonuses.
 	 */
@@ -63,11 +66,11 @@ public class Rocket {
 		this.speed = speed;
 		this.name = name;
 		this.life = life;
-		this.bonus.put("SpeedUp", 			new SpeedUp(			false, 	10.0f));
+		this.bonus.put("SpeedUp", 			new SpeedUp(			true, 	10.0f));
 		this.bonus.put("SlowTime", 			new SlowTime(			true, 	10.0f));
-		this.bonus.put("Immortal", 			new Immortal(			false, 	5.0f));
-		this.bonus.put("LessMeteors", 		new LessMeteors(		false, 	10.0f));
-		this.bonus.put("PointMultiplier", 	new PointMultiplier(	false, 	0.0f));
+		this.bonus.put("Immortal", 			new Immortal(			true, 	5.0f));
+		this.bonus.put("LessMeteors", 		new LessMeteors(		true, 	10.0f));
+		this.bonus.put("PointMultiplier", 	new PointMultiplier(	true, 	0.0f));
 	}
 
 	/**

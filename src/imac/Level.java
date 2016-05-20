@@ -39,7 +39,6 @@ public class Level {
 	 */
 	private Rocket player;
 	
-	
 	/**
 	 * The constructor of Level
 	 * It loads configuration files (player and level)
@@ -89,7 +88,6 @@ public class Level {
 	        }
 	        
 	        this.player = new Rocket(new Object3D(this.parent, playerModel, playerPositionX, playerPositionY, playerPositionZ, playerScaleX, playerScaleY, playerScaleZ), playerScore, playerSpeed, playerName, playerLife);
-	        
 	        welcomeToSpaceRocket(playerName);
         
 		}catch (IOException e) {

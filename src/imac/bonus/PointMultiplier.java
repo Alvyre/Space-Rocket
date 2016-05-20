@@ -3,6 +3,7 @@ package imac.bonus;
 import java.util.Timer;
 import java.util.TimerTask;
 import imac.Rocket;
+import imac.Time;
 /**
  * Multiply the points the player gets for the limited time
  * @author Romain
@@ -39,13 +40,14 @@ public class PointMultiplier extends Bonus {
 		if(this.isActive()){
 			this.timer = new Timer();
 			player.setMultiplier(PointMultiplier.MULTIPLIER);
-			//System.out.println("x" + pointMultiplier.MULTIPLIER + " points bonus activated !");
+			System.out.println("x" + PointMultiplier.MULTIPLIER + " points bonus activated !");
 			PointMultiplier.this.setState(false);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
+					  Time.startBonusTimer(PointMultiplier.this.type);
 					  player.setMultiplier(1.0f);
-					//System.out.println("x" + pointMultiplier.MULTIPLIER + " points bonus ended !");
+					System.out.println("x" + PointMultiplier.MULTIPLIER + " points bonus ended !");
 				  }
 				}, (long)this.duration*1000);
 		}

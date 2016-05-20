@@ -21,6 +21,16 @@ public class MIDIController {
 	private PApplet parent;
 	
 	/**
+	 * Reference rocket player
+	 */
+	private Rocket player;
+	
+	/**
+	 * Reference the level
+	 */
+	private Level level;
+	
+	/**
 	 * Datatype for a MIDI Controller
 	 */
 	private MidiBus arturia;
@@ -42,9 +52,11 @@ public class MIDIController {
 	 * 
 	 * @since 1.0
 	 */
-	public MIDIController(PApplet p){
+	public MIDIController(PApplet p, Rocket joueur, Level l){
 		this.parent = p;
 		MidiBus.list();
+		this.player = joueur;
+		this.level = l;
 	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
 	}
 	
@@ -361,12 +373,36 @@ public class MIDIController {
 	    	if(pads[pitch] == 1) pads[pitch] = -1;
 	    	else pads[pitch] = 1;
 	    	System.out.print(", value: " + pads[pitch]);
+	    	this.player.applyBonus(this.player.getBonus("SpeedUp"), this.level);
+	    }
+	    
+	    if(pitch == 45){
+	    	if(pads[pitch] == 1) pads[pitch] = -1;
+	    	else pads[pitch] = 1;
+	    	System.out.print(", value: " + pads[pitch]);
+	    	this.player.applyBonus(this.player.getBonus("SlowTime"), this.level);
+	    }
+	    
+	    if(pitch == 46){
+	    	if(pads[pitch] == 1) pads[pitch] = -1;
+	    	else pads[pitch] = 1;
+	    	System.out.print(", value: " + pads[pitch]);
+	    	this.player.applyBonus(this.player.getBonus("LessMeteors"), this.level);
+	    }
+	    
+	    if(pitch == 37){
+	    	if(pads[pitch] == 1) pads[pitch] = -1;
+	    	else pads[pitch] = 1;
+	    	System.out.print(", value: " + pads[pitch]);
+	    	this.player.applyBonus(this.player.getBonus("PointMultiplier"), this.level);
 	    }
 	    	  
 	    if(pitch == 36){
 	    	if(pads[pitch] == 1) pads[pitch] = -1;
 	    	else pads[pitch] = 1;
 	    	System.out.print(", value: " + pads[pitch]);
+	    	this.player.applyBonus(this.player.getBonus("Immortal"), this.level);
+
 	    }
 	    
 	    System.out.println("]");

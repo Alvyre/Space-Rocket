@@ -1,6 +1,7 @@
 package imac;
 
 import processing.core.*;
+import ddf.minim.*;
 import com.leapmotion.leap.*;
 
 import imac.collide.AABB3D;
@@ -56,6 +57,21 @@ public class Engine extends PApplet {
 	GlitchP5 glitchP5;
 	
 	/**
+	 * Image of the information board
+	 */
+	private PImage board;
+	
+	/**
+	 * Sound of this amazing game
+	 */
+	private AudioPlayer music;
+	
+	/**
+	 * Instance of music player
+	 */
+	private Minim minim;
+	
+	/**
 	 * Setup function to init Engine
 	 * The setup function corresponds
 	 * to the constructor in Processing
@@ -64,12 +80,17 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void setup(){
-		this.arturia = new MIDIController(this);
 		this.keyboard = new Keyboard(this);
 		this.level = new Level(this, 1);
 		this.camera = new Camera(this, this.level.getPlayer());
 		this.menu = new Menu(this, this.level);
+		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level);
+        board = loadImage("./assets/textures/board.png");
+        minim = new Minim(this);
+        music = minim.loadFile("./assets/sounds/zik.mp3");
+        music.play();
 		glitchP5 = new GlitchP5(this);
+
 	}
 	
 	/**
@@ -85,7 +106,6 @@ public class Engine extends PApplet {
 		if(this.menu.isActive()){
 			this.menu.display();
 		}
-		
 		else{
 		
 			this.camera.look();
@@ -128,6 +148,16 @@ public class Engine extends PApplet {
 									  "Score : " + this.level.getPlayer().getScore() );
 			text(info, camera.getEyeX() + Engine.WINDOW_WIDTH / 2, camera.getEyeY() - Engine.WINDOW_HEIGHT /2 - 20, -500);*/
 		}
+		textSize(20);
+		textAlign(RIGHT);
+		fill(255);
+		String info = new String (this.level.getPlayer().getName() + "\n" +
+								  "Score : " + this.level.getPlayer().getScore() );
+		text(info, camera.getEyeX() + Engine.WINDOW_WIDTH / 2, camera.getEyeY() - Engine.WINDOW_HEIGHT /2 - 20, -500);
+		camera();
+		hint(DISABLE_DEPTH_TEST);
+		image(board, 0, 0, Engine.WINDOW_WIDTH, Engine.WINDOW_HEIGHT);
+		hint(ENABLE_DEPTH_TEST);
     }
 	
 	/**
