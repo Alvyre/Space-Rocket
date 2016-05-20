@@ -83,8 +83,8 @@ public class HUD {
 	 * display the HUD
 	 */
 	public void display(Rocket player){
-		
-		//TODO
+		Time.save();
+		player.addToScore((int)(Time.getElapsedTimeSec()*player.getMultiplier()));
 		parent.camera();
 		parent.hint(PConstants.DISABLE_DEPTH_TEST);
 		parent.image(board, 0, 0);
