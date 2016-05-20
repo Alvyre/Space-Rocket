@@ -5,6 +5,6 @@
     "Player_Speed" : 10.0,
     "Player_Life"  : 10000,
 	"Level_Number" : 1,
-    "Level_NbMeteors" : 200,
+    "Level_NbMeteors" : 100,
     "Level_SpeedMeteor": { "min" : 1.0, "max" : 5.0}
 }

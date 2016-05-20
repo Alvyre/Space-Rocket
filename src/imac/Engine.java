@@ -1,6 +1,7 @@
 package imac;
 
 import processing.core.*;
+import ddf.minim.*;
 import com.leapmotion.leap.*;
 
 import imac.collide.AABB3D;
@@ -26,7 +27,7 @@ public class Engine extends PApplet {
 	/**
 	 * Background RGB color of the app (255 to 0)
 	 */
-	private static int BACKGROUND_COLOR  = 257;
+	private static int BACKGROUND_COLOR  = 51;
 	
 	/**
 	 * Midi Controller retrieves the states of each button and knob
@@ -44,12 +45,27 @@ public class Engine extends PApplet {
 	private Level level;
 	
 	/**
+	 * Menu of the app
+	 */
+	private Menu menu;
+	
+	/**
 	 * Camera of the app
 	 */
 	private Camera camera;
 	
 	GlitchP5 glitchP5;
-		
+	
+	/**
+	 * Sound of this amazing game
+	 */
+	private AudioPlayer music;
+	
+	/**
+	 * Instance of music player
+	 */
+	private Minim minim;
+	
 	/**
 	 * Setup function to init Engine
 	 * The setup function corresponds
@@ -63,8 +79,11 @@ public class Engine extends PApplet {
 		this.keyboard = new Keyboard(this);
 		this.level = new Level(this, 1);
 		this.camera = new Camera(this, this.level.getPlayer());
-		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level);
-
+		this.menu = new Menu(this, this.level);
+		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level, this.menu);
+        minim = new Minim(this);
+        music = minim.loadFile("./assets/sounds/zik.mp3");
+        music.play();
 		glitchP5 = new GlitchP5(this);
 
 	}
@@ -78,47 +97,52 @@ public class Engine extends PApplet {
 	@Override
 	public void draw() {
 		background(Engine.BACKGROUND_COLOR);
-		this.camera.look();
 		
-		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
-		
-		this.level.getPlayer().getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
-		
-		if(Leapmotion.isConnected()) movements = new Vector(Leapmotion.handMoves());
-		else                         movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
-		
-		this.level.getPlayer().move(movements);
-		//this.level.display();
-		
-		for(Meteor m : this.level.getSpace().getMeteors()){
-			//System.out.println(m.getAABB3D().getCenter());
-			if( this.level.getPlayer().isImmortal() == false
-					&& AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
-				this.level.getPlayer().addToScore(DAMAGE_COLLISION);
-				this.level.getPlayer().addToLife(DAMAGE_COLLISION);
+		if(this.menu.isActive()){
+			this.menu.display();
+		}
+		else{
+			this.camera.look();
+			Vector movements = new Vector(0.0f, 0.0f, 0.0f);
+			
+			this.level.getPlayer().getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
+			
+			if(Leapmotion.isConnected()) movements = new Vector(Leapmotion.handMoves());
+			else                         movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
+			
+			this.level.getPlayer().move(movements);
+			//this.level.display();
+			
+			for(Meteor m : this.level.getSpace().getMeteors()){
+				//System.out.println(m.getAABB3D().getCenter());
+				if( this.level.getPlayer().isImmortal() == false
+						&& AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
+					this.level.getPlayer().addToScore(DAMAGE_COLLISION);
+					this.level.getPlayer().addToLife(DAMAGE_COLLISION);
+				}
+			}
+
+			this.level.display();
+			if(this.level.getPlayer().getLife() < 0){
+				glitchP5.run();
+				glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
+								(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen
+				  		  800,    				// max. position offset (posJitterX)
+				  		  800,    				// max. position offset (posJitterY)
+				  		  Engine.WINDOW_WIDTH,  // sizeX
+				  		  Engine.WINDOW_HEIGHT, // sizeY
+				  		  3,					// numberOfGlitches, number of individual glitches (int)
+				  		  1.0f,					// randomness, this is a jitter for size (float)
+				  		  10,					// attack, max time (in frames) until indiv. glitch appears (int)
+				  		  40);	
+				//System.out.println("COLLISION PEDRO");
+				
+				filter(GRAY);
+				this.level.saveScore();
 			}
 		}
-		//System.out.println(level.getPlayer().getAABB3D().getSize());
+		//if(this.arturia.getStatePadNumber11() = )
 		
-		
-		this.level.display();
-		if(this.level.getPlayer().getLife() < 0){
-			glitchP5.run();
-			glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
-							(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen
-			  		  800,    				// max. position offset (posJitterX)
-			  		  800,    				// max. position offset (posJitterY)
-			  		  Engine.WINDOW_WIDTH,  // sizeX
-			  		  Engine.WINDOW_HEIGHT, // sizeY
-			  		  3,					// numberOfGlitches, number of individual glitches (int)
-			  		  1.0f,					// randomness, this is a jitter for size (float)
-			  		  10,					// attack, max time (in frames) until indiv. glitch appears (int)
-			  		  40);	
-			//System.out.println("COLLISION PEDRO");
-			
-			filter(GRAY);
-			this.level.saveScore();
-		}
     }
 	
 	/**
@@ -139,6 +163,7 @@ public class Engine extends PApplet {
 	@Override
 	public void keyPressed() {
 		keyboard.eventKeyPressed(level.getPlayer(), level);
+		menu.eventKeyPressed();
 	}
 	
 	/**
@@ -150,5 +175,6 @@ public class Engine extends PApplet {
 	@Override
 	public void keyReleased() {
 		keyboard.eventKeyReleased();
+		menu.eventKeyReleased();
 	}
 }

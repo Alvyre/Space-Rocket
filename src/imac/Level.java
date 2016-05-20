@@ -215,7 +215,11 @@ public class Level {
 	public void loadLevel(int level){
 		try {
 			String jsonTextLevel  = loadLevelFromJSONFile(level);
-			JSONObject jsonLevel  = new JSONObject(jsonTextLevel);  
+			JSONObject jsonLevel  = new JSONObject(jsonTextLevel);
+			JSONObject playerPosition = (JSONObject)jsonLevel.getJSONObject("Player_Position");
+			float playerPositionX     = (float)playerPosition.getDouble("x");
+			float playerPositionY     = (float)playerPosition.getDouble("y");
+			float playerPositionZ     = (float)playerPosition.getDouble("z");
 			int playerScore       = (int)jsonLevel.getInt("Player_Score");
 	        float playerSpeed     = (float)jsonLevel.getDouble("Player_Speed");
 	        int playerLife        = (int)jsonLevel.getInt("Player_Life");
@@ -227,6 +231,7 @@ public class Level {
 	        
 	        this.levelNumber = levelNumber;
 	        this.space = new Space(this.parent, levelNbMeteors, levelSpeedMin, levelSpeedMax);
+	        this.player.getModel().setPosition(playerPositionX, playerPositionY, playerPositionZ);
 	        this.player.setLife(playerLife);
 	        this.player.setScore(playerScore);
 	        this.player.setSpeed(playerSpeed);
