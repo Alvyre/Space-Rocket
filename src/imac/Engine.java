@@ -117,6 +117,7 @@ public class Engine extends PApplet {
 			//System.out.println("COLLISION PEDRO");
 			
 			filter(GRAY);
+			this.level.saveScore();
 		}
     }
 	
