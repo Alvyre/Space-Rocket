@@ -3,7 +3,7 @@ package imac.bonus;
 import java.util.Timer;
 import java.util.TimerTask;
 import imac.Rocket;
-import imac.Time;
+import imac.tools.Time;
 /**
  * Multiply the points the player gets for the limited time
  * @author Romain
@@ -56,6 +56,9 @@ public class PointMultiplier extends Bonus {
 				}, (long)this.duration*1000);
 		}
 	}
+	/**
+	 * Getter of the cooldown of the bonus
+	 */
 	public float getCooldown() {
 		return cooldown;
 	}

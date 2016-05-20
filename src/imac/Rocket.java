@@ -1,5 +1,7 @@
 package imac;
 import imac.collide.*;
+import imac.level.Level;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -139,6 +141,10 @@ public class Rocket {
 			}
 		}
 	}
+	/**
+	 * Getter to know if the player is using the immortal bonus
+	 * @return
+	 */
 	public boolean isImmortal() {
 		return immortal;
 	}
@@ -250,13 +256,24 @@ public class Rocket {
 	public void setBonus(Bonus bonus) {
 		this.bonus.put(bonus.getType(), bonus);
 	}
+	/**
+	 * Method to add or substract point to the player
+	 * @param points
+	 */
 	public void addToScore(int points){
 		this.score += points;
 	}
+	/**
+	 * Method to add or substract life to the player
+	 * @param points
+	 */
 	public void addToLife(int points){
 		this.life += points;
 	}
 	
+	/**
+	 * Method to reset all bonuses, used when the player changes the level Ingame
+	 */
 	public void resetAllBonuses(){
 		Iterator<String> it = bonus.keySet().iterator();
 		while (it.hasNext()){

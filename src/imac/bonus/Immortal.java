@@ -3,7 +3,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import imac.Rocket;
-import imac.Time;
+import imac.tools.Time;
 /**
  * <b>Immortal turns the player immortal for a duration, extends Bonus</b>
  * @see Bonus
@@ -54,6 +54,9 @@ public class Immortal extends Bonus {
 				}, (long)this.duration*1000);
 		}
 	}
+	/**
+	 * Getter of the cooldown of the bonus
+	 */
 	public float getCooldown() {
 		return cooldown;
 	}

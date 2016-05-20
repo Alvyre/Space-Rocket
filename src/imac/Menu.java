@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
-import json.JSONObject;
+
+import imac.json.JSONObject;
+import imac.level.Level;
 
 /**
  * <b>Menu class displays the menu of the application</b>
@@ -52,6 +54,12 @@ public class Menu extends PApplet {
 	 */
 	PImage menuTexture;
 	
+	/**
+	 * The constructor of the class Menu
+	 * @param p the PApplet
+	 * @param l the level
+	 * @since 1.0
+	 */
 	public Menu(PApplet p, Level l){
 		this.parent = p;
 		this.level = l;
@@ -132,6 +140,12 @@ public class Menu extends PApplet {
 		Menu.isActive = true;
 	}
 	
+	/**
+	 * the method to display the menu to the player
+	 * Display the camera, the menu images, and the text
+	 * 
+	 * @since 1.0
+	 */
 	public void display(){
 		parent.camera();
 		parent.hint(DISABLE_DEPTH_TEST);
@@ -194,6 +208,9 @@ public class Menu extends PApplet {
 		
 	}
 	
+	/**
+	 * loadLevel describes the change of a level ingame
+	 */
 	public void loadLevel(){
 		if(this.selectedLevelNumber != this.currentLevelNumber){
 			this.currentLevelNumber = this.selectedLevelNumber;

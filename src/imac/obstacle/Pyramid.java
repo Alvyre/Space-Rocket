@@ -5,7 +5,9 @@ import processing.core.PConstants;
 
 /**
  * <b>Pyramid is a child of Meteor to create obstacle with pyramid shape</b>
+ * <p> We don't use it anymore</p>
  * @author Charlie
+ * @deprecated
  * @version 1.0
  */
 public class Pyramid extends Meteor {

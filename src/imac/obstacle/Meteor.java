@@ -2,8 +2,8 @@ package imac.obstacle;
 
 import com.leapmotion.leap.Vector;
 
-import imac.Space;
 import imac.collide.AABB3D;
+import imac.level.Space;
 import processing.core.*;
 
 /**
@@ -25,11 +25,20 @@ public class Meteor {
 	private float speed;
 	
 	/**
-	 * Variables used to define the obstacle position
+	 * Variable used to define the obstacle position in X
 	 */
 	private float position_x;
+	/**
+	 * Variable used to define the obstacle position in Y
+	 */
 	private float position_y;
+	/**
+	 * Variable used to define the obstacle position in Z
+	 */
 	private float position_z;
+	/**
+	 * The AABB3D box used to check collisions
+	 */
 	AABB3D aabb3d;
 	
 	

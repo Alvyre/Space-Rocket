@@ -1,22 +1,24 @@
-package imac;
+package imac.level;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.apache.commons.io.IOUtils;
 
+import imac.Object3D;
+import imac.Rocket;
 import imac.hud.HUD;
-import json.JSONObject;
+import imac.json.JSONObject;
+import imac.tools.Time;
 import osValidator.OSValidator;
-import processing.core.*;
-import processing.data.JSONArray;
+import processing.core.*;;
 
 /**
  * <b>Level class allow to load a level game from a JSON file.</b>
- * <p>It generates a Space and a Rocket player</p>
+ * <p>It generates a Space and a Rocket player, @see Space, @see Rocket</p>
+ *
  * @author Pierre
  * @version 1.0
  */
@@ -58,7 +60,7 @@ public class Level {
 	 * 
 	 * @since 1.0
 	 */
-	Level(PApplet p, int level){
+	public Level(PApplet p, int level){
 		
 		try {
 			String jsonTextPlayer     = loadPlayerFromJSONFile();
@@ -160,9 +162,9 @@ public class Level {
 	 * @since 1.0
 	 */
 	public String loadLevelFromJSONFile(int level) throws IOException{
-		File f = new File("./assets/conf/level" + level + ".json");
+		File f = new File("./assets/conf/level" + level + ".imac.json");
         if (f.exists()){
-            InputStream is = new FileInputStream("./assets/conf/level" + level + ".json");
+            InputStream is = new FileInputStream("./assets/conf/level" + level + ".imac.json");
             String jsonTxt = IOUtils.toString(is);
             return jsonTxt;
         }

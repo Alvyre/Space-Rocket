@@ -1,7 +1,9 @@
-package imac;
+package imac.level;
 
 import processing.core.*;
 import java.util.ArrayList;
+
+import imac.Engine;
 import imac.obstacle.*;
 
 /**

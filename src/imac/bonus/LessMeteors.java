@@ -4,9 +4,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import imac.Level;
-import imac.Space;
-import imac.Time;
+import imac.level.Level;
+import imac.level.Space;
+import imac.tools.Time;
 
 /**
  * <b>LessMeteors Decreased the numbers of meteors for a duration, extends Bonus </b>
@@ -49,9 +49,9 @@ public class LessMeteors extends Bonus {
 		if(this.isAvailable()){
 			this.timer = new Timer();
 			Random rand = new Random();
+			// for nb meteor * ratio
 			for(int i=0 ; i< (int)(level.getSpace().getMeteors().size()*LessMeteors.VALUE)-1 ; i++){
-				int index = rand.nextInt(level.getSpace().getMeteors().size());
-				//System.out.println(index);
+				int index = rand.nextInt(level.getSpace().getMeteors().size()-1);
 				while(level.getSpace().getMeteors().get(index).isVisible() == false)
 					index = rand.nextInt(level.getSpace().getMeteors().size() + 1);
 				level.getSpace().getMeteors().get(index).setVisible(false);
@@ -72,6 +72,9 @@ public class LessMeteors extends Bonus {
 				}, (long)this.duration*1000);
 		}
 	}
+	/**
+	 * Getter of the cooldown of the bonus
+	 */
 	public float getCooldown() {
 		return cooldown;
 	}

@@ -1,8 +1,8 @@
 package imac.hud;
 import imac.Engine;
 import imac.Rocket;
-import imac.Time;
 import imac.bonus.Bonus;
+import imac.tools.Time;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -53,6 +53,10 @@ public class HUD {
 	 */
 	private PImage immortal;
 	
+	/**
+	 * the constructor of HUD, using a PApplet @see PApplet
+	 * @param p
+	 */
 	public HUD(PApplet p) {
 		
 		//TODO

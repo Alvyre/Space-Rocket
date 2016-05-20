@@ -1,5 +1,7 @@
-package imac;
+package imac.tools;
 
+import imac.Rocket;
+import imac.level.Level;
 import processing.core.*;
 
 /**
@@ -66,21 +68,22 @@ public class Keyboard {
 	/**
 	 * Function called on Engine keyPressed function
 	 * Change values of variables UP, DOWN, LEFT and RIGHT
-	 * 
+	 * @param Rocket : the player, used to get and apply the bonuses
+	 * @param Level  : the level, used to apply the bonuses
 	 * @since 1.0
 	 */
 	public void eventKeyPressed(Rocket player, Level level){
-		
+		// Movements
 		if (parent.keyCode == PConstants.UP) Keyboard.UP = true;
 		if (parent.keyCode == PConstants.DOWN) Keyboard.DOWN = true;
 		if (parent.keyCode == PConstants.LEFT) Keyboard.LEFT = true;
 		if (parent.keyCode == PConstants.RIGHT) Keyboard.RIGHT = true;
+		// Bonuses
 		if (parent.keyCode == 49) player.applyBonus(player.getBonus("SpeedUp"), level);
 		if (parent.keyCode == 50) player.applyBonus(player.getBonus("SlowTime"), level);
 		if (parent.keyCode == 51) player.applyBonus(player.getBonus("LessMeteors"), level);
 		if (parent.keyCode == 52) player.applyBonus(player.getBonus("Immortal"), level);
 		if (parent.keyCode == 53) player.applyBonus(player.getBonus("PointMultiplier"), level);
-		//if (parent.keyCode == 53) // menu
 		
 	}
 	

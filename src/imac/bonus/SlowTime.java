@@ -3,9 +3,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 //Import meteor
 
-import imac.Level;
-import imac.Time;
+import imac.level.Level;
 import imac.obstacle.Meteor;
+import imac.tools.Time;
 
 /**
  *<b> SlowTime is a bonus which slow the enemies, extends Bonus </b>
@@ -66,6 +66,9 @@ public class SlowTime extends Bonus {
 				}, (long)this.duration*1000);
 		}
 	}
+	/**
+	 * getter of the cooldown
+	 */
 	public float getCooldown() {
 		return cooldown;
 	}

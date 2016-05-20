@@ -3,6 +3,6 @@ imac.bonus
 imac.collide
 imac.hud
 imac.obstacle
-json
-leap
+imac.json
+imac.leap
 osValidator

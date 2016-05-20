@@ -1,5 +1,6 @@
 package imac;
 
+import imac.level.Level;
 import processing.core.*;
 import themidibus.*;
 

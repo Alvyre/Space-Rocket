@@ -2,7 +2,7 @@ package imac.bonus;
 import java.util.Timer;
 import java.util.TimerTask;
 import imac.Rocket;
-import imac.Time;
+import imac.tools.Time;
 
 /**
  * <b>SpeedUP class, extends Bonus class</b>
@@ -59,6 +59,9 @@ public class SpeedUp extends Bonus {
 				}, (long)this.duration*1000);
 		}
 	}
+	/**
+	 * getter of the cooldown
+	 */
 	public float getCooldown() {
 		return cooldown;
 	}

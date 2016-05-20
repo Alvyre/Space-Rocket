@@ -1,4 +1,4 @@
-package imac;
+package imac.tools;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class Time {
 	static private Map<String,Long> bonusTimers = new HashMap<String,Long>();
 	
 	/**
-	 * Constructor of the class, launch the timer
+	 * Static "Constructor" of the class, initialize the bonuses timers
 	 */
 	static{
 		Time.bonusTimers.put("SpeedUp", 0L);
@@ -46,6 +46,9 @@ public class Time {
 		Time.bonusTimers.put("SlowTime", 0L);
 	}
 	
+	/**
+	 * Launch the timer of the game
+	 */
 	static public void start(){
 		Time.start = System.currentTimeMillis();
 	}
@@ -98,9 +101,18 @@ public class Time {
 		Time.elapsedTimeHour	= elapsedTimeMillis/(60*60*1000F);
 	}
 	
+	/**
+	 * Launch the bonus timer
+	 * @param type
+	 */
 	public static void startBonusTimer(String type ){
 		Time.bonusTimers.put(type,(Long)System.currentTimeMillis());
 	}
+	/**
+	 * Getter of the Cooldown for a specified bonus
+	 * @param bonus
+	 * @return
+	 */
 	public static int getBonusCoolDown(Bonus bonus){
 		Long timeMili = (Long)System.currentTimeMillis() - Time.bonusTimers.get(bonus.getType());
 		int timeSec = (int)(timeMili/1000F);

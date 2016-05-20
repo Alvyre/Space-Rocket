@@ -2,19 +2,15 @@ package imac;
 
 import processing.core.*;
 import ddf.minim.*;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
 import com.leapmotion.leap.*;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-import imac.bonus.LessMeteors;
 import imac.collide.AABB3D;
+import imac.leap.*;
+import imac.level.Level;
 import imac.obstacle.Meteor;
-import leap.*;
+import imac.tools.Keyboard;
+import imac.tools.Time;
 import glitchP5.*;
 
 /**
@@ -27,10 +23,16 @@ import glitchP5.*;
 public class Engine extends PApplet {
 	
 	/**
-	 * Variables used to define the window's size of the app
+	 * static constant value to define the width of the window
 	 */
-	static public int WINDOW_WIDTH  = 800;
-	static public int WINDOW_HEIGHT = 600;
+	static public final int WINDOW_WIDTH  = 800;
+	/**
+	 * static constant value to define the height of the window
+	 */
+	static public final int WINDOW_HEIGHT = 600;
+	/**
+	 * static constant value to define the damage of the collision. When the player hit a meteor, he will lost 200 HP
+	 */
 	private static final int DAMAGE_COLLISION = -200;
 	/**
 	 * Background RGB color of the app (255 to 0)
@@ -62,10 +64,13 @@ public class Engine extends PApplet {
 	 */
 	private Camera camera;
 	
+	/**
+	 * structure to create the glitch when the player dies @see GlitchP5
+	 */
 	GlitchP5 glitchP5;
 	
 	/**
-	 * Sound of this amazing game
+	 * the the music during the game
 	 */
 	private AudioPlayer music;
 	
@@ -106,10 +111,10 @@ public class Engine extends PApplet {
 	public void draw() {
 		background(Engine.BACKGROUND_COLOR);
 		
-		if(this.menu.isActive()){
+		if(this.menu.isActive()){	// display of the menu
 			this.menu.display();
 		}
-		else{
+		else{ 						// display of the game
 			this.camera.look();
 			Vector movements = new Vector(0.0f, 0.0f, 0.0f);
 			
@@ -119,19 +124,18 @@ public class Engine extends PApplet {
 			else                         movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
 			
 			this.level.getPlayer().move(movements);
-			//this.level.display();
 			
+			// Collision Detection
 			for(Meteor m : this.level.getSpace().getMeteors()){
-				//System.out.println(m.getAABB3D().getCenter());
 				if( this.level.getPlayer().isImmortal() == false
 						&& AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
 					this.level.getPlayer().addToScore(DAMAGE_COLLISION);
 					this.level.getPlayer().addToLife(DAMAGE_COLLISION);
 				}
 			}
-
+			
 			this.level.display();
-			if(this.level.getPlayer().getLife() < 0){
+			if(this.level.getPlayer().getLife() < 0){ // GameOver
 				level.saveScore();
 
 				Timer timer = new Timer();
@@ -148,8 +152,7 @@ public class Engine extends PApplet {
 				  		  1.0f,					// randomness, this is a jitter for size (float)
 				  		  1,					// attack, max time (in frames) until indiv. glitch appears (int)
 				  		  10);	
-				
-				//System.out.println("COLLISION PEDRO");
+
 				
 				filter(GRAY);
 				timer.schedule(new TimerTask() {
@@ -165,7 +168,6 @@ public class Engine extends PApplet {
 				}	
 			}
 		}
-		//if(this.arturia.getStatePadNumber11() = )
 		
     }
 	

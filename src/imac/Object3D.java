@@ -44,10 +44,13 @@ public class Object3D{
 	private float scale_z;
 	
 	/**
-	 * Variables used to define the object rotation
+	 * Variable used to define the object rotation in X
 	 */
-	float theta_x;
-	float theta_y;
+	private float theta_x;
+	/**
+	 * Variable used to define the object rotation in Y
+	 */
+	private float theta_y;
 	
 	
 	/**
@@ -157,6 +160,11 @@ public class Object3D{
 	public float getPositionZ(){
 		return this.position_z;
 	}
+	/**
+	 * Getter of the position with a vector
+	 * @return Vector
+	 * @since 1.0
+	 */
 	public Vector getPositionVec(){
 		Vector vec = new Vector(this.position_x, this.position_y, this.position_z);
 		return vec;
@@ -295,8 +303,6 @@ public class Object3D{
 	 * @since 1.0
 	 */
 	public void translate(Vector vec){
-		//if( (this.position_x - vec.getX() - 50.f < 0.0f) && (this.position_x + vec.getX()) < Engine.WINDOW_WIDTH) this.position_x += vec.getX();
-		//if(this.position_y + vec.getY() > 0.0f && this.position_y + vec.getY() < Engine.WINDOW_HEIGHT) this.position_y += vec.getY();
 		this.position_x += vec.getX();
 		this.position_y += vec.getY();
 		this.position_z += vec.getZ();

@@ -1,8 +1,8 @@
 package imac.bonus;
 import java.util.Timer;
 
-import imac.Level;
 import imac.Rocket;
+import imac.level.Level;
 /**
  * <b>Bonus describes bonuses applied to the player or the environment".</b>
  * @author Romain
@@ -72,6 +72,10 @@ public class Bonus {
 	public String getType() {
 		return type;
 	}
+	/**
+	 * abstract getter of the class Bonus
+	 * @return
+	 */
 	public float getCooldown() {
 		return 0;
 	}

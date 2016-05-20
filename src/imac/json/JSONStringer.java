@@ -1,4 +1,4 @@
-package json;
+package imac.json;
 
 /*
 Copyright (c) 2006 JSON.org
