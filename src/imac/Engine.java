@@ -19,7 +19,6 @@ import glitchP5.*;
  * @author Pierre
  * @version 1.0
  */
-
 public class Engine extends PApplet {
 	
 	/**
@@ -38,12 +37,10 @@ public class Engine extends PApplet {
 	 * Background RGB color of the app (255 to 0)
 	 */
 	private static int BACKGROUND_COLOR  = 51;
-	
 	/**
 	 * Midi Controller retrieves the states of each button and knob
 	 */
 	private MIDIController arturia;
-	
 	/**
 	 * Keyboard retrieves the states of some key pressed or not
 	 */
@@ -79,13 +76,6 @@ public class Engine extends PApplet {
 	 */
 	private Minim minim;
 	
-	/**
-	 * Setup function to init Engine
-	 * The setup function corresponds
-	 * to the constructor in Processing
-	 * 
-	 * @since 1.0
-	 */
 	@Override
 	public void setup(){
 		Time.start();
@@ -100,12 +90,6 @@ public class Engine extends PApplet {
         this.glitchP5 = new GlitchP5(this);
 	}
 	
-	/**
-	 * Draw function to display
-	 * the App at each frame
-	 * 
-	 * @since 1.0
-	 */
 	@Override
 	public void draw() {
 		background(Engine.BACKGROUND_COLOR);

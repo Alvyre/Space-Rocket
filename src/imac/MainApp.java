@@ -7,7 +7,6 @@ import processing.core.*;
  * @author Pierre
  * @version 1.0
  */
-
 public class MainApp extends PApplet {
 	
 	/**

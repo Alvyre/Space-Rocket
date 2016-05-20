@@ -3,13 +3,7 @@ package imac;
 import processing.core.*;
 import com.leapmotion.leap.Vector;
 
-/**
- * <b>Object3D class is an helper tool to control a PShape model</b>
- * @author Pierre
- * @version 1.0
- */
-
-public class Object3D{
+public class Object3D extends PApplet{
 	
 	/**
 	 * Reference parent PApplet of the app's sketch
@@ -51,14 +45,6 @@ public class Object3D{
 	 * Variable used to define the object rotation in Y
 	 */
 	private float theta_y;
-	
-	
-	/**
-	 * The constructor of Object3D without parameters
-	 * 
-	 * @since 1.0
-	 */
-	public Object3D(){}
 	
 	/**
 	 * The constructor of Object3D with position parameters
@@ -294,7 +280,7 @@ public class Object3D{
 	 * @since 1.0
 	 */
 	public void load(String path){
-		this.model = parent.loadShape(this.path);
+		this.model = loadShape(path);
 	}
 
 	/**
@@ -358,5 +344,4 @@ public class Object3D{
         parent.shape(this.model, 0, 0);
         parent.popMatrix();
 	}
-	
 }
