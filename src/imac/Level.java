@@ -41,6 +41,9 @@ public class Level {
 	 */
 	private Rocket player;
 	
+	/**
+	 * Interface for the bonus
+	 */
 	private HUD hud;
 	
 	/**
@@ -93,7 +96,7 @@ public class Level {
 	        
 	        this.player = new Rocket(new Object3D(this.parent, playerModel, playerPositionX, playerPositionY, playerPositionZ, playerScaleX, playerScaleY, playerScaleZ), playerScore, playerSpeed, playerName, playerLife);
 	        welcomeToSpaceRocket(playerName);
-	        hud = new HUD();
+	        hud = new HUD(this.parent);
         
 		}catch (IOException e) {
 			e.printStackTrace();

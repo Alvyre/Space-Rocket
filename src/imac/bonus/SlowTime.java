@@ -15,6 +15,10 @@ import imac.obstacle.Meteor;
  */
 public class SlowTime extends Bonus {
 	/**
+	 * time of cooldown
+	 */
+	protected final float cooldown = (float) 45.0;
+	/**
 	 * (constant) value of the decreased speed
 	 */
 	static private final float VALUE = 2.0f;
@@ -49,10 +53,10 @@ public class SlowTime extends Bonus {
 			}
 			System.out.println("Slow Time bonus Started !");
 			SlowTime.this.setState(false);
+			Time.startBonusTimer(SlowTime.this.type);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
-					  Time.startBonusTimer(SlowTime.this.type);
 					  for( Meteor m :  level.getSpace().getMeteors()){
 							m.setSpeed((float)(m.getSpeed() * SlowTime.VALUE));
 						}
@@ -61,6 +65,9 @@ public class SlowTime extends Bonus {
 				  }
 				}, (long)this.duration*1000);
 		}
+	}
+	public float getCooldown() {
+		return cooldown;
 	}
 	
 }

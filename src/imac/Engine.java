@@ -20,8 +20,8 @@ public class Engine extends PApplet {
 	/**
 	 * Variables used to define the window's size of the app
 	 */
-	static int WINDOW_WIDTH  = 800;
-	static int WINDOW_HEIGHT = 600;
+	static public int WINDOW_WIDTH  = 800;
+	static public int WINDOW_HEIGHT = 600;
 	private static final int DAMAGE_COLLISION = -200;
 	/**
 	 * Background RGB color of the app (255 to 0)
@@ -49,12 +49,7 @@ public class Engine extends PApplet {
 	private Camera camera;
 	
 	GlitchP5 glitchP5;
-	
-	/**
-	 * Image of the information board
-	 */
-	private PImage board;
-	
+		
 	/**
 	 * Setup function to init Engine
 	 * The setup function corresponds
@@ -64,11 +59,11 @@ public class Engine extends PApplet {
 	 */
 	@Override
 	public void setup(){
+		Time.start();
 		this.keyboard = new Keyboard(this);
 		this.level = new Level(this, 1);
 		this.camera = new Camera(this, this.level.getPlayer());
 		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level);
-        board = loadImage("./assets/textures/board.png");
 
 		glitchP5 = new GlitchP5(this);
 
@@ -93,7 +88,7 @@ public class Engine extends PApplet {
 		else                         movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
 		
 		this.level.getPlayer().move(movements);
-		this.level.display();
+		//this.level.display();
 		
 		for(Meteor m : this.level.getSpace().getMeteors()){
 			//System.out.println(m.getAABB3D().getCenter());
@@ -118,16 +113,9 @@ public class Engine extends PApplet {
 		}
 		//System.out.println(level.getPlayer().getAABB3D().getSize());
 		
-		textSize(20);
-		textAlign(RIGHT);
-		fill(255);
-		String info = new String (this.level.getPlayer().getName() + "\n" +
-								  "Score : " + this.level.getPlayer().getScore() );
-		text(info, camera.getEyeX() + Engine.WINDOW_WIDTH / 2, camera.getEyeY() - Engine.WINDOW_HEIGHT /2 - 20, -500);
-		camera();
-		hint(DISABLE_DEPTH_TEST);
-		image(board, 0, 0, Engine.WINDOW_WIDTH, Engine.WINDOW_HEIGHT);
-		hint(ENABLE_DEPTH_TEST);
+		
+		this.level.display();
+
     }
 	
 	/**

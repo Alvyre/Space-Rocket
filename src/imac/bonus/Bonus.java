@@ -25,7 +25,7 @@ public class Bonus {
 	 * type describes the type of the bonuses, (5 possible types).
 	 */
 	protected String type;
-	
+		
 	/**
 	 * Constructor of the bonus class
 	 * @param state
@@ -71,6 +71,9 @@ public class Bonus {
 	 */
 	public String getType() {
 		return type;
+	}
+	public float getCooldown() {
+		return 0;
 	}
 /**
  * set the state of the bonus (true/false).
