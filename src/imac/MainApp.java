@@ -12,7 +12,7 @@ public class MainApp extends PApplet {
 	
 	/**
 	 * Main method of the app
-	 * @param args string
+	 * @param arguments string
 	 * @since 1.0
 	 */
 	public static void main(String[] args){
