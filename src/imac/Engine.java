@@ -1,103 +1,178 @@
 package imac;
 
 import processing.core.*;
-import themidibus.*;
+import ddf.minim.*;
+import java.util.Timer;
+import java.util.TimerTask;
 import com.leapmotion.leap.*;
+import imac.collide.AABB3D;
+import imac.leap.*;
+import imac.level.Level;
+import imac.obstacle.Meteor;
+import imac.tools.Keyboard;
+import imac.tools.Time;
+import glitchP5.*;
 
+/**
+ * <b>Engine class controls the entire application.</b>
+ * <p>Extends the PApplet class @see PApplet </p>
+ * @author Pierre
+ * @version 1.0
+ */
 public class Engine extends PApplet {
 	
-	static int WINDOW_WIDTH  = 800;
-	static int WINDOW_HEIGHT = 800;
+	/**
+	 * static constant value to define the width of the window
+	 */
+	static public final int WINDOW_WIDTH  = 800;
+	/**
+	 * static constant value to define the height of the window
+	 */
+	static public final int WINDOW_HEIGHT = 600;
+	/**
+	 * static constant value to define the damage of the collision. When the player hit a meteor, he will lost 200 HP
+	 */
+	private static final int DAMAGE_COLLISION = -200;
+	/**
+	 * Background RGB color of the app (255 to 0)
+	 */
+	private static int BACKGROUND_COLOR  = 51;
+	/**
+	 * Midi Controller retrieves the states of each button and knob
+	 */
+	private MIDIController arturia;
+	/**
+	 * Keyboard retrieves the states of some key pressed or not
+	 */
+	private Keyboard keyboard;
+
+	/**
+	 * Current level of the app (with main character and space level)
+	 */
+	private Level level;
 	
-	MidiBus arturia; 			 //MIDI Controller
-	float cc[] = new float[256]; //Knob arrays
-	int tn[] = new int[256];	 //Pad array
+	/**
+	 * Menu of the app
+	 */
+	private Menu menu;
 	
-	PShape spider;   //Object
-	float theta1;    //Rotation X
-	float theta2;    //Rotation Y
+	/**
+	 * Camera of the app
+	 */
+	private Camera camera;
 	
+	/**
+	 * structure to create the glitch when the player dies @see GlitchP5
+	 */
+	GlitchP5 glitchP5;
+	
+	/**
+	 * the the music during the game
+	 */
+	private AudioPlayer music;
+	
+	/**
+	 * Instance of music player
+	 */
+	private Minim minim;
 	
 	@Override
 	public void setup(){
-		
-		//fullScreen(P3D);
-		
-		MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
-	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
-	    
-	    this.spider = loadShape("./assets/models/spider.obj");
-	    this.theta1 = 0;
-		this.theta2 = 0;
+		Time.start();
+		this.keyboard = new Keyboard(this);
+		this.level = new Level(this, 1);
+		this.camera = new Camera(this, this.level.getPlayer());
+		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level, this.menu);
+		this.menu = new Menu(this, this.level, this.arturia);
+        this.minim = new Minim(this);
+        this.music = minim.loadFile("./assets/sounds/zik.mp3");
+        this.music.play();
+        this.glitchP5 = new GlitchP5(this);
 	}
 	
 	@Override
 	public void draw() {
-		background(220);
-		this.theta1 += cc[10]*tn[44];
-        this.theta2 += cc[114]*tn[36];
-        
-        this.spider.setFill(color(cc[18], cc[19], cc[16]));
+		background(Engine.BACKGROUND_COLOR);
+		
+		if(this.menu.isActive()){	// display of the menu
+			this.menu.display();
+		}
+		else{ 						// display of the game
+			this.camera.look();
+			Vector movements = new Vector(0.0f, 0.0f, 0.0f);
+			
+			this.level.getPlayer().getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
+			
+			if(Leapmotion.isConnected()) movements = new Vector(Leapmotion.handMoves());
+			else                         movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
+			
+			this.level.getPlayer().move(movements);
+			
+			// Collision Detection
+			for(Meteor m : this.level.getSpace().getMeteors()){
+				if( this.level.getPlayer().isImmortal() == false
+						&& AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
+					this.level.getPlayer().addToScore(DAMAGE_COLLISION);
+					this.level.getPlayer().addToLife(DAMAGE_COLLISION);
+				}
+			}
+			
+			this.level.display();
+			if(this.level.getPlayer().getLife() < 0){ // GameOver
+				level.saveScore();
 
-        pushMatrix();
-        translate(this.cc[74], this.cc[71], 0);
-        rotateY(this.theta1);
-        rotateX(this.theta2);
-        shape(this.spider, 10, 10);
-        popMatrix();
+				Timer timer = new Timer();
+				float duration = 6;
+				if(glitchP5 != null){
+					glitchP5.run();
+					glitchP5.glitch((int) level.getPlayer().getPosition().getX(),
+									(int) level.getPlayer().getPosition().getY(),
+									800, 800, Engine.WINDOW_WIDTH, Engine.WINDOW_HEIGHT,
+									3, 1.0f, 1,	8);	
+					filter(GRAY);
+					timer.schedule(new TimerTask() {
+						  @Override
+						  public void run() {
+							level.getPlayer().setScore(0);
+							menu.active();
+							arturia.getPads()[38] = 1;
+							level.loadLevel(menu.getCurrentLevel());
+						  }
+					}, (long)duration*1000);
+				}
+			}
+		}
     }
 	
-	public void controllerChange(int channel, int number, int value){
-		System.out.println("Parameter button :");
-		System.out.println(channel);
-		System.out.println(number);
-		System.out.println(value);
-		System.out.println("------");
-	    	
-		if(number == 10) this.cc[number] = map(value, 0, 127, 0, 0.5f);
-		if(number == 18) this.cc[number] = map(value, 0, 127, 0, 255);
-		if(number == 19) this.cc[number] = map(value, 0, 127, 0, 255);
-		if(number == 16) this.cc[number] = map(value, 0, 127, 0, 255);
-		if(number == 71) this.cc[number] = map(value, 0, 127, 0, height);
-		if(number == 74) this.cc[number] = map(value, 0, 127, 0, width);
-		if(number == 114) this.cc[number] = map(value, 0, 127, 0, 0.5f);
+	/**
+	 * Settings function to init
+	 * the window's size
+	 * 
+	 * @since 1.0
+	 */
+	@Override
+	public void settings() {  size(WINDOW_WIDTH, WINDOW_HEIGHT, P3D); }
+	
+	/**
+	 * Keyboard listener 
+	 * on key pressed 
+	 * 
+	 * @since 1.0
+	 */
+	@Override
+	public void keyPressed() {
+		keyboard.eventKeyPressed(level.getPlayer(), level);
+		menu.eventKeyPressed();
 	}
 	
-	public void noteOn(int channel, int pitch, int velocity) {
-		// Receive a noteOn
-	    println();
-	    println("Note On:");
-	    println("Channel:"+channel);
-	    println("Pitch:"+pitch);
-	    println("Velocity:"+velocity);
-	    println("--------");
-	   
-	    if(pitch == 44){
-	    	if(tn[pitch] == 1) tn[pitch] = -1;
-	    	else tn[pitch] = 1;
-		    println("Value:"+tn[pitch]);
-	    }
-	    	  
-	    if(pitch == 36){
-	    	if(tn[pitch] == 1) tn[pitch] = -1;
-	    	else tn[pitch] = 1;
-	    	println("Value:"+tn[pitch]);
-	    }
+	/**
+	 * Keyboard listener 
+	 * on key released 
+	 * 
+	 * @since 1.0
+	 */
+	@Override
+	public void keyReleased() {
+		keyboard.eventKeyReleased();
 	}
-
-	public void keyPressed() {
-		if (key == CODED) {
-			if (keyCode == UP) {
-				//fillVal = 255;
-			}
-			else if (keyCode == DOWN) {
-				//fillVal = 0;
-			} 
-		}
-		else {
-			//fillVal = 126;
-		}
-	}
-	   
-	public void settings() {  size(WINDOW_WIDTH, WINDOW_HEIGHT, P3D); }
 }
