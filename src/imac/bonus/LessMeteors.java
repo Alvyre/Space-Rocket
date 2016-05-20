@@ -16,6 +16,10 @@ import imac.Time;
  */
 public class LessMeteors extends Bonus {
 	/**
+	 * time of cooldown
+	 */
+	protected final float cooldown = (float) 50.0;
+	/**
 	 * (constant) the value of the enemies reduced
 	 */
 	static private final float VALUE = 0.45f;
@@ -42,10 +46,10 @@ public class LessMeteors extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(Level level){
-		if(this.isActive()){
+		if(this.isAvailable()){
 			this.timer = new Timer();
 			Random rand = new Random();
-			for(int i=0 ; i< (int)level.getSpace().getMeteors().size()*LessMeteors.VALUE ; i++){
+			for(int i=0 ; i< (int)(level.getSpace().getMeteors().size()*LessMeteors.VALUE)-1 ; i++){
 				int index = rand.nextInt(level.getSpace().getMeteors().size());
 				System.out.println(index);
 				while(level.getSpace().getMeteors().get(index).isVisible() == false)
@@ -55,10 +59,10 @@ public class LessMeteors extends Bonus {
 			}
 			System.out.println("Less Meteors bonus Started !");
 			LessMeteors.this.setState(false);
+			Time.startBonusTimer(LessMeteors.this.type);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
-					  Time.startBonusTimer(LessMeteors.this.type);
 					  for(int i=0 ; i< level.getSpace().getMeteors().size() ; i++){
 						  level.getSpace().getMeteors().get(i).setVisible(true);
 						}
@@ -67,5 +71,8 @@ public class LessMeteors extends Bonus {
 				  }
 				}, (long)this.duration*1000);
 		}
+	}
+	public float getCooldown() {
+		return cooldown;
 	}
 }

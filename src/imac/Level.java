@@ -2,13 +2,17 @@ package imac;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+
+import imac.hud.HUD;
 import json.JSONObject;
 import osValidator.OSValidator;
 import processing.core.*;
+import processing.data.JSONArray;
 
 /**
  * <b>Level class allow to load a level game from a JSON file.</b>
@@ -38,6 +42,11 @@ public class Level {
 	 * Main character of the app
 	 */
 	private Rocket player;
+	
+	/**
+	 * Interface for the bonus
+	 */
+	private HUD hud;
 	
 	/**
 	 * The constructor of Level
@@ -89,6 +98,7 @@ public class Level {
 	        
 	        this.player = new Rocket(new Object3D(this.parent, playerModel, playerPositionX, playerPositionY, playerPositionZ, playerScaleX, playerScaleY, playerScaleZ), playerScore, playerSpeed, playerName, playerLife);
 	        welcomeToSpaceRocket(playerName);
+	        hud = new HUD(this.parent);
         
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -238,7 +248,9 @@ public class Level {
 	 */
 	public void display(){
 		this.player.getModel().display();
+		this.player.addToScore((int)Time.getElapsedTimeSec());
 		this.space.display();
+		this.hud.display(this.player);
 	}
 	
 	/**
@@ -282,6 +294,38 @@ public class Level {
 		System.out.println("                              Let's go to start level number " + level + " !                          ");
 		System.out.println("                                                                                                      ");
 	}
-		
 	
+	/**
+	 * Function to write your score on a JSON file
+	 * 
+	 * @param 
+	 * 
+	 * @since 1.0
+	 */
+	public void saveScore(){
+		JSONObject scoreTab = new JSONObject();
+		scoreTab.put("Name", this.getPlayer().getName());
+		scoreTab.put("Score", this.getPlayer().getScore());
+		
+		
+
+		try {
+
+			// Writing to a file
+			File file=new File("./assets/conf/score.JSON");
+			file.createNewFile();
+			FileWriter fileWriter = new FileWriter(file);
+			System.out.println("Writing JSON object to file");
+			System.out.println("-----------------------");
+			System.out.print(scoreTab);
+
+			fileWriter.write(scoreTab.toString());
+			fileWriter.flush();
+			fileWriter.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

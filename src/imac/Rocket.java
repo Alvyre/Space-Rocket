@@ -66,11 +66,11 @@ public class Rocket {
 		this.speed = speed;
 		this.name = name;
 		this.life = life;
-		this.bonus.put("SpeedUp", 			new SpeedUp(			true, 	10.0f));
-		this.bonus.put("SlowTime", 			new SlowTime(			true, 	10.0f));
-		this.bonus.put("Immortal", 			new Immortal(			true, 	5.0f));
+		this.bonus.put("SpeedUp", 			new SpeedUp(			true, 	15.0f));
+		this.bonus.put("SlowTime", 			new SlowTime(			true, 	15.0f));
+		this.bonus.put("Immortal", 			new Immortal(			true, 	10.0f));
 		this.bonus.put("LessMeteors", 		new LessMeteors(		true, 	10.0f));
-		this.bonus.put("PointMultiplier", 	new PointMultiplier(	true, 	0.0f));
+		this.bonus.put("PointMultiplier", 	new PointMultiplier(	true, 	12.0f));
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class Rocket {
 	 * @param bonus
 	 */
 	public void applyBonus(Bonus bonus, Level level){
-		if(bonus.isActive()){
+		if(bonus.isAvailable()){
 			switch(bonus.getType()){
 			case "SpeedUp":
 				bonus.apply(this);
@@ -248,5 +248,11 @@ public class Rocket {
 	 */
 	public void setBonus(Bonus bonus) {
 		this.bonus.put(bonus.getType(), bonus);
+	}
+	public void addToScore(int points){
+		this.score += points;
+	}
+	public void addToLife(int points){
+		this.life += points;
 	}
 }

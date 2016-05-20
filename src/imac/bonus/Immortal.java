@@ -12,6 +12,10 @@ import imac.Time;
  */
 public class Immortal extends Bonus {
 	/**
+	 * time of cooldown
+	 */
+	 protected final float cooldown = (float) 80.0;
+	/**
 	 * Constructor of the class with parameters
 	 * @param state
 	 * @param duration
@@ -34,21 +38,23 @@ public class Immortal extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(Rocket player){
-		if(this.isActive()){
+		if(this.isAvailable()){
 			this.timer = new Timer();
 			player.setImmortal(true);
 			System.out.println("Immortality bonus enabled !");
 			Immortal.this.setState(false);
-			
+			Time.startBonusTimer(Immortal.this.type);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
-					Time.startBonusTimer(Immortal.this.type);
 					player.setImmortal(false);
 					System.out.println("Immortality bonus disabled !");
 					
 				  }
 				}, (long)this.duration*1000);
 		}
+	}
+	public float getCooldown() {
+		return cooldown;
 	}
 }

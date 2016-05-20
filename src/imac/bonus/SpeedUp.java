@@ -13,6 +13,10 @@ import imac.Time;
  */
 public class SpeedUp extends Bonus {
 	/**
+	 * time of cooldown
+	 */
+	protected final float cooldown = (float) 30.0;
+	/**
 	 * (constant) value of the bonus effect
 	 */
 	static private final float VALUE = 5.0f;
@@ -39,20 +43,23 @@ public class SpeedUp extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(Rocket player){
-		if(this.isActive()){
+		if(this.isAvailable()){
 			this.timer = new Timer();
 			player.setSpeed(player.getSpeed() + VALUE);
 			System.out.println("Speed UP bonus Started !");
 			SpeedUp.this.setState(false);
+			Time.startBonusTimer(SpeedUp.this.type);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
-					  Time.startBonusTimer(SpeedUp.this.type);
 					  player.setSpeed(player.getSpeed() - VALUE);
 					  SpeedUp.this.setState(false);
 					  System.out.println("Speed UP bonus Ended !");
 				  }
 				}, (long)this.duration*1000);
 		}
+	}
+	public float getCooldown() {
+		return cooldown;
 	}
 }

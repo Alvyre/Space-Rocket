@@ -77,10 +77,10 @@ public class Keyboard {
 		if (parent.keyCode == PConstants.RIGHT) Keyboard.RIGHT = true;
 		if (parent.keyCode == 49) player.applyBonus(player.getBonus("SpeedUp"), level);
 		if (parent.keyCode == 50) player.applyBonus(player.getBonus("SlowTime"), level);
-		if (parent.keyCode == 51) player.applyBonus(player.getBonus("Immortal"), level);
-		if (parent.keyCode == 52) player.applyBonus(player.getBonus("LessMeteors"), level);
+		if (parent.keyCode == 51) player.applyBonus(player.getBonus("LessMeteors"), level);
+		if (parent.keyCode == 52) player.applyBonus(player.getBonus("Immortal"), level);
 		if (parent.keyCode == 53) player.applyBonus(player.getBonus("PointMultiplier"), level);
-		
+		//if (parent.keyCode == 53) // menu
 		
 	}
 	

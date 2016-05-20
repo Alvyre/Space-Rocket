@@ -31,6 +31,11 @@ public class MIDIController {
 	private Level level;
 	
 	/**
+	 * Reference the menu
+	 */
+	private Menu menu;
+	
+	/**
 	 * Datatype for a MIDI Controller
 	 */
 	private MidiBus arturia;
@@ -52,12 +57,13 @@ public class MIDIController {
 	 * 
 	 * @since 1.0
 	 */
-	public MIDIController(PApplet p, Rocket joueur, Level l){
+	public MIDIController(PApplet p, Rocket joueur, Level l, Menu menu){
 		this.parent = p;
 		MidiBus.list();
 		this.player = joueur;
 		this.level = l;
 	    this.arturia = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep");
+	    this.menu = menu;
 	}
 	
 	/**
@@ -403,6 +409,18 @@ public class MIDIController {
 	    	System.out.print(", value: " + pads[pitch]);
 	    	this.player.applyBonus(this.player.getBonus("Immortal"), this.level);
 
+	    }
+	    
+	    if(pitch == 38){
+	    	if(pads[pitch] == 1) pads[pitch] = -1;
+	    	else pads[pitch] = 1;
+	    	System.out.print(", value: " + pads[pitch]);
+	    	if(this.menu.isActive()){
+	    		this.menu.desactive();
+	    	}
+	    	else{
+	    		this.menu.active();
+	    	}
 	    }
 	    
 	    System.out.println("]");

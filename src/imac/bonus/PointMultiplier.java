@@ -11,6 +11,10 @@ import imac.Time;
  */
 public class PointMultiplier extends Bonus {
 	/**
+	 * time of cooldown
+	 */
+	protected final float cooldown = (float) 60.0;
+	/**
 	 * (constant) the multiplier
 	 */
 	static private final float MULTIPLIER = 1.5f;
@@ -37,19 +41,22 @@ public class PointMultiplier extends Bonus {
 	 * @since 1.0
 	 */
 	public void apply(Rocket player){
-		if(this.isActive()){
+		if(this.isAvailable()){
 			this.timer = new Timer();
 			player.setMultiplier(PointMultiplier.MULTIPLIER);
 			System.out.println("x" + PointMultiplier.MULTIPLIER + " points bonus activated !");
 			PointMultiplier.this.setState(false);
+			Time.startBonusTimer(PointMultiplier.this.type);
 			this.timer.schedule(new TimerTask() {
 				  @Override
 				  public void run() {
-					  Time.startBonusTimer(PointMultiplier.this.type);
 					  player.setMultiplier(1.0f);
 					System.out.println("x" + PointMultiplier.MULTIPLIER + " points bonus ended !");
 				  }
 				}, (long)this.duration*1000);
 		}
+	}
+	public float getCooldown() {
+		return cooldown;
 	}
 }

@@ -38,10 +38,18 @@ public class Time {
 	/**
 	 * Constructor of the class, launch the timer
 	 */
-	public Time() {
-		Time.start = System.currentTimeMillis();
-		
+	static{
+		Time.bonusTimers.put("SpeedUp", 0L);
+		Time.bonusTimers.put("Immortal", 0L);
+		Time.bonusTimers.put("LessMeteors", 0L);
+		Time.bonusTimers.put("PointMultiplier", 0L);
+		Time.bonusTimers.put("SlowTime", 0L);
 	}
+	
+	static public void start(){
+		Time.start = System.currentTimeMillis();
+	}
+	
 
 	/**
 	 * @return the start
@@ -96,6 +104,6 @@ public class Time {
 	public static int getBonusCoolDown(Bonus bonus){
 		Long timeMili = (Long)System.currentTimeMillis() - Time.bonusTimers.get(bonus.getType());
 		int timeSec = (int)(timeMili/1000F);
-		return ((int)bonus.getDuration() - timeSec >0?(int)bonus.getDuration() - timeSec:0);
+		return ((int)bonus.getCooldown() - timeSec >0?(int)bonus.getCooldown()- timeSec:0);
 	}
 }
