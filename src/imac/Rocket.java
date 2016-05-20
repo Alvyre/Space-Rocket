@@ -252,4 +252,7 @@ public class Rocket {
 	public void addToScore(int points){
 		this.score += points;
 	}
+	public void addToLife(int points){
+		this.life += points;
+	}
 }

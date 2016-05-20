@@ -140,6 +140,8 @@ public class HUD {
 		parent.textAlign(PConstants.LEFT);
 		String score = new String ("Score : " + player.getScore() );
 		parent.text(score, Engine.WINDOW_WIDTH - 240, Engine.WINDOW_HEIGHT - 80);
+		String vie = new String ("Vie : " + player.getLife() );
+		parent.text(vie, Engine.WINDOW_WIDTH - 240, Engine.WINDOW_HEIGHT - 40);
 		parent.hint(PConstants.ENABLE_DEPTH_TEST);
 
 	}

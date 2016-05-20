@@ -95,27 +95,29 @@ public class Engine extends PApplet {
 			if( this.level.getPlayer().isImmortal() == false
 					&& AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
 				this.level.getPlayer().addToScore(DAMAGE_COLLISION);
-				/*glitchP5.run();
-				glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
-								(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen
-				  		  800,    				// max. position offset (posJitterX)
-				  		  800,    				// max. position offset (posJitterY)
-				  		  Engine.WINDOW_WIDTH,  // sizeX
-				  		  Engine.WINDOW_HEIGHT, // sizeY
-				  		  3,					// numberOfGlitches, number of individual glitches (int)
-				  		  1.0f,					// randomness, this is a jitter for size (float)
-				  		  10,					// attack, max time (in frames) until indiv. glitch appears (int)
-				  		  40);	
-				System.out.println("COLLISION PEDRO");
-				
-				filter(GRAY);*/
+				this.level.getPlayer().addToLife(DAMAGE_COLLISION);
 			}
 		}
 		//System.out.println(level.getPlayer().getAABB3D().getSize());
 		
 		
 		this.level.display();
-
+		if(this.level.getPlayer().getLife() < 0){
+			glitchP5.run();
+			glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
+							(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen
+			  		  800,    				// max. position offset (posJitterX)
+			  		  800,    				// max. position offset (posJitterY)
+			  		  Engine.WINDOW_WIDTH,  // sizeX
+			  		  Engine.WINDOW_HEIGHT, // sizeY
+			  		  3,					// numberOfGlitches, number of individual glitches (int)
+			  		  1.0f,					// randomness, this is a jitter for size (float)
+			  		  10,					// attack, max time (in frames) until indiv. glitch appears (int)
+			  		  40);	
+			//System.out.println("COLLISION PEDRO");
+			
+			filter(GRAY);
+		}
     }
 	
 	/**
