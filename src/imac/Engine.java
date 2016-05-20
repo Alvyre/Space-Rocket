@@ -45,6 +45,11 @@ public class Engine extends PApplet {
 	private Level level;
 	
 	/**
+	 * Menu of the app
+	 */
+	private Menu menu;
+	
+	/**
 	 * Camera of the app
 	 */
 	private Camera camera;
@@ -78,11 +83,10 @@ public class Engine extends PApplet {
 		this.keyboard = new Keyboard(this);
 		this.level = new Level(this, 1);
 		this.camera = new Camera(this, this.level.getPlayer());
+		this.menu = new Menu(this, this.level);
 		this.arturia = new MIDIController(this, this.level.getPlayer(), this.level);
         board = loadImage("./assets/textures/board.png");
         minim = new Minim(this);
-        
-        // this loads mysong.wav from the data folder
         music = minim.loadFile("./assets/sounds/zik.mp3");
         music.play();
 		glitchP5 = new GlitchP5(this);
@@ -98,40 +102,52 @@ public class Engine extends PApplet {
 	@Override
 	public void draw() {
 		background(Engine.BACKGROUND_COLOR);
-		this.camera.look();
 		
-		Vector movements = new Vector(0.0f, 0.0f, 0.0f);
-		
-		this.level.getPlayer().getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
-		
-		if(Leapmotion.isConnected()) movements = new Vector(Leapmotion.handMoves());
-		else                         movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
-		
-		this.level.getPlayer().move(movements);
-		this.level.display();
-		
-		for(Meteor m : this.level.getSpace().getMeteors()){
-			//System.out.println(m.getAABB3D().getCenter());
-			if( this.level.getPlayer().isImmortal() == false
-					&& AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
-				/*glitchP5.run();
-				glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
-								(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen
-				  		  800,    				// max. position offset (posJitterX)
-				  		  800,    				// max. position offset (posJitterY)
-				  		  Engine.WINDOW_WIDTH,  // sizeX
-				  		  Engine.WINDOW_HEIGHT, // sizeY
-				  		  3,					// numberOfGlitches, number of individual glitches (int)
-				  		  1.0f,					// randomness, this is a jitter for size (float)
-				  		  10,					// attack, max time (in frames) until indiv. glitch appears (int)
-				  		  40);	
-				System.out.println("COLLISION PEDRO");
-				
-				filter(GRAY);*/
-			}
+		if(this.menu.isActive()){
+			this.menu.display();
 		}
-		//System.out.println(level.getPlayer().getAABB3D().getSize());
+		else{
 		
+			this.camera.look();
+			
+			Vector movements = new Vector(0.0f, 0.0f, 0.0f);
+			
+			this.level.getPlayer().getModel().setRotation(arturia.getStateKnobNumber1PadNumber1(), arturia.getStateKnobNumber9PadNumber9());
+			
+			if(Leapmotion.isConnected()) movements = new Vector(Leapmotion.handMoves());
+			else                         movements = new Vector(keyboard.LeftRightEvent(), keyboard.UpDownEvent(), 0.0f);
+			
+			this.level.getPlayer().move(movements);
+			this.level.display();
+			
+			for(Meteor m : this.level.getSpace().getMeteors()){
+				//System.out.println(m.getAABB3D().getCenter());
+				if(AABB3D.collides(m.getAABB3D(), this.level.getPlayer().getAABB3D())){
+					/*glitchP5.run();
+					glitchP5.glitch((int)this.level.getPlayer().getPosition().getX(), 				// position X on screen
+									(int)this.level.getPlayer().getPosition().getY(), 				// position Y on screen
+					  		  800,    				// max. position offset (posJitterX)
+					  		  800,    				// max. position offset (posJitterY)
+					  		  Engine.WINDOW_WIDTH,  // sizeX
+					  		  Engine.WINDOW_HEIGHT, // sizeY
+					  		  3,					// numberOfGlitches, number of individual glitches (int)
+					  		  1.0f,					// randomness, this is a jitter for size (float)
+					  		  10,					// attack, max time (in frames) until indiv. glitch appears (int)
+					  		  40);	
+					System.out.println("COLLISION PEDRO");
+					
+					filter(GRAY);*/
+				}
+			}
+			//System.out.println(level.getPlayer().getAABB3D().getSize());
+			
+			/*textSize(20);
+			textAlign(RIGHT);
+			fill(0);
+			String info = new String (this.level.getPlayer().getName() + "\n" +
+									  "Score : " + this.level.getPlayer().getScore() );
+			text(info, camera.getEyeX() + Engine.WINDOW_WIDTH / 2, camera.getEyeY() - Engine.WINDOW_HEIGHT /2 - 20, -500);*/
+		}
 		textSize(20);
 		textAlign(RIGHT);
 		fill(255);
@@ -162,6 +178,7 @@ public class Engine extends PApplet {
 	@Override
 	public void keyPressed() {
 		keyboard.eventKeyPressed(level.getPlayer(), level);
+		menu.eventKeyPressed();
 	}
 	
 	/**
@@ -173,5 +190,6 @@ public class Engine extends PApplet {
 	@Override
 	public void keyReleased() {
 		keyboard.eventKeyReleased();
+		menu.eventKeyReleased();
 	}
 }
