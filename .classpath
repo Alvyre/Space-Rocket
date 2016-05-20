@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/processing/core.jar"/>
+	<classpathentry kind="lib" path="lib/processing/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="lib/processing/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/processing/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="lib/processing/jogl-all-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="lib/processing/jogl-all-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/processing/jogl-all.jar"/>
+	<classpathentry kind="lib" path="lib/themidibus/themidibus.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/leapmotion/windows64bits/LeapJava.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Space-Rocket/lib/leapmotion/windows64bits"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/apache/org.apache.commons.io.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Space-Rocket/lib/apache"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/glitchP5/glitchP5.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Space-Rocket/lib/glitchP5"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
